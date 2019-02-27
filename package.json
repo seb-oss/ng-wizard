@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "prebuild": "rimraf dist",
-    "build": "ng build seb-ng-wizard --prod",
+    "build": "ng build seb-ng-wizard",
     "build:demo": "ng build seb-ng-wizard-demo --prod --base-href /ng-wizard/",
     "test": "ng test",
     "lint": "ng lint",
@@ -13,6 +13,9 @@
     "commit": "git-cz",
     "travis-deploy-once": "travis-deploy-once --pro",
     "semantic-release": "semantic-release && npm run build"
+  },
+  "release": {
+    "pkgRoot": "./dist/ng-wizard"
   },
   "private": true,
   "dependencies": {
@@ -37,7 +40,7 @@
     "@angular/language-service": "~7.2.0",
     "@commitlint/cli": "^7.5.2",
     "@commitlint/config-conventional": "^7.5.0",
-    "@seb-style/colors": "^2.3.0",
+    "@sebgroup/bootstrap": "^3.1.1",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
