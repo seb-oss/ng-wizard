@@ -48,7 +48,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/seb-ng-wizard-demo",
+            "outputPath": "dist/ng-wizard-demo",
             "index": "projects/seb-ng-wizard-demo/src/index.html",
             "main": "projects/seb-ng-wizard-demo/src/main.ts",
             "polyfills": "projects/seb-ng-wizard-demo/src/polyfills.ts",
