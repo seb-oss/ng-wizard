@@ -1,0 +1,157 @@
+@import '~@seb-style/colors/scss/colors';
+@import '../wizard/variables';
+@import '../wizard/breakpoints';
+
+:host-context {
+  z-index: 20;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 1rem;
+
+  .title {
+    top: 0;
+    left: 0;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 16rem;
+    padding-left: 1rem;
+  }
+
+  .wizard-progress-bar {
+    z-index: 21;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    flex: 0 0 100%;
+    position: absolute;
+
+    .progress {
+      height: 100%;
+      background: #{map-get($colors, 'blue')}; // REPLACE WITH VARIABLE
+      transition: width 0.3s;
+    }
+  }
+
+  .close-wizard {
+    .close-link {
+      display: none;
+    }
+
+    .close-button {
+      cursor: pointer;
+      padding: 0;
+      background-color: transparent;
+      border: 0;
+      -webkit-appearance: none;
+      font-weight: 700;
+      line-height: 1;
+      color: #000;
+      text-shadow: 0 1 1px 0 #fff;
+      opacity: 0.5;
+
+      span {
+        display: none;
+      }
+
+      &::after {
+        background-image: url("data:image/svg+xml;charset=UTF-8, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'%3E%3Cpath fill='%23000' d='M217.5 256l137.2-137.2c4.7-4.7 4.7-12.3 0-17l-8.5-8.5c-4.7-4.7-12.3-4.7-17 0L192 230.5 54.8 93.4c-4.7-4.7-12.3-4.7-17 0l-8.5 8.5c-4.7 4.7-4.7 12.3 0 17L166.5 256 29.4 393.2c-4.7 4.7-4.7 12.3 0 17l8.5 8.5c4.7 4.7 12.3 4.7 17 0L192 281.5l137.2 137.2c4.7 4.7 12.3 4.7 17 0l8.5-8.5c4.7-4.7 4.7-12.3 0-17L217.5 256z'/%3E%3C/svg%3E");
+        content: '';
+        background-size: 100%;
+        background-position: 0;
+        background-repeat: no-repeat;
+        padding: 0.625rem;
+      }
+    }
+  }
+
+  @include breakpoint-min(#{map-get($grid-breakpoints, 'md')}) {
+    border-bottom: 1px solid #e9e9e9;
+
+    .wizard-progress-bar {
+      position: relative;
+    }
+    .title {
+      height: calc(100% + 1px);
+      width: 16rem;
+      background-color: #f8f8f8;
+      border-right: 1px solid #{map-get($grays, '200')};
+    }
+    .close-wizard {
+      .close-link {
+        display: inline-block;
+        color: #868686;
+        font-weight: normal;
+        cursor: pointer;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        border: 1px solid transparent;
+        padding: 0.4375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        background-color: transparent;
+      }
+    }
+  }
+
+  @media print {
+    display: none;
+  }
+
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .progress-bar {
+      display: none;
+    }
+  }
+}
+
+.hide-close-button {
+  :host-context {
+    .close-wizard {
+      display: none;
+    }
+  }
+}
+
+.hide-navigation,
+.partial-navigation {
+  :host-context {
+    .wizard-progress-bar {
+      visibility: hidden;
+    }
+    .title {
+      span {
+        visibility: hidden;
+      }
+    }
+  }
+}
+
+@include breakpoint-min(#{map-get($grid-breakpoints, 'md')}) {
+  :host-context {
+    background-color: #fff;
+    &.hide-navigation {
+      .title {
+        visibility: hidden;
+      }
+    }
+    &.partial-navigation {
+      .title {
+        width: 8rem;
+        border-right: 1px solid #{map-get($grays, '200')};
+        span {
+          visibility: hidden;
+        }
+      }
+    }
+  }
+}
