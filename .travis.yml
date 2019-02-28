@@ -11,6 +11,7 @@ cache:
 
 script:
 - npm run build
+- npm run build:demo
 
 deploy:
   - provider: pages
