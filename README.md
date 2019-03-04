@@ -1,4 +1,8 @@
-# ng-wizard
+# @sebgroup/ng-wizard
+
+[![Build Status](https://travis-ci.com/sebgroup/ng-wizard.svg?token=ogFUkA9d52UFZqFZXBNy&branch=master)](https://travis-ci.com/sebgroup/ng-wizard)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 A reusable angular component for a Wizard according to the seb-style guide. It manages all the css for you. It does require the use of Angulars router to keep track of what step in the wizard the user is currently on.
 
