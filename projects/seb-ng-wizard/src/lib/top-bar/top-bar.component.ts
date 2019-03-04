@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'wiz-top-bar',
@@ -17,7 +17,6 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
     </div>
   `,
   styleUrls: ['./top-bar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TopBarComponent {
   @Input()
