@@ -29,11 +29,14 @@ $transitionTimeFast: 0.1s;
 
     .step-title {
       display: inline-block;
-      margin-bottom: 0.5rem;
+      margin-bottom: -0.5rem;
+      margin-top: -0.5rem;
       width: 90%;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
+      padding-bottom: 0.5rem;
+      padding-top: 0.5rem;
     }
   }
 
