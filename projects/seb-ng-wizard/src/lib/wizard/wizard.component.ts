@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -40,7 +40,6 @@ import { WizardStep } from './wizard-step';
     </div>
   `,
   styleUrls: ['./wizard.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WizardComponent {
   readonly activeStep$: Observable<WizardStep>;

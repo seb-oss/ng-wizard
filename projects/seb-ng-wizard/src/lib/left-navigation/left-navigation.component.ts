@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { WizardStep } from '../wizard/wizard-step';
 
 @Component({
@@ -22,7 +22,6 @@ import { WizardStep } from '../wizard/wizard-step';
     </nav>
   `,
   styleUrls: ['./left-navigation.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LeftNavigationComponent {
   @Input()
