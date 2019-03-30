@@ -164,6 +164,12 @@ $transitionTimeFast: 0.1s;
   }
 }
 
+.use-navbar {
+  :host-context {
+    top: 3.5rem;
+  }
+}
+
 @include breakpoint-min(#{map-get($grid-breakpoints, 'md')}) {
   :host-context {
     border-right: 1px solid #{map-get($grays, '200')};
