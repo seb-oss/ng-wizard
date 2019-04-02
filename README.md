@@ -93,6 +93,7 @@ The properties you should know about are;
 - _hideNavigation_ a boolean that tells the wizard to hide the navigation pane on the left side.
 - _hideCloseButton_ a boolean that tells the wizard to hide the close button on the top-right.
 - _lang_ a string that tells the wizard what language it should be displayed in.
+- _useNavbar_ a boolean that tells the wizard to show an optional bootstrap navbar above the wizard. _this requires your application to have [@sebgroup/bootstrap](https://sebgroup.github.io/bootstrap/)_
 
 ## Events
 
