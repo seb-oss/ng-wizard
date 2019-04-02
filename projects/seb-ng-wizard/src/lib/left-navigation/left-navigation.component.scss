@@ -77,8 +77,6 @@ $transitionTimeFast: 0.1s;
   }
 
   .left-navigation-list {
-    margin: 0;
-    padding-left: 0;
     counter-reset: li;
     &.hidden {
       max-height: 0;
@@ -95,10 +93,11 @@ $transitionTimeFast: 0.1s;
         margin-bottom: 0.5rem;
       }
       position: relative;
-      margin-left: 0.5rem;
-      margin-top: 0.375rem;
-      margin-bottom: 0.375rem;
-      list-style: none;
+      margin-left: 0.75rem;
+      margin-top: 0.75rem;
+      margin-bottom: 1rem;
+      list-style-position: outside;
+      list-style-type: none;
 
       &::before {
         content: counter(li);
@@ -106,7 +105,8 @@ $transitionTimeFast: 0.1s;
         display: inline-block;
         text-align: center;
 
-        margin: 5px 10px;
+        margin-left: -2rem;
+        margin-right: 0.5rem;
         width: 1.562rem;
         height: 1.562rem;
         font-weight: 700;
