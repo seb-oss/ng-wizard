@@ -137,6 +137,12 @@
   }
 }
 
+.use-navbar {
+  :host-context {
+    top: 3.5rem;
+  }
+}
+
 @include breakpoint-min(#{map-get($grid-breakpoints, 'md')}) {
   :host-context {
     background-color: #fff;

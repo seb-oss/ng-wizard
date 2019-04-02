@@ -7,6 +7,9 @@ import { WizardStep } from './wizard-step';
 @Component({
   selector: 'wiz-wizard',
   template: `
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="useNavbar">
+      <span class="navbar-brand mb-0 h1" [innerText]="wizardTitle"></span>
+    </nav>
     <wiz-top-bar
       [title]="wizardTitle"
       [class.hide-close]="hideCloseButton"
@@ -58,6 +61,10 @@ export class WizardComponent {
   @HostBinding('class.hide-close-button')
   @Input()
   hideCloseButton = false;
+
+  @HostBinding('class.use-navbar')
+  @Input()
+  useNavbar = false;
 
   @Input()
   lang: 'sv' | 'en';
