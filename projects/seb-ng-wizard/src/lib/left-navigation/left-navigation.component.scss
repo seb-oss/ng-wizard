@@ -14,7 +14,7 @@ $transitionTimeFast: 0.1s;
   background-position: right 0 bottom 0;
   background-repeat: no-repeat;
   background-size: 8rem 10rem;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -170,6 +170,7 @@ $transitionTimeFast: 0.1s;
 
 @include media-breakpoint-up(md) {
   :host-context {
+    position: fixed;
     border-right: 1px solid #{map-get($grays, '200')};
     background-size: 21rem 26rem;
     width: 16rem;
