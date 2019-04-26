@@ -1,7 +1,5 @@
-@import '~@sebgroup/bootstrap/scss/styles/functions';
 @import '~@sebgroup/bootstrap/scss/variables';
-@import '../wizard/variables';
-@import '../wizard/breakpoints';
+@import '~@sebgroup/bootstrap/scss/mixins/mixins';
 
 $transitionTime: 0.45s;
 $transitionTimeFast: 0.1s;
@@ -170,7 +168,7 @@ $transitionTimeFast: 0.1s;
   }
 }
 
-@include breakpoint-min(#{map-get($grid-breakpoints, 'md')}) {
+@include media-breakpoint-up(md) {
   :host-context {
     border-right: 1px solid #{map-get($grays, '200')};
     background-size: 21rem 26rem;
