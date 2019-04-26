@@ -1,5 +1,5 @@
-@import 'variables';
-@import 'breakpoints';
+@import '~@sebgroup/bootstrap/scss/variables';
+@import '~@sebgroup/bootstrap/scss/mixins/mixins';
 
 :host-context {
   position: fixed;
@@ -10,8 +10,7 @@
   overflow-y: auto;
 
   .navigation-wrapper {
-    // margin-top: 8.5rem;
-    margin-top: 9rem;
+    margin-top: 10rem;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -43,32 +42,7 @@
   }
 }
 
-@include breakpoint-min(#{map-get($grid-breakpoints, 'xl')}) {
-  :host-context {
-    .navigation-wrapper {
-      .content-wrapper {
-        flex: 1 1 auto;
-        flex-wrap: wrap;
-        justify-content: center;
-        flex-direction: row;
-
-        .wizard-heading {
-          flex: 0 0 44rem;
-          margin-right: 17rem;
-        }
-        .wizard--main {
-          order: 0;
-          flex: 0 0 44rem;
-          margin-right: 2rem;
-        }
-        .wizard--right-content {
-          flex: 0 0 17rem;
-        }
-      }
-    }
-  }
-}
-@include breakpoint-min(#{map-get($grid-breakpoints, 'md')}) {
+@include media-breakpoint-up(md) {
   :host-context {
     .navigation-wrapper {
       margin-top: 3.5rem;
@@ -79,8 +53,8 @@
 
         .wizard-heading {
           display: block;
-          margin-left: 1rem;
           margin-top: 2rem;
+          margin-left: 1rem;
         }
       }
     }
@@ -103,6 +77,34 @@
     }
   }
 }
+
+@include media-breakpoint-up(xl) {
+  :host-context {
+    .navigation-wrapper {
+      .content-wrapper {
+        flex: 1 1 auto;
+        flex-wrap: wrap;
+        justify-content: center;
+        flex-direction: row;
+
+        .wizard-heading {
+          flex: 0 0 44rem;
+          margin-right: 17rem;
+          margin-left: 0;
+        }
+        .wizard--main {
+          order: 0;
+          flex: 0 0 44rem;
+          margin-right: 2rem;
+        }
+        .wizard--right-content {
+          flex: 0 0 17rem;
+        }
+      }
+    }
+  }
+}
+
 @media print {
   :host-context {
     position: initial;
