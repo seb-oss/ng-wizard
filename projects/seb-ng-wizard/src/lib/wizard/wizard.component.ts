@@ -79,7 +79,7 @@ export class WizardComponent {
     this.activeStep$ = navigationEnd.pipe(
       map((e: NavigationEnd) => {
         const url = typeof e.urlAfterRedirects === 'string' ? e.urlAfterRedirects : e.url;
-        return this.steps.find(step => step.path === url) || { path: '', text: '' };
+        return this.steps.find(step => step.path === url) || this.steps[0];
       }),
     );
     this.progress$ = navigationEnd.pipe(
