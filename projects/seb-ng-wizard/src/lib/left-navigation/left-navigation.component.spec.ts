@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { LeftNavigationComponent } from './left-navigation.component';
 
 describe('LeftNavigationComponent', () => {
@@ -8,6 +8,7 @@ describe('LeftNavigationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [RouterTestingModule.withRoutes([])],
       declarations: [LeftNavigationComponent],
     }).compileComponents();
   }));
@@ -15,6 +16,7 @@ describe('LeftNavigationComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LeftNavigationComponent);
     component = fixture.componentInstance;
+    component.steps = [];
     fixture.detectChanges();
   });
 
