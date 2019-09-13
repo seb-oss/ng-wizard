@@ -1,6 +1,6 @@
-import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
-import { Observable } from 'rxjs';
+import { merge, Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { WizardStep } from './wizard-step';
 
@@ -44,10 +44,16 @@ import { WizardStep } from './wizard-step';
   `,
   styleUrls: ['./wizard.component.scss'],
 })
-export class WizardComponent {
-  readonly activeStep$: Observable<WizardStep>;
-  readonly progress$: Observable<string>;
+export class WizardComponent implements OnInit {
+  private _activeStep$: Observable<WizardStep>;
+  private _progress$: Observable<string>;
 
+  public get progress$(): Observable<string> {
+    return this._progress$;
+  }
+  public get activeStep$(): Observable<WizardStep> {
+    return this._activeStep$;
+  }
   @Input()
   wizardTitle: string;
 
@@ -74,21 +80,30 @@ export class WizardComponent {
 
   @Output()
   close: EventEmitter<void> = new EventEmitter(true);
-  constructor(private router: Router) {
-    const navigationEnd = router.events.pipe(filter((e: RouterEvent) => e instanceof NavigationEnd));
-    this.activeStep$ = navigationEnd.pipe(
-      map((e: NavigationEnd) => {
-        const url = typeof e.urlAfterRedirects === 'string' ? e.urlAfterRedirects : e.url;
-        return (
-          this.steps.find(step => step.path === url) || (this.steps.length > 0 ? this.steps[0] : { path: '', text: '' })
-        );
-      }),
+  constructor(private router: Router) {}
+  public ngOnInit(): void {
+    const navigationEnd = this.router.events.pipe(filter((e: RouterEvent) => e instanceof NavigationEnd));
+    this._activeStep$ = merge(
+      navigationEnd.pipe(
+        map((e: NavigationEnd) => {
+          const url = typeof e.urlAfterRedirects === 'string' ? e.urlAfterRedirects : e.url;
+          return this.steps.find(step => step.path === url);
+        }),
+      ),
+      this.currentRoute(),
+    ).pipe(
+      map(routerStep => (routerStep ? routerStep : this.steps.length > 0 ? this.steps[0] : { path: '', text: '' })),
     );
-    this.progress$ = navigationEnd.pipe(
+
+    this._progress$ = navigationEnd.pipe(
       map((e: NavigationEnd) => {
         const stepIdx = this.steps.findIndex(step => step.path === e.url);
         return stepIdx < 0 ? '0%' : `${(((stepIdx / this.steps.length) * 100) / 10) * 10}%`;
       }),
     );
+  }
+
+  private currentRoute(): Observable<WizardStep> {
+    return of(this.steps.find(step => step.path === this.router.routerState.snapshot.url));
   }
 }
