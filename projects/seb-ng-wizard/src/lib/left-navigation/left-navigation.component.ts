@@ -14,7 +14,7 @@ import { WizardStep } from '../wizard/wizard-step';
         </label>
       </h3>
       <ol class="left-navigation-list" [class.hidden]="!toggleMenu.checked">
-        <li *ngFor="let step of steps; index as i" routerLinkActive="active">
+        <li *ngFor="let step of steps; index as i" [class.active]="isActiveStep(step)">
           <a [routerLink]="step.path"></a>
           <a (click)="handleClick(step); toggleMenu.checked = false" [href]="step.path" [innerText]="step.text"></a>
         </li>
@@ -48,5 +48,12 @@ export class LeftNavigationComponent {
   handleClick(step: WizardStep) {
     this.navigate.next(step);
     return false;
+  }
+
+  isActiveStep(step: WizardStep) {
+    if (!step || !this.activeStep) {
+      return false;
+    }
+    return step.path === this.activeStep.path;
   }
 }

@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: 'first', component: FirstPageComponent },
   { path: 'second', component: SecondPageComponent },
   { path: 'third', component: ThirdPageComponent },
-  { path: '', pathMatch: 'full', redirectTo: '/second' },
+  // { path: '', pathMatch: 'full', redirectTo: '/second' },
 ];
 
 @NgModule({

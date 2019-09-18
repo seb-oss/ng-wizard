@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { WizardStep } from 'projects/seb-ng-wizard/src/public_api';
 
 @Component({
   selector: 'demo-root',
@@ -16,13 +18,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'seb-ng-wizard-demo';
-  steps = [
+  steps: WizardStep[] = [
     { path: '/first', text: 'First step' },
     { path: '/second', text: 'Second step' },
     { path: '/third', text: 'third step' },
   ];
 
-  nav(e: any) {
-    console.log('nav', e);
+  constructor(private router: Router) {}
+
+  nav(e: WizardStep) {
+    this.router.navigateByUrl(e.path);
   }
 }

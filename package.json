@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve seb-ng-wizard-demo --port 4201",
     "prebuild": "rimraf dist",
     "build": "ng build seb-ng-wizard",
     "build:demo": "ng build seb-ng-wizard-demo --prod --base-href /ng-wizard/",
