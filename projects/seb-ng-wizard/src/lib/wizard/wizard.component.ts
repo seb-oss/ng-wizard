@@ -75,6 +75,9 @@ export class WizardComponent implements OnInit {
   @Input()
   lang: 'sv' | 'en';
 
+  @Input()
+  routerOutletName: string;
+
   @Output()
   navigate: EventEmitter<WizardStep> = new EventEmitter(true);
 
@@ -87,7 +90,7 @@ export class WizardComponent implements OnInit {
       navigationEnd.pipe(
         map((e: NavigationEnd) => {
           const url = typeof e.urlAfterRedirects === 'string' ? e.urlAfterRedirects : e.url;
-          return this.steps.find(step => step.path === url);
+          return this.steps.find(step => this.matchesRoute(step, url));
         }),
       ),
       this.currentRoute(),
@@ -104,6 +107,13 @@ export class WizardComponent implements OnInit {
   }
 
   private currentRoute(): Observable<WizardStep> {
-    return of(this.steps.find(step => step.path === this.router.routerState.snapshot.url));
+    return of(this.steps.find(step => this.matchesRoute(step, this.router.routerState.snapshot.url)));
+  }
+
+  private matchesRoute(step: WizardStep, url: string): boolean {
+    if (this.routerOutletName) {
+      return url.includes(`(${this.routerOutletName}:${step.path})`);
+    }
+    return step.path === url;
   }
 }
