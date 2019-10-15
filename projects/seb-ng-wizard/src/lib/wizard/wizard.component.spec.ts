@@ -18,6 +18,7 @@ describe('WizardComponent', () => {
           { path: 'first', component: WizardComponent },
           { path: 'second', component: WizardComponent },
           { path: 'third', component: WizardComponent },
+          { path: 'fourth', component: WizardComponent, outlet: 'otherRouterOutlet' },
         ]),
       ],
       declarations: [WizardComponent, TopBarComponent, LeftNavigationComponent],
@@ -60,5 +61,34 @@ describe('WizardComponent', () => {
 
     expect(result.text).toEqual('third step');
     expect(result.path).toEqual('/third');
+  });
+  it('navigation should match against routerOutletName if it has been provided', async () => {
+    component.routerOutletName = 'otherRouterOutlet';
+    component.steps = [
+      { path: 'first', text: 'First step' },
+      { path: 'second', text: 'Second step' },
+      { path: 'third', text: 'third step' },
+      { path: 'fourth', text: 'fourth step' },
+    ];
+    let result;
+    component.activeStep$.subscribe(step => (result = step));
+    await fixture.ngZone.run(() => router.navigate([{ outlets: { otherRouterOutlet: ['fourth'] } }]));
+
+    expect(result.text).toEqual('fourth step');
+    expect(result.path).toEqual('fourth');
+  });
+  it('navigation should not match against routerOutletName if it has not been provided', async () => {
+    component.steps = [
+      { path: 'first', text: 'First step' },
+      { path: 'second', text: 'Second step' },
+      { path: 'third', text: 'third step' },
+      { path: 'fourth', text: 'fourth step' },
+    ];
+    let result;
+    component.activeStep$.subscribe(step => (result = step));
+    await fixture.ngZone.run(() => router.navigate([{ outlets: { otherRouterOutlet: ['fourth'] } }]));
+
+    expect(result.text).not.toEqual('fourth step');
+    expect(result.path).not.toEqual('fourth');
   });
 });
