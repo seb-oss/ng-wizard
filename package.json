@@ -12,7 +12,8 @@
     "e2e": "ng e2e",
     "commit": "git-cz",
     "travis-deploy-once": "travis-deploy-once --pro",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "package-lock-sanitizer": "package-lock-sanitizer"
   },
   "release": {
     "pkgRoot": "./dist/ng-wizard"
@@ -57,6 +58,7 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "lint-staged": "^8.1.4",
     "ng-packagr": "^4.2.0",
+    "package-lock-sanitizer": "^1.0.0",
     "prettier": "^1.16.4",
     "protractor": "~5.4.0",
     "rimraf": "^2.6.3",
@@ -83,7 +85,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
+      "pre-commit": "lint-staged && npm run package-lock-sanitizer && git add package-lock.json",
       "commit-msg": "commitlint --edit"
     }
   },
