@@ -137,10 +137,10 @@
 .partial-navigation {
   :host-context {
     .wizard-progress-bar {
-      visibility: hidden;
+      display: none;
     }
     .title {
-      span {
+      .title-text {
         visibility: hidden;
       }
     }
@@ -158,14 +158,18 @@
     background-color: #fff;
     &.hide-navigation {
       .title {
-        visibility: hidden;
+        background-color: transparent;
+        border-right: 0px;
+        .title-text {
+          visibility: hidden;
+        }
       }
     }
     &.partial-navigation {
       .title {
         width: 8rem;
         border-right: 1px solid #{map-get($grays, '200')};
-        span {
+        .title-text {
           visibility: hidden;
         }
       }
