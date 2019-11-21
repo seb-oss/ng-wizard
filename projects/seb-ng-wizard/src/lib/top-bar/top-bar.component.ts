@@ -7,7 +7,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
       <div class="progress" [style.width]="progress"></div>
     </div>
     <div class="title">
-      <span [innerText]="title"></span>
+      <div class="seb-logo"></div>
+      <div class="title-text" [innerText]="title"></div>
     </div>
     <div class="close-wizard">
       <button type="button" class="close-link" (click)="close.next()">{{ lang == 'en' ? 'Close' : 'Stäng' }}</button>
