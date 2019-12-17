@@ -31,7 +31,7 @@ import { WizardStep } from './wizard-step';
       ></wiz-left-navigation>
       <div class="content-wrapper">
         <div class="wizard-heading">
-          <h1 [innerText]="(activeStep$ | async)?.text"></h1>
+          <h1 [innerText]="(activeStep$ | async)?.text || ''"></h1>
         </div>
         <div class="wizard--main">
           <ng-content select=".wizard-main"></ng-content>

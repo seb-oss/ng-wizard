@@ -5,8 +5,8 @@ $transitionTime: 0.45s;
 $transitionTimeFast: 0.1s;
 
 :host-context {
-  padding-top: 3.5rem;
-  padding-bottom: 1.5rem;
+  padding-top: 4rem;
+  padding-left: 0.5rem;
   z-index: 15;
   width: 100%;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 334.98 417.81'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:none;stroke:%23000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75px;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3E410%3C/title%3E%3Cg id='Lager_2' data-name='Lager 2'%3E%3Cg id='Lager_1-2' data-name='Lager 1'%3E%3Crect class='cls-1' x='68.73' y='34.59' width='186.84' height='186.81' transform='matrix(-0.5, -0.87, 0.87, -0.5, 132.35, 332.42)'/%3E%3Cpolyline class='cls-1' points='127.96 255.62 0.38 221.42 34.56 93.8'/%3E%3Cpolyline class='cls-1' points='289.74 162.19 221.36 417.44 93.78 383.24 0.38 221.42 127.96 255.62'/%3E%3Cpolyline class='cls-1' points='221.36 417.44 334.61 352.04 269.23 238.77'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
@@ -43,6 +43,7 @@ $transitionTimeFast: 0.1s;
     font-size: 2rem;
     font-weight: 700 !important;
     position: relative;
+    padding-left: 1rem;
 
     &::before {
       background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath fill='%230092e1' d='M443.5 162.6l-7.1-7.1c-4.7-4.7-12.3-4.7-17 0L224 351 28.5 155.5c-4.7-4.7-12.3-4.7-17 0l-7.1 7.1c-4.7 4.7-4.7 12.3 0 17l211 211.1c4.7 4.7 12.3 4.7 17 0l211-211.1c4.8-4.7 4.8-12.3.1-17z'/%3E%3C/svg%3E");
@@ -174,8 +175,9 @@ $transitionTimeFast: 0.1s;
     border-right: 1px solid #{map-get($grays, '200')};
     background-size: 21rem 26rem;
     width: 16rem;
-    padding-top: 3.5rem;
+    padding-top: 4rem;
     bottom: 0;
+    padding-left: 0.5rem;
 
     h3 {
       display: none;
