@@ -35,12 +35,8 @@ import { WizardStep } from './wizard-step';
         <div class="container-fluid pt-3">
           <h1 class="d-none d-md-block" [innerText]="(activeStep$ | async)?.text || ''"></h1>
           <div class="row no-gutters">
-            <div class="col-12 col-sm  col-md-12 col-lg">
-              <ng-content select=".wizard-main"></ng-content>
-            </div>
-            <div class="col-12 col-sm-auto  col-md-12  col-lg-auto">
-              <ng-content select=".wizard-right-content"></ng-content>
-            </div>
+            <ng-content select=".wizard-main"></ng-content>
+            <ng-content select=".wizard-right-content"></ng-content>
           </div>
         </div>
       </div>
