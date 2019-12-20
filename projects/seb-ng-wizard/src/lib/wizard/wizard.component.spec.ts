@@ -42,7 +42,7 @@ describe('WizardComponent', () => {
     component.steps = [
       { path: '/first', text: 'First step' },
       { path: '/second', text: 'Second step' },
-      { path: '/third', text: 'third step' },
+      { path: '/third', text: 'Third step' },
     ];
     let result;
     component.activeStep$.subscribe(step => (result = step));
@@ -53,13 +53,13 @@ describe('WizardComponent', () => {
     component.steps = [
       { path: '/first', text: 'First step' },
       { path: '/second', text: 'Second step' },
-      { path: '/third', text: 'third step' },
+      { path: '/third', text: 'Third step' },
     ];
     let result;
     component.activeStep$.subscribe(step => (result = step));
     await fixture.ngZone.run(() => router.navigate(['/third']));
 
-    expect(result.text).toEqual('third step');
+    expect(result.text).toEqual('Third step');
     expect(result.path).toEqual('/third');
   });
   it('navigation should match against routerOutletName if it has been provided', async () => {
@@ -67,7 +67,7 @@ describe('WizardComponent', () => {
     component.steps = [
       { path: 'first', text: 'First step' },
       { path: 'second', text: 'Second step' },
-      { path: 'third', text: 'third step' },
+      { path: 'third', text: 'Third step' },
       { path: 'fourth', text: 'fourth step' },
     ];
     let result;
@@ -81,7 +81,7 @@ describe('WizardComponent', () => {
     component.steps = [
       { path: 'first', text: 'First step' },
       { path: 'second', text: 'Second step' },
-      { path: 'third', text: 'third step' },
+      { path: 'third', text: 'Third step' },
       { path: 'fourth', text: 'fourth step' },
     ];
     let result;

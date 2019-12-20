@@ -21,7 +21,7 @@ export class AppComponent {
   steps: WizardStep[] = [
     { path: '/first', text: 'First step' },
     { path: '/second', text: 'Second step' },
-    { path: '/third', text: 'third step' },
+    { path: '/third', text: 'Third step' },
   ];
 
   constructor(private router: Router) {}
