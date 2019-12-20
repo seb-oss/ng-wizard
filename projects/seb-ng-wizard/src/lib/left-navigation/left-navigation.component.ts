@@ -1,8 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { WizardStep } from '../wizard/wizard-step';
 
 @Component({
   selector: 'wiz-left-navigation',
+  animations: [
+    trigger('expand', [
+      transition(':enter', [
+        style({ height: 0, opacity: 0 }),
+        animate('400ms ease-in-out', style({ height: '*', opacity: 1 })),
+      ]),
+      transition(':leave', [animate('400ms ease-in-out', style({ height: 0, opacity: 0 }))]),
+    ]),
+  ],
   template: `
     <nav>
       <h3>
