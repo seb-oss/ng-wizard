@@ -6,10 +6,10 @@ import { WizardStep } from 'projects/seb-ng-wizard/src/public_api';
   selector: 'demo-root',
   template: `
     <wiz-wizard [wizardTitle]="title" [steps]="steps" lang="en" (navigate)="nav($event)">
-      <div class="wizard-main">
+      <div class="wizard-main col-12 col-lg order-1 order-md-0">
         Main content
       </div>
-      <div class="wizard-right-content">
+      <div class="wizard-right-content col-12 col-lg-auto order-0 order-md-1">
         Right content
       </div>
     </wiz-wizard>
