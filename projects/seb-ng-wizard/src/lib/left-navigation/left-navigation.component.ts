@@ -1,4 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { WizardStep } from '../wizard/wizard-step';
 
 @Component({
@@ -13,30 +14,44 @@ import { WizardStep } from '../wizard/wizard-step';
     ]),
   ],
   template: `
-    <nav>
-      <h3>
-        <input (change)="(toggleMenu)" #toggleMenu id="toggleMenu" type="checkbox" />
-        <label class="toggle-menu custom-control-label" for="toggleMenu">
-          <span class="step-title" [innerText]="activeStep?.text"></span><br />
-          <span *ngIf="lang == 'sv'" class="step-counter">Steg {{ activeStepNumber }} av {{ steps.length }}</span>
-          <span *ngIf="lang == 'en'" class="step-counter">Step {{ activeStepNumber }} of {{ steps.length }}</span>
-        </label>
-      </h3>
-      <ol class="left-navigation-list" [class.hidden]="!toggleMenu.checked">
-        <li *ngFor="let step of steps; index as i" [class.active]="isActiveStep(step)">
-          <a [routerLink]="step.path"></a>
-          <a
-            (click)="handleClick(step); toggleMenu.checked = false"
-            [href]="step.path"
-            [innerText]="step.text || ''"
-          ></a>
-        </li>
-      </ol>
+    <nav class="bg-light border-right py-3 pl-3">
+      <div
+        class="d-md-none toggle-step d-flex align-items-center"
+        [class.active]="showStepNavigation"
+        (click)="toggleStepNavigation()"
+      >
+        <div class="toggle-content">
+          <h2 class="mb-1" [innerText]="activeStep?.text"></h2>
+          <span class="small">{{ getStepInfo() }}</span>
+        </div>
+      </div>
+      <div class="step-wrapper" @expand *ngIf="showStepNavigation || isDesktop">
+        <ol class="list-group list-group-ordered mt-3">
+          <li class="list-group-item-action" *ngFor="let step of steps; index as i" [class.active]="isActiveStep(step)">
+            <a [routerLink]="step.path"></a>
+            <a (click)="goTo(step)" [href]="step.path" [innerText]="step.text || ''"></a>
+          </li>
+        </ol>
+      </div>
     </nav>
   `,
   styleUrls: ['./left-navigation.component.scss'],
 })
-export class LeftNavigationComponent {
+export class LeftNavigationComponent implements OnInit {
+  get isDesktop(): boolean {
+    return this._isDesktop;
+  }
+
+  set isDesktop(value: boolean) {
+    this._isDesktop = value;
+  }
+  get showStepNavigation(): boolean {
+    return this._showStepNavigation;
+  }
+
+  set showStepNavigation(value: boolean) {
+    this._showStepNavigation = value;
+  }
   @Input()
   steps: WizardStep[];
 
@@ -49,6 +64,14 @@ export class LeftNavigationComponent {
   @Output()
   navigate: EventEmitter<WizardStep> = new EventEmitter();
 
+  private _showStepNavigation = true;
+  private _isDesktop: boolean;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this._isDesktop = event.target.innerWidth >= 768;
+  }
+
   get activeStepNumber(): number {
     try {
       return 1 + this.steps.findIndex(step => step.path === this.activeStep.path);
@@ -58,8 +81,9 @@ export class LeftNavigationComponent {
   }
   constructor() {}
 
-  handleClick(step: WizardStep) {
+  goTo(step: WizardStep) {
     this.navigate.next(step);
+    this.showStepNavigation = false;
     return false;
   }
 
@@ -68,5 +92,19 @@ export class LeftNavigationComponent {
       return false;
     }
     return step.path === this.activeStep.path;
+  }
+
+  toggleStepNavigation() {
+    this.showStepNavigation = !this.showStepNavigation;
+  }
+
+  getStepInfo() {
+    return `${this.lang === 'sv' ? 'Steg' : 'Step'} ${this.activeStepNumber} ${this.lang === 'sv' ? 'av' : 'of'} ${
+      this.steps.length
+    }`;
+  }
+
+  ngOnInit(): void {
+    this.isDesktop = window.innerWidth >= 768;
   }
 }

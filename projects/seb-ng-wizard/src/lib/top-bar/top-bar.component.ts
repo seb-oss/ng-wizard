@@ -3,7 +3,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
   selector: 'wiz-top-bar',
   template: `
-    <div class="wizard-progress-bar">
+    <nav class="navbar navbar-light bg-white position-fixed w-100 border-bottom">
+      <span class="navbar-brand" [innerText]="title"></span>
+      <button type="button" class="close d-flex align-items-center" data-dismiss="modal">
+        <span class="d-none d-md-inline">{{ lang === 'en' ? 'Close' : 'Stäng' }}</span>
+      </button>
+    </nav>
+    <!--<div class="wizard-progress-bar">
       <div class="progress" [style.width]="progress"></div>
     </div>
     <div class="title">
@@ -15,7 +21,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
       <button type="button" class="close-button" data-dismiss="modal" aria-label="Close" (click)="close.next()">
         <span aria-hidden="true">&times;</span>
       </button>
-    </div>
+    </div>-->
   `,
   styleUrls: ['./top-bar.component.scss'],
 })

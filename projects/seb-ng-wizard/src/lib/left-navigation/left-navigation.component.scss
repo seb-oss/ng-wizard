@@ -1,5 +1,55 @@
-@import '~@sebgroup/bootstrap/scss/variables';
-@import '~@sebgroup/bootstrap/scss/mixins/mixins';
+@import '~@sebgroup/bootstrap/scss/core';
+$navbar-brand-height: 3.5rem;
+.step-wrapper {
+  overflow: hidden;
+}
+$wiz-navigation-bg-color: $gray-400;
+$wiz-navigation-bg: str-replace(
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 422.73 361.04'%3E%3Cdefs%3E%3Cstyle%3E .cls-1%7Bfill:none;stroke:#{$wiz-navigation-bg-color};stroke-linecap:round;stroke-linejoin:round%7D %3C/style%3E%3C/defs%3E%3Cpath class='cls-1' d='M422.23 180.53L241.63.5 72.13 70.7.5 241.54l120.06 119 210.48-28.88 91.19-151.13z'/%3E%3Cpath class='cls-1' d='M241.63.5l59.08 300.59 30.33 30.57M300.71 301.09L.5 241.54'/%3E%3C/svg%3E"),
+  '#',
+  '%23'
+) !default; // SEB Specific
+$wiz-navigation-desktop-bg: str-replace(
+  url("data:image/svg+xml,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' x='0' y='0' viewBox='0 0 250.3 417.8' xml:space='preserve'%3E%3Cstyle%3E .st1%7Bfill:none;stroke:#{$wiz-navigation-bg-color};stroke-width:1;stroke-linecap:round;stroke-linejoin:round%7D %3C/style%3E%3Cg %3E%3Cg %3E%3Cpath fill='none' stroke='#{$wiz-navigation-bg-color}' stroke-width='1' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='4.014' d='M93.3 225.6L31 72.8l111.5-51.4 62.6 140.8z'/%3E%3Cpath class='st1' d='M93.3 225.6L1 181.4 31 72.8'/%3E%3Cpath class='st1' d='M205.1 162.2l-68.4 254.2-67.6-33.2L1 181.4M136.7 416.4L249 352l-64.4-113.2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
+  '#',
+  '%23'
+) !default; // SEB Specific
+
+nav {
+  .list-group-ordered .list-group-item-action:hover,
+  .list-group-ordered .active {
+    background: transparent;
+  }
+  .toggle-step {
+    cursor: pointer;
+    &::before {
+      content: '';
+      background: $accordion-icon;
+      background-repeat: no-repeat;
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-right: map_get($spacers, 2);
+      display: inline-block;
+      transform: rotate(-90deg);
+      transition: transform $transition-slide-in-duration;
+    }
+    &.active::before {
+      transform: rotate(0deg);
+    }
+  }
+  background-image: $wiz-navigation-bg;
+  background-repeat: no-repeat;
+  background-position: calc(100% + 40px) calc(100% + 10px);
+  border-bottom: $border-color $border-width solid;
+
+  @include media-breakpoint-up(md) {
+    background-image: $wiz-navigation-desktop-bg;
+    width: 16rem;
+    height: calc(100vh - #{$navbar-brand-height});
+    background-position: -10px calc(100% + 20px);
+  }
+}
+/*
 
 $transitionTime: 0.45s;
 $transitionTimeFast: 0.1s;
@@ -9,7 +59,7 @@ $transitionTimeFast: 0.1s;
   padding-left: 0.5rem;
   z-index: 15;
   width: 100%;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 334.98 417.81'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:none;stroke:%23000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75px;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3E410%3C/title%3E%3Cg id='Lager_2' data-name='Lager 2'%3E%3Cg id='Lager_1-2' data-name='Lager 1'%3E%3Crect class='cls-1' x='68.73' y='34.59' width='186.84' height='186.81' transform='matrix(-0.5, -0.87, 0.87, -0.5, 132.35, 332.42)'/%3E%3Cpolyline class='cls-1' points='127.96 255.62 0.38 221.42 34.56 93.8'/%3E%3Cpolyline class='cls-1' points='289.74 162.19 221.36 417.44 93.78 383.24 0.38 221.42 127.96 255.62'/%3E%3Cpolyline class='cls-1' points='221.36 417.44 334.61 352.04 269.23 238.77'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 334.98 417.81'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:none;stroke:'%23000';stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75px;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3E410%3C/title%3E%3Cg id='Lager_2' data-name='Lager 2'%3E%3Cg id='Lager_1-2' data-name='Lager 1'%3E%3Crect class='cls-1' x='68.73' y='34.59' width='186.84' height='186.81' transform='matrix(-0.5, -0.87, 0.87, -0.5, 132.35, 332.42)'/%3E%3Cpolyline class='cls-1' points='127.96 255.62 0.38 221.42 34.56 93.8'/%3E%3Cpolyline class='cls-1' points='289.74 162.19 221.36 417.44 93.78 383.24 0.38 221.42 127.96 255.62'/%3E%3Cpolyline class='cls-1' points='221.36 417.44 334.61 352.04 269.23 238.77'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   background-color: #{map-get($grays, '100')};
   background-position: right 0 bottom 0;
   background-repeat: no-repeat;
@@ -222,3 +272,4 @@ $transitionTimeFast: 0.1s;
     display: none;
   }
 }
+*/

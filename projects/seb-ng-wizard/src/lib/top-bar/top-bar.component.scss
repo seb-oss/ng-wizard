@@ -1,5 +1,17 @@
-@import '~@sebgroup/bootstrap/scss/variables';
-@import '~@sebgroup/bootstrap/scss/mixins/mixins';
+@import '~@sebgroup/bootstrap/scss/core';
+nav {
+  top: 0;
+  z-index: $zindex-sticky;
+  .close {
+    > span {
+      display: inline-block;
+      font-size: $font-size-base;
+      font-weight: $font-weight-base;
+      padding: $btn-padding-y $btn-padding-x;
+    }
+  }
+}
+/*
 
 :host-context {
   z-index: 20;
@@ -176,4 +188,4 @@
       }
     }
   }
-}
+}*/

@@ -1,5 +1,10 @@
-@import '~@sebgroup/bootstrap/scss/variables';
-@import '~@sebgroup/bootstrap/scss/mixins/mixins';
+@import '~@sebgroup/bootstrap/scss/core';
+$navbar-brand-height: 3.5rem;
+:host-context > .row {
+  max-height: calc(100vh - #{$navbar-brand-height});
+  margin-top: $navbar-brand-height;
+}
+/*
 
 :host-context {
   position: fixed;
@@ -115,3 +120,4 @@
     }
   }
 }
+*/

@@ -20,24 +20,28 @@ import { WizardStep } from './wizard-step';
       (close)="close.next()"
     >
     </wiz-top-bar>
-    <div class="navigation-wrapper">
-      <wiz-left-navigation
-        [class.hide-navigation]="hideNavigation"
-        [class.partial-navigation]="steps.length == 1"
-        [activeStep]="activeStep$ | async"
-        [steps]="steps"
-        [lang]="lang"
-        (navigate)="navigate.next($event)"
-      ></wiz-left-navigation>
-      <div class="content-wrapper">
-        <div class="wizard-heading">
-          <h1 [innerText]="(activeStep$ | async)?.text || ''"></h1>
-        </div>
-        <div class="wizard--main">
-          <ng-content select=".wizard-main"></ng-content>
-        </div>
-        <div class="wizard--right-content">
-          <ng-content select=".wizard-right-content"></ng-content>
+    <div class="row no-gutters">
+      <div class="col-12 col-md-auto">
+        <wiz-left-navigation
+          [class.hide-navigation]="hideNavigation"
+          [class.partial-navigation]="steps.length == 1"
+          [activeStep]="activeStep$ | async"
+          [steps]="steps"
+          [lang]="lang"
+          (navigate)="navigate.next($event)"
+        ></wiz-left-navigation>
+      </div>
+      <div class="col-12 col-md">
+        <div class="container-fluid pt-3">
+          <h1 class="d-none d-md-block" [innerText]="(activeStep$ | async)?.text || ''"></h1>
+          <div class="row no-gutters">
+            <div class="col-12 col-sm  col-md-12 col-lg">
+              <ng-content select=".wizard-main"></ng-content>
+            </div>
+            <div class="col-12 col-sm-auto  col-md-12  col-lg-auto">
+              <ng-content select=".wizard-right-content"></ng-content>
+            </div>
+          </div>
         </div>
       </div>
     </div>
