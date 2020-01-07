@@ -1,4 +1,4 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { WizardStep } from '../wizard/wizard-step';
 
@@ -27,7 +27,12 @@ import { WizardStep } from '../wizard/wizard-step';
       </div>
       <div class="step-wrapper" @expand *ngIf="showStepNavigation || isDesktop">
         <ol class="list-group list-group-ordered mt-3">
-          <li class="list-group-item-action" *ngFor="let step of steps; index as i" [class.active]="isActiveStep(step)">
+          <li
+            class="list-group-item-action"
+            *ngFor="let step of steps; index as i"
+            [class.list-group-item-success]="isPreviousStep(i)"
+            [class.active]="isActiveStep(step)"
+          >
             <a [routerLink]="step.path"></a>
             <a (click)="goTo(step)" [href]="step.path" [innerText]="step.text || ''"></a>
           </li>
@@ -85,6 +90,10 @@ export class LeftNavigationComponent implements OnInit {
     this.navigate.next(step);
     this.showStepNavigation = false;
     return false;
+  }
+
+  isPreviousStep(stepNumber: number) {
+    return stepNumber < this.activeStepNumber;
   }
 
   isActiveStep(step: WizardStep) {
