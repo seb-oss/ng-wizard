@@ -17,7 +17,7 @@ import { WizardStep } from './wizard-step';
       [class.partial-navigation]="steps.length == 1"
       [progress]="progress$ | async"
       [lang]="lang"
-      (close)="close.next()"
+      (close)="close.next($event)"
     >
     </wiz-top-bar>
     <div class="row no-gutters">
@@ -82,7 +82,7 @@ export class WizardComponent implements OnInit {
   navigate: EventEmitter<WizardStep> = new EventEmitter(true);
 
   @Output()
-  close: EventEmitter<void> = new EventEmitter(true);
+  close: EventEmitter<MouseEvent> = new EventEmitter(true);
   constructor(private router: Router) {}
   public ngOnInit(): void {
     const navigationEnd = this.router.events.pipe(filter((e: RouterEvent) => e instanceof NavigationEnd));

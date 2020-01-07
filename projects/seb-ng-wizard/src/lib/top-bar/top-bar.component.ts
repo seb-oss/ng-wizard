@@ -5,7 +5,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   template: `
     <nav class="navbar navbar-light bg-white position-fixed w-100 border-bottom">
       <span class="navbar-brand" [innerText]="title"></span>
-      <button type="button" class="close d-flex align-items-center" data-dismiss="modal">
+      <button type="button" class="close d-flex align-items-center" data-dismiss="modal" (click)="close.next($event)">
         <span class="d-none d-md-inline">{{ lang === 'en' ? 'Close' : 'Stäng' }}</span>
       </button>
     </nav>
@@ -36,6 +36,6 @@ export class TopBarComponent {
   lang: 'sv' | 'en';
 
   @Output()
-  close: EventEmitter<void> = new EventEmitter();
+  close: EventEmitter<MouseEvent> = new EventEmitter();
   constructor() {}
 }
