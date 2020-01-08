@@ -1,0 +1,34 @@
+<wiz-wizard
+  [hideNavigation]="false"
+  wizardTitle="Modal example"
+  [steps]="steps"
+  (navigate)="onStep($event)"
+  (close)="onClose()"
+>
+  <div class="wizard-main col-12 col-lg order-1 order-md-0">
+    <router-outlet></router-outlet>
+    <div class="form-row justify-content-between">
+      <div class="col">
+        <button class="btn btn-secondary" routerLink="first" routerLinkActive="disabled">
+          <fa-icon icon="arrow-left" class="mr-2"></fa-icon> Go back
+        </button>
+      </div>
+      <div class="col-auto">
+        <button
+          class="btn btn-primary w-100 d-flex justify-content-between"
+          routerLink="second"
+          routerLinkActive="disabled"
+        >
+          Go to next step <fa-icon icon="arrow-right" class="ml-2"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="wizard-right-content col-12 col-lg-auto order-0 order-md-1">
+    <div class="alert alert-info alert-icon ml-lg-3 mx-n3 mx-md-0 mt-md-3">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque accumsan mi turpis, et porttitor mauris
+      convallis eu. Cras id consectetur libero. Nulla semper est metus, sit amet condimentum magna hendrerit nec. Class
+      aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+    </div>
+  </div>
+</wiz-wizard>

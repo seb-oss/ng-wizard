@@ -150,6 +150,122 @@
           }
         }
       }
+    },
+    "seb-ng-wizard-lazy-demo": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/seb-ng-wizard-lazy-demo",
+      "sourceRoot": "projects/seb-ng-wizard-lazy-demo/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/seb-ng-wizard-lazy-demo",
+            "index": "projects/seb-ng-wizard-lazy-demo/src/index.html",
+            "main": "projects/seb-ng-wizard-lazy-demo/src/main.ts",
+            "polyfills": "projects/seb-ng-wizard-lazy-demo/src/polyfills.ts",
+            "tsConfig": "projects/seb-ng-wizard-lazy-demo/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/seb-ng-wizard-lazy-demo/src/favicon.ico",
+              "projects/seb-ng-wizard-lazy-demo/src/assets"
+            ],
+            "styles": ["projects/seb-ng-wizard-lazy-demo/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/seb-ng-wizard-lazy-demo/src/environments/environment.ts",
+                  "with": "projects/seb-ng-wizard-lazy-demo/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "seb-ng-wizard-lazy-demo:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "seb-ng-wizard-lazy-demo:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "seb-ng-wizard-lazy-demo:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/seb-ng-wizard-lazy-demo/src/test.ts",
+            "polyfills": "projects/seb-ng-wizard-lazy-demo/src/polyfills.ts",
+            "tsConfig": "projects/seb-ng-wizard-lazy-demo/tsconfig.spec.json",
+            "karmaConfig": "projects/seb-ng-wizard-lazy-demo/karma.conf.js",
+            "assets": [
+              "projects/seb-ng-wizard-lazy-demo/src/favicon.ico",
+              "projects/seb-ng-wizard-lazy-demo/src/assets"
+            ],
+            "styles": ["projects/seb-ng-wizard-lazy-demo/src/styles.scss"],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/seb-ng-wizard-lazy-demo/tsconfig.app.json",
+              "projects/seb-ng-wizard-lazy-demo/tsconfig.spec.json",
+              "projects/seb-ng-wizard-lazy-demo/e2e/tsconfig.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/seb-ng-wizard-lazy-demo/e2e/protractor.conf.js",
+            "devServerTarget": "seb-ng-wizard-lazy-demo:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "seb-ng-wizard-lazy-demo:serve:production"
+            }
+          }
+        }
+      }
     }
   },
   "defaultProject": "seb-ng-wizard"

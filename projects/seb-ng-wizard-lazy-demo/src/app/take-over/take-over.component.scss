@@ -1,0 +1,6 @@
+@import '~@sebgroup/bootstrap/scss/core';
+@include media-breakpoint-up(lg) {
+  .wizard-right-content {
+    max-width: 320px;
+  }
+}
