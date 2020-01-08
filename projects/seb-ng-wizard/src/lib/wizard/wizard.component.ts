@@ -114,6 +114,6 @@ export class WizardComponent implements OnInit {
     if (this.routerOutletName) {
       return url.includes(`(${this.routerOutletName}:${step.path})`);
     }
-    return step.path === url;
+    return step.path === url || `/${step.path}` === url;
   }
 }
