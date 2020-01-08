@@ -4,7 +4,8 @@ language: node_js
 node_js: lts/*
 
 install:
-- npm ci
+  - npm run add-fa-config
+  - npm ci
 cache:
   directories:
   - $HOME/.npm
