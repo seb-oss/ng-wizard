@@ -32,11 +32,24 @@ import { WizardStep } from './wizard-step';
         ></wiz-left-navigation>
       </div>
       <div class="col-12 col-md">
-        <div class="container-fluid pt-3">
+        <div class="container-fluid p-3 p-md-4 px-xl-5 temp">
           <h1 class="d-none d-md-block" [innerText]="(activeStep$ | async)?.text || ''"></h1>
-          <div class="row no-gutters">
+          <div class="row no-gutters" #content>
             <ng-content select=".wizard-main"></ng-content>
             <ng-content select=".wizard-right-content"></ng-content>
+          </div>
+          <div *ngIf="content.children.length > 0">
+            <div class="wizard-footer px-md-4 px-xl-5" [ngClass]="{ dist: content.children[1] }">
+              <ng-content select=".wizard-controls"></ng-content>
+            </div>
+            <!--<div class="wizard-footer row no-gutters px-md-4 px-xl-5">
+              <div class="col">
+                <ng-content select=".wizard-controls"></ng-content>
+              </div>
+              <div class="d-none d-lg-block col-auto pl-4" *ngIf="content.children[1]">
+                <div style="width: 320px;"></div>
+              </div>
+            </div>-->
           </div>
         </div>
       </div>
