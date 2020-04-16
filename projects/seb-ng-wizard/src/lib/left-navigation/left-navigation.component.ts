@@ -33,7 +33,6 @@ import { WizardStep } from '../wizard/wizard-step';
             [class.list-group-item-success]="isPreviousStep(i)"
             [class.active]="isActiveStep(step)"
           >
-            <a [routerLink]="step.path"></a>
             <a (click)="goTo(step)" [href]="step.path" [innerText]="step.text || ''"></a>
           </li>
         </ol>

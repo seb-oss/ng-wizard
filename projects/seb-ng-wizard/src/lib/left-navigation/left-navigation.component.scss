@@ -33,3 +33,12 @@ nav {
     height: calc(100vh - #{$navbar-brand-height});
   }
 }
+
+// temporary solution for disabling navigation
+.list-group-item-action.active {
+  pointer-events: none;
+
+  & ~ li {
+    pointer-events: none;
+  }
+}
