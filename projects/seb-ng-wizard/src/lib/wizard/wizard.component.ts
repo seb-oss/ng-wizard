@@ -94,9 +94,7 @@ export class WizardComponent implements OnInit {
         }),
       ),
       this.currentRoute(),
-    ).pipe(
-      map(routerStep => (routerStep ? routerStep : this.steps.length > 0 ? this.steps[0] : { path: '', text: '' })),
-    );
+    ).pipe(map(routerStep => (routerStep ? routerStep : { path: '', text: '' })));
 
     this._progress$ = navigationEnd.pipe(
       map((e: NavigationEnd) => {
