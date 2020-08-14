@@ -29,7 +29,7 @@ $wizard-footer-height: ($btn-padding-y * 2) + $font-size-base * $btn-line-height
   }
   &.dist {
     @include media-breakpoint-up(md) {
-      padding-right: calc(#{map_get($spacers, 4)} + 10px) !important;
+      // padding-right: calc(#{map_get($spacers, 4)} + 10px) !important;
     }
     @include media-breakpoint-up(lg) {
       padding-right: calc(
@@ -160,3 +160,8 @@ $wizard-footer-height: ($btn-padding-y * 2) + $font-size-base * $btn-line-height
   }
 }
 */
+@include media-breakpoint-up(lg) {
+  .wizard-secondary-content {
+    max-width: calc(320px - #{$modal-inner-padding * 2});
+  }
+}

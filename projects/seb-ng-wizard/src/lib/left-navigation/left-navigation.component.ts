@@ -1,6 +1,9 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
-import { WizardStep } from '../wizard/wizard-step';
+import { NavigationEnd, Router, RouterEvent } from '@angular/router';
+import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
+import { filter, map, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
+import { WizardStep, WizardSteps } from '../models/wizard-step';
 
 @Component({
   selector: 'wiz-left-navigation',
@@ -13,33 +16,7 @@ import { WizardStep } from '../wizard/wizard-step';
       transition(':leave', [animate('400ms ease-in-out', style({ height: 0, opacity: 0 }))]),
     ]),
   ],
-  template: `
-    <nav class="bg-light border-right py-3 pl-3">
-      <div
-        class="d-md-none toggle-step d-flex align-items-center"
-        [class.active]="showStepNavigation"
-        (click)="toggleStepNavigation()"
-      >
-        <div class="toggle-content">
-          <h2 class="mb-1" [innerText]="activeStep?.text"></h2>
-          <span class="small">{{ getStepInfo() }}</span>
-        </div>
-      </div>
-      <div class="step-wrapper" @expand *ngIf="showStepNavigation || isDesktop">
-        <ol class="list-group list-group-ordered mt-3">
-          <li
-            class="list-group-item-action"
-            *ngFor="let step of steps; index as i"
-            [class.list-group-item-success]="isPreviousStep(i)"
-            [class.active]="isActiveStep(step)"
-          >
-            <a [routerLink]="step.path"></a>
-            <a (click)="goTo(step)" [href]="step.path" [innerText]="step.text || ''"></a>
-          </li>
-        </ol>
-      </div>
-    </nav>
-  `,
+  templateUrl: './left-navigation.component.html',
   styleUrls: ['./left-navigation.component.scss'],
 })
 export class LeftNavigationComponent implements OnInit {
@@ -50,15 +27,9 @@ export class LeftNavigationComponent implements OnInit {
   set isDesktop(value: boolean) {
     this._isDesktop = value;
   }
-  get showStepNavigation(): boolean {
-    return this._showStepNavigation;
-  }
 
-  set showStepNavigation(value: boolean) {
-    this._showStepNavigation = value;
-  }
   @Input()
-  steps: WizardStep[];
+  steps: WizardSteps;
 
   @Input()
   activeStep: WizardStep;
@@ -69,8 +40,21 @@ export class LeftNavigationComponent implements OnInit {
   @Output()
   navigate: EventEmitter<WizardStep> = new EventEmitter();
 
-  private _showStepNavigation = true;
   private _isDesktop: boolean;
+  private _toggleNavigationTrigger$: Subject<boolean> = new Subject();
+  private _showStepNavigation$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  public showStepNavigation$: Observable<boolean> = merge(
+    this.router.events.pipe(
+      filter((e: RouterEvent) => e instanceof NavigationEnd),
+      map(_ => false),
+    ),
+    this._toggleNavigationTrigger$,
+  ).pipe(
+    tap((state: any) => this._showStepNavigation$.next(state)),
+    startWith(true),
+    switchMap(_ => this._showStepNavigation$),
+    shareReplay(1),
+  );
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -84,27 +68,14 @@ export class LeftNavigationComponent implements OnInit {
       return 0;
     }
   }
-  constructor() {}
-
-  goTo(step: WizardStep) {
-    this.navigate.next(step);
-    this.showStepNavigation = false;
-    return false;
-  }
+  constructor(private router: Router) {}
 
   isPreviousStep(stepNumber: number) {
     return stepNumber < this.activeStepNumber;
   }
 
-  isActiveStep(step: WizardStep) {
-    if (!step || !this.activeStep) {
-      return false;
-    }
-    return step.path === this.activeStep.path;
-  }
-
   toggleStepNavigation() {
-    this.showStepNavigation = !this.showStepNavigation;
+    this._toggleNavigationTrigger$.next(!this._showStepNavigation$.getValue());
   }
 
   getStepInfo() {

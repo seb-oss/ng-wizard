@@ -2,8 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LeftNavigationComponent } from '../left-navigation/left-navigation.component';
+import { WizardStep } from '../models/wizard-step';
 import { TopBarComponent } from '../top-bar/top-bar.component';
-import { WizardStep } from './wizard-step';
 import { WizardComponent } from './wizard.component';
 
 describe('WizardComponent', () => {
@@ -40,9 +40,9 @@ describe('WizardComponent', () => {
   });
   it('no navigation should default to first step', () => {
     component.steps = [
-      { path: '/first', text: 'First step' },
-      { path: '/second', text: 'Second step' },
-      { path: '/third', text: 'Third step' },
+      { path: '/first', heading: 'First step' },
+      { path: '/second', heading: 'Second step' },
+      { path: '/third', heading: 'Third step' },
     ];
     let result;
     component.activeStep$.subscribe(step => (result = step));
@@ -51,9 +51,9 @@ describe('WizardComponent', () => {
   });
   it('navigation should trigger step change', async () => {
     component.steps = [
-      { path: '/first', text: 'First step' },
-      { path: '/second', text: 'Second step' },
-      { path: '/third', text: 'Third step' },
+      { path: '/first', heading: 'First step' },
+      { path: '/second', heading: 'Second step' },
+      { path: '/third', heading: 'Third step' },
     ];
     let result;
     component.activeStep$.subscribe(step => (result = step));
@@ -65,10 +65,10 @@ describe('WizardComponent', () => {
   it('navigation should match against routerOutletName if it has been provided', async () => {
     component.routerOutletName = 'otherRouterOutlet';
     component.steps = [
-      { path: 'first', text: 'First step' },
-      { path: 'second', text: 'Second step' },
-      { path: 'third', text: 'Third step' },
-      { path: 'fourth', text: 'fourth step' },
+      { path: 'first', heading: 'First step' },
+      { path: 'second', heading: 'Second step' },
+      { path: 'third', heading: 'Third step' },
+      { path: 'fourth', heading: 'fourth step' },
     ];
     let result;
     component.activeStep$.subscribe(step => (result = step));
@@ -79,10 +79,10 @@ describe('WizardComponent', () => {
   });
   it('navigation should not match against routerOutletName if it has not been provided', async () => {
     component.steps = [
-      { path: 'first', text: 'First step' },
-      { path: 'second', text: 'Second step' },
-      { path: 'third', text: 'Third step' },
-      { path: 'fourth', text: 'fourth step' },
+      { path: 'first', heading: 'First step' },
+      { path: 'second', heading: 'Second step' },
+      { path: 'third', heading: 'Third step' },
+      { path: 'fourth', heading: 'fourth step' },
     ];
     let result;
     component.activeStep$.subscribe(step => (result = step));
