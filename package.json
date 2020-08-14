@@ -3,11 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve seb-ng-wizard-demo --port 4201",
-    "start-lazy": "ng serve seb-ng-wizard-lazy-demo --port 4202",
+    "start": "ng serve seb-ng-wizard-lazy-demo --port 4201",
     "prebuild": "rimraf dist",
     "build": "ng build seb-ng-wizard",
-    "build:demo": "ng build seb-ng-wizard-demo --prod --base-href /ng-wizard/",
+    "build:demo": "ng build seb-ng-wizard-lazy-demo --prod --base-href /ng-wizard/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
