@@ -9,8 +9,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Branch name
-      run: echo running on branch ${GITHUB_REF##*/}
+    - name: Get branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: branch
 
     - name: Add token for Font Awesome registry access
       env:
@@ -38,7 +40,7 @@ jobs:
       run: npm run semantic-release
 
     - name: Set base href
-      run: ./node_modules/.bin/replace '<base href=(.*?)>' '<base href="/${{ github.event.repository.name }}/${GITHUB_REF##*/}/">' dist/seb-ng-wizard-lazy-demo/index.html
+      run: ./node_modules/.bin/replace '<base href=(.*?)>' '<base href="/${{ github.event.repository.name }}/{{ steps.branch.outputs.branch }}/">' dist/seb-ng-wizard-lazy-demo/index.html
 
     # - name: Set build (run) number
     #  run: ./node_modules/.bin/replace '##BUILD_NUMBER##' '${{ github.run_number }}' www/index.html
@@ -65,5 +67,5 @@ jobs:
         ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
         BRANCH: gh-pages # The branch the action should deploy to.
         FOLDER: dist/seb-ng-wizard-lazy-demo # The folder the action should deploy.
-        TARGET_FOLDER: ${GITHUB_REF##*/} # The folder the action should deploy to.
+        TARGET_FOLDER: {{ steps.branch.outputs.branch }} # The folder the action should deploy to.
 
