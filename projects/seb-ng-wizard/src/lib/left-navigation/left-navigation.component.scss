@@ -19,11 +19,11 @@ nav {
       height: 1.5rem;
       margin-right: map_get($spacers, 2);
       display: inline-block;
-      transform: rotate(-90deg);
+      transform: rotate(0deg);
       transition: transform $transition-slide-in-duration;
     }
     &.active::before {
-      transform: rotate(0deg);
+      transform: rotate(-180deg);
     }
   }
   border-bottom: $border-color $border-width solid;

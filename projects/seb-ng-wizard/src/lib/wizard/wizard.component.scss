@@ -1,8 +1,47 @@
 @import '~@sebgroup/bootstrap/scss/core';
 $navbar-brand-height: 3.5rem;
+$wizard-footer-height: ($btn-padding-y * 2) + $font-size-base * $btn-line-height + ($spacer * 2);
 :host-context > .row {
   max-height: calc(100vh - #{$navbar-brand-height});
   margin-top: $navbar-brand-height;
+}
+@include media-breakpoint-up(md) {
+  .temp {
+    height: calc(100vh - #{$navbar-brand-height} - #{$wizard-footer-height} - 3px);
+    overflow: auto;
+  }
+}
+::ng-deep .wizard-main {
+  max-width: 768px;
+}
+::ng-deep .wizard-footer {
+  @include media-breakpoint-up(md) {
+    position: fixed;
+    bottom: 0;
+    left: 16rem;
+    width: calc(100vw - 16rem);
+    padding: 1rem;
+    border-top: solid $modal-footer-border-color 1px;
+    background: $modal-content-bg;
+  }
+  .wizard-controls {
+    max-width: 768px;
+  }
+  &.dist {
+    @include media-breakpoint-up(md) {
+      // padding-right: calc(#{map_get($spacers, 4)} + 10px) !important;
+    }
+    @include media-breakpoint-up(lg) {
+      padding-right: calc(
+        320px + #{map_get($spacers, 3) * 2} + #{map_get($spacers, 4)} - #{$modal-inner-padding} * 2 + 10px
+      ) !important;
+    }
+    @include media-breakpoint-up(xl) {
+      padding-right: calc(
+        320px + #{map_get($spacers, 3) * 2} + #{map_get($spacers, 5)} - #{$modal-inner-padding} * 2 + 10px
+      ) !important;
+    }
+  }
 }
 /*
 
@@ -121,3 +160,8 @@ $navbar-brand-height: 3.5rem;
   }
 }
 */
+@include media-breakpoint-up(lg) {
+  .wizard-secondary-content {
+    max-width: calc(320px - #{$modal-inner-padding * 2});
+  }
+}

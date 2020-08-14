@@ -1,0 +1,6 @@
+@import '~@sebgroup/bootstrap/scss/core';
+@include media-breakpoint-up(md) {
+  .fit-content {
+    width: fit-content !important;
+  }
+}

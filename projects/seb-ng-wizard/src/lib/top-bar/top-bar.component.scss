@@ -2,6 +2,7 @@
 nav {
   top: 0;
   z-index: $zindex-sticky;
+  height: 3.5rem;
   .close {
     > span {
       display: inline-block;

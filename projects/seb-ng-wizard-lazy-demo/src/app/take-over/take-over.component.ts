@@ -12,8 +12,13 @@ export class TakeOverComponent implements OnInit {
     { path: 'take-over/first', text: 'First step' },
     { path: 'take-over/second', text: 'Second step' },
   ];
+  showRightContent = true;
 
   constructor(private route: ActivatedRoute, private router: Router) {}
+
+  toggleRightContent() {
+    this.showRightContent = !this.showRightContent;
+  }
 
   onClose(event?: any) {
     console.log('clicked');

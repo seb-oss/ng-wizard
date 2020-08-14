@@ -2,8 +2,18 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: 'take-over', loadChildren: () => import('./take-over/take-over.module').then(m => m.TakeOverModule) },
-  { path: '', redirectTo: 'take-over', pathMatch: 'full' },
+  {
+    path: 'wizard',
+    loadChildren: () => import('./wizard-tutorial/wizard-tutorial.module').then(m => m.WizardTutorialModule),
+  },
+  { path: 'basic', loadChildren: () => import('./basic/basic.module').then(m => m.BasicModule) },
+  {
+    path: 'form-and-route-guard',
+    loadChildren: () =>
+      import('./form-and-route-guard/form-and-route-guard.module').then(m => m.FormAndRouteGuardModule),
+  },
+  { path: '', redirectTo: 'wizard', pathMatch: 'full' },
+  { path: '**', redirectTo: 'wizard', pathMatch: 'full' },
 ];
 
 @NgModule({
