@@ -11,7 +11,7 @@ jobs:
     
     - name: Get branch name
       shell: bash
-      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF##*/})"
       id: branch
 
     - name: Add token for Font Awesome registry access
@@ -67,5 +67,5 @@ jobs:
         ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
         BRANCH: gh-pages # The branch the action should deploy to.
         FOLDER: dist/seb-ng-wizard-lazy-demo # The folder the action should deploy.
-        TARGET_FOLDER: github-actions # The folder the action should deploy to.
+        TARGET_FOLDER: ${{ steps.branch.outputs.branch }} # The folder the action should deploy to.
 
