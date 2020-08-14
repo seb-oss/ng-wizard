@@ -8,6 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    
+    - name: Branch name
+      run: echo running on branch ${GITHUB_REF##*/}
 
     - name: Add token for Font Awesome registry access
       env:
@@ -35,7 +38,7 @@ jobs:
       run: npm run semantic-release
 
     - name: Set base href
-      run: ./node_modules/.bin/replace '<base href=(.*?)>' '<base href="/${{ github.event.repository.name }}/${{ GITHUB_REF##*/ }}/">' dist/seb-ng-wizard-lazy-demo/index.html
+      run: ./node_modules/.bin/replace '<base href=(.*?)>' '<base href="/${{ github.event.repository.name }}/${GITHUB_REF##*/}/">' dist/seb-ng-wizard-lazy-demo/index.html
 
     # - name: Set build (run) number
     #  run: ./node_modules/.bin/replace '##BUILD_NUMBER##' '${{ github.run_number }}' www/index.html
@@ -62,5 +65,5 @@ jobs:
         ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
         BRANCH: gh-pages # The branch the action should deploy to.
         FOLDER: dist/seb-ng-wizard-lazy-demo # The folder the action should deploy.
-        TARGET_FOLDER: ${{ GITHUB_REF##*/ }} # The folder the action should deploy to.
+        TARGET_FOLDER: ${GITHUB_REF##*/} # The folder the action should deploy to.
 
