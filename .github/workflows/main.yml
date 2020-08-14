@@ -7,7 +7,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v
+    - uses: actions/checkout@v2
 
     - name: Add token for Font Awesome registry access
       env:
