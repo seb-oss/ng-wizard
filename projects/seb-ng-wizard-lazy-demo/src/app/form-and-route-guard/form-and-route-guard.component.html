@@ -1,0 +1,11 @@
+<wiz-wizard title="SEB ng-wizard: Protecting steps" (close)="onClose()">
+  <!-- wizard-actions can be used to add controls to header -->
+  <div class="wizard-actions">
+    <button class="btn btn-secondary d-flex justify-content-between" (click)="save()">
+      Save <fa-icon icon="save" class="ml-2"></fa-icon>
+    </button>
+  </div>
+  <div class="wizard-main col-12 col-lg order-1 order-md-0 mr-lg-3">
+    <router-outlet></router-outlet>
+  </div>
+</wiz-wizard>
