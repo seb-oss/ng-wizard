@@ -35,10 +35,10 @@ jobs:
       run: npm run semantic-release
 
     - name: Set base href
-      run: ./node_modules/.bin/replace '<base href=(.*?)>' '<base href="/${{ github.event.repository.name }}/">' www/index.html
+      run: ./node_modules/.bin/replace '<base href=(.*?)>' '<base href="/${{ github.event.repository.name }}/${GITHUB_REF##*/}/">' dist/seb-ng-wizard-lazy-demo/index.html
 
-    - name: Set build (run) number
-      run: ./node_modules/.bin/replace '##BUILD_NUMBER##' '${{ github.run_number }}' www/index.html
+    # - name: Set build (run) number
+    #  run: ./node_modules/.bin/replace '##BUILD_NUMBER##' '${{ github.run_number }}' www/index.html
 
     - name: Get last release
     # if: steps.semantic.outputs.new-release-published !== 'true'
@@ -52,9 +52,9 @@ jobs:
     #  if: steps.semantic.outputs.new-release-published == 'true'
     #  run: ./node_modules/.bin/replace '##VERSION##' 'v${{ steps.semantic.outputs.release-version }}' www/index.html
 
-    - name: Set version number
+    #- name: Set version number
     #  if: steps.semantic.outputs.new-release-published != 'true'
-      run: ./node_modules/.bin/replace '##VERSION##' '${{ steps.version.outputs.latest_tag }}' www/index.html
+    #  run: ./node_modules/.bin/replace '##VERSION##' '${{ steps.version.outputs.latest_tag }}' www/index.html
 
     - name: Deploy documentation to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@3.4.1
