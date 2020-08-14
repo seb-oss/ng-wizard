@@ -68,6 +68,7 @@
     "package-lock-sanitizer": "^1.0.0",
     "prettier": "^1.19.1",
     "protractor": "~5.4.0",
+    "replace": "^1.2.0",
     "rimraf": "^2.7.1",
     "semantic-release": "16.0.0-beta.38",
     "stylelint": "^9.10.1",
