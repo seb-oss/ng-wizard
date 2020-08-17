@@ -24,7 +24,8 @@ $wizard-footer-height: ($btn-padding-y * 2) + $font-size-base * $btn-line-height
     border-top: solid $modal-footer-border-color 1px;
     background: $modal-content-bg;
   }
-  .wizard-controls {
+  /* stylelint-disable-next-line selector-type-no-unknown */
+  wiz-controls > div {
     max-width: 768px;
   }
   &.dist {
