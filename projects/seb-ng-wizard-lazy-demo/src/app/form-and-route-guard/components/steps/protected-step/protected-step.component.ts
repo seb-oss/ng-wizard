@@ -58,37 +58,124 @@ export class FormAndRouteGuardComponent {
 `;
 
   // expose template
-  template = `<p>Basic concept involves using a route guard with <a href="https://angular.io/api/router/CanActivate" target="_blank" class="external">CanActivate</a> to prevent navigation to a specif route. In this example we're going to use a simple service to store the form data which in turn will be used by the route guard to determine if navigation is allowed or not. We're also going to implement form validation to make sure the information we enter is valid before storing it in our service.</p>
-<p>
-  There are many ways to set up a form in angular, this example uses <a href="https://angular.io/api/forms/FormBuilder" target="_blank" class="external">Form Builder</a> and <a href="https://angular.io/guide/reactive-forms" target="_blank" class="external">Reactive Forms</a> which provides a model-driven approach for forms. Feel free to use whatever you like and what suits your needs, the complete code with comments for this example can be found <a href="" class="external" target="_parent">here</a>.
+  template = `<p>
+  Basic concept involves using a route guard with
+  <a href="https://angular.io/api/router/CanActivate" target="_blank" class="external">CanActivate</a> to prevent
+  navigation to a specif route. In this example we're going to use a simple service to store the form data which in turn
+  will be used by the route guard to determine if navigation is allowed or not. We're also going to implement form
+  validation to make sure the information we enter is valid before storing it in our service.
 </p>
+<p>
+  There are many ways to set up a form in angular, this example uses
+  <a href="https://angular.io/api/forms/FormBuilder" target="_blank" class="external">Form Builder</a> and
+  <a href="https://angular.io/guide/reactive-forms" target="_blank" class="external">Reactive Forms</a> which provides a
+  model-driven approach for forms. Feel free to use whatever you like and what suits your needs, the complete code with
+  comments for this example can be found <a href="" class="external" target="_parent">here</a>.
+</p>
+<ng-container *ngIf="{ isOk: ($stepStatus | async)?.state } as stepStatus">
+  <div class="alert alert-danger alert-icon mx-n3 mx-sm-0" *ngIf="!stepStatus.isOk && submitted" tabindex="-1">
+    <ng-container *ngIf="profileForm.invalid || profileForm.pending"
+    >The form contains error, you need to correct them before proceeding.</ng-container
+    >
+    <ng-container *ngIf="profileForm.valid"
+    >You need to save the information before continuing to the next step.</ng-container
+    >
+  </div>
+  <div class="alert alert-success alert-icon mx-n3 mx-sm-0" *ngIf="stepStatus.isOk && submitted && profileForm.valid">
+    <ng-container *ngIf="profileForm.valid">You're profile was successfully saved!</ng-container>
+  </div>
+</ng-container>
 <form [formGroup]="profileForm" (ngSubmit)="save()">
   <div class="form-row">
     <div class="form-group col-sm-6 col-xl-4">
       <label for="inputFirstName">First name</label>
-      <input type="email" class="form-control" [ngClass]="{'is-invalid': firstName.invalid && firstName.touched && submitted, 'is-valid': firstName.valid && submitted}" id="inputFirstName" placeholder="First name" formControlName="firstName" required/>
-      <div [ngClass]="{'invalid-feedback': firstName.invalid, 'valid-feedback': firstName.valid}" *ngIf="(firstName.dirty || firstName.touched) && submitted">
-        <ng-container *ngIf="firstName.errors?.required"><fa-icon icon="exclamation-triangle" class="mr-1"></fa-icon>This field can't be empty</ng-container>
-        <ng-container *ngIf="firstName.valid"><fa-icon icon="check-circle" class="mr-1"></fa-icon>Field is valid</ng-container>
+      <input
+        type="email"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid': firstName.invalid && firstName.touched && submitted,
+          'is-valid': firstName.valid && submitted
+        }"
+        id="inputFirstName"
+        placeholder="First name"
+        formControlName="firstName"
+        required
+      />
+      <div
+        [ngClass]="{ 'invalid-feedback': firstName.invalid, 'valid-feedback': firstName.valid }"
+        *ngIf="(firstName.dirty || firstName.touched) && submitted"
+      >
+        <ng-container *ngIf="firstName.errors?.required"
+          ><fa-icon icon="exclamation-triangle" class="mr-1"></fa-icon>This field can't be empty</ng-container
+        >
+        <ng-container *ngIf="firstName.valid"
+          ><fa-icon icon="check-circle" class="mr-1"></fa-icon>Field is valid</ng-container
+        >
       </div>
     </div>
     <div class="form-group col-sm-6 col-xl-4">
       <label for="inputLastName">Last name</label>
-      <input type="email" class="form-control" [ngClass]="{'is-invalid': lastName.invalid && lastName.touched && submitted, 'is-valid': lastName.valid && submitted}" id="inputLastName" placeholder="Last name" formControlName="lastName" required/>
-      <div [ngClass]="{'invalid-feedback': lastName.invalid, 'valid-feedback': lastName.valid}" *ngIf="(lastName.dirty || lastName.touched) && submitted">
-        <ng-container *ngIf="lastName.errors?.required"><fa-icon icon="exclamation-triangle" class="mr-1"></fa-icon>This field can't be empty</ng-container>
-        <ng-container *ngIf="lastName.valid"><fa-icon icon="check-circle" class="mr-1"></fa-icon>Field is valid</ng-container>
+      <input
+        type="email"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid': lastName.invalid && lastName.touched && submitted,
+          'is-valid': lastName.valid && submitted
+        }"
+        id="inputLastName"
+        placeholder="Last name"
+        formControlName="lastName"
+        required
+      />
+      <div
+        [ngClass]="{ 'invalid-feedback': lastName.invalid, 'valid-feedback': lastName.valid }"
+        *ngIf="(lastName.dirty || lastName.touched) && submitted"
+      >
+        <ng-container *ngIf="lastName.errors?.required"
+          ><fa-icon icon="exclamation-triangle" class="mr-1"></fa-icon>This field can't be empty</ng-container
+        >
+        <ng-container *ngIf="lastName.valid"
+          ><fa-icon icon="check-circle" class="mr-1"></fa-icon>Field is valid</ng-container
+        >
       </div>
     </div>
     <div class="form-group col-md col-xl-8">
       <label for="inputEmail">Email</label>
-      <input type="email" class="form-control" [ngClass]="{'is-invalid': email.invalid && email.touched && submitted, 'is-valid': email.valid && submitted}" id="inputEmail" placeholder="Email" formControlName="email" required email/>
-      <div [ngClass]="{'invalid-feedback': email.invalid, 'valid-feedback': email.valid, 'progress-feedback progress-50': email.pending}" *ngIf="(email.dirty || email.touched) && submitted">
-        <ng-container *ngIf="email.errors?.required"><fa-icon icon="exclamation-triangle" class="mr-1"></fa-icon>This field can't be empty</ng-container>
-        <ng-container *ngIf="email.errors?.email"><fa-icon icon="exclamation-triangle" class="mr-1"></fa-icon>Email address is invalid</ng-container>
-        <ng-container *ngIf="email.errors?.emailIsTaken"><fa-icon icon="exclamation-triangle" class="mr-1"></fa-icon>This email has already been registered</ng-container>
-        <ng-container *ngIf="email.valid"><fa-icon icon="check-circle" class="mr-1"></fa-icon>Field is valid</ng-container>
-        <ng-container *ngIf="email.pending"><div class="spinner spinner-xs mr-1 d-inline-block" style="vertical-align: -3px; z-index: 0;"></div>Validating email</ng-container>
+      <input
+        type="email"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': email.invalid && email.touched && submitted, 'is-valid': email.valid && submitted }"
+        id="inputEmail"
+        placeholder="Email"
+        formControlName="email"
+        required
+        email
+      />
+      <div
+        [ngClass]="{
+          'invalid-feedback': email.invalid,
+          'valid-feedback': email.valid,
+          'progress-feedback progress-50': email.pending
+        }"
+        *ngIf="(email.dirty || email.touched) && submitted"
+      >
+        <ng-container *ngIf="email.errors?.required"
+          ><fa-icon icon="exclamation-triangle" class="mr-1"></fa-icon>This field can't be empty</ng-container
+        >
+        <ng-container *ngIf="email.errors?.email"
+          ><fa-icon icon="exclamation-triangle" class="mr-1"></fa-icon>Email address is invalid</ng-container
+        >
+        <ng-container *ngIf="email.errors?.emailIsTaken"
+          ><fa-icon icon="exclamation-triangle" class="mr-1"></fa-icon>This email has already been
+          registered</ng-container
+        >
+        <ng-container *ngIf="email.valid"
+          ><fa-icon icon="check-circle" class="mr-1"></fa-icon>Field is valid</ng-container
+        >
+        <ng-container *ngIf="email.pending"
+          ><div class="spinner spinner-xs mr-1 d-inline-block" style="vertical-align: -3px; z-index: 0;"></div>
+          Validating email</ng-container
+        >
       </div>
       <div class="progress-feedback" *ngIf="(!email.touched && !email.pending && !email.valid) || !submitted">
         Enter any email except "john.doe@seb.se"
@@ -100,7 +187,13 @@ export class FormAndRouteGuardComponent {
     </div>
     <div class="form-group col-xl-8">
       <label for="inputAddress2">Address 2</label>
-      <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor"  formControlName="extra" />
+      <input
+        type="text"
+        class="form-control"
+        id="inputAddress2"
+        placeholder="Apartment, studio, or floor"
+        formControlName="extra"
+      />
     </div>
   </div>
   <div class="form-row">
@@ -115,35 +208,42 @@ export class FormAndRouteGuardComponent {
   </div>
   <div class="form-row">
     <div class="form-group col col-sm-auto">
-      <div [ngClass]="{'border-danger': accept.invalid && submitted, 'border-success': accept.valid && submitted, 'border rounded p-3': submitted}">
+      <div
+        [ngClass]="{
+          'border-danger': accept.invalid && submitted,
+          'border-success': accept.valid && submitted,
+          'border rounded p-3': submitted
+        }"
+      >
         <div class="custom-control custom-checkbox">
-          <input class="custom-control-input" type="checkbox" [ngClass]="{'is-invalid': accept.invalid  && submitted, 'is-valid': accept.valid  && submitted}" id="gridCheck" formControlName="accept" required/>
+          <input
+            class="custom-control-input"
+            type="checkbox"
+            [ngClass]="{ 'is-invalid': accept.invalid && submitted, 'is-valid': accept.valid && submitted }"
+            id="gridCheck"
+            formControlName="accept"
+            required
+          />
           <label class="custom-control-label" for="gridCheck">
             Accept terms
           </label>
         </div>
-        <ng-container *ngIf="submitted">
-          <div class="small text-danger mt-1 mb-n1" *ngIf="accept.invalid"><fa-icon icon="exclamation-triangle" class="mr-1"></fa-icon>You need to accept the terms</div>
-          <div class="small text-success mt-1 mb-n1" *ngIf="accept.valid"><fa-icon icon="check-circle" class="mr-1"></fa-icon>Terms accepted</div>
-        </ng-container>
       </div>
+      <ng-container *ngIf="submitted">
+        <div class="small text-danger mt-1 mb-n1" *ngIf="accept.invalid">
+          <fa-icon icon="exclamation-triangle" class="mr-1"></fa-icon>You need to accept the terms
+        </div>
+        <div class="small text-success mt-1 mb-n1" *ngIf="accept.valid">
+          <fa-icon icon="check-circle" class="mr-1"></fa-icon>Terms accepted
+        </div>
+      </ng-container>
     </div>
   </div>
-  <ng-container *ngIf="{isOk: ($stepStatus | async)?.state} as stepStatus">
-    <div class="alert alert-danger alert-icon" *ngIf="!stepStatus.isOk && submitted">
-      <ng-container *ngIf="profileForm.invalid || profileForm.pending">The form contains error, you need to correct them before proceeding.</ng-container>
-      <ng-container *ngIf="profileForm.valid">You need to save the information before continuing to the next step.</ng-container>
-    </div>
-    <div class="alert alert-success alert-icon" *ngIf="stepStatus.isOk && submitted && profileForm.valid">
-      <ng-container *ngIf="profileForm.valid">You're profile was successfully saved!</ng-container>
-    </div>
-  </ng-container>
-</form>
-`;
+</form>`;
 
   // expose component
-  component = `import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+  component = `import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { filter, takeUntil, tap } from 'rxjs/operators';
 import { WizardControlService } from '@sebgroup/ng-wizard';
@@ -152,10 +252,8 @@ import { StepService, StepState } from '../services/step.service';
 @Component({
   selector: 'app-reactive-form',
   templateUrl: './reactive-form.component.html',
-  styleUrls: ['./reactive-form.component.scss']
 })
 export class ReactiveFormComponent implements OnInit, OnDestroy {
-
   $stepStatus: Observable<StepState>; // observable for step status
   unsubscribe$ = new Subject();
   profileForm: FormGroup;
@@ -180,11 +278,12 @@ export class ReactiveFormComponent implements OnInit, OnDestroy {
     return this.profileForm.get('help');
   }
 
-
-  constructor(public stepService: StepService,
-              private fb: FormBuilder,
-              public controls: WizardControlService,
-              private cdr: ChangeDetectorRef
+  constructor(
+    public stepService: StepService,
+    private fb: FormBuilder,
+    public controls: WizardControlService,
+    private cdr: ChangeDetectorRef,
+    private el: ElementRef
   ) {
     this.profileForm = fb.group({
       firstName: ['', Validators.required],
@@ -195,15 +294,14 @@ export class ReactiveFormComponent implements OnInit, OnDestroy {
       city: [''],
       zip: [''],
       accept: ['', Validators.requiredTrue],
-      help: [true]
+      help: [true],
     });
 
-    this.$stepStatus = this.stepService.getState('/form-and-route-guard/form-step')
-      .pipe(
-        filter(res => res && res.data),
-        tap(res => this.profileForm.setValue(res.data)),
-        tap(_ => this.cdr.detectChanges())
-      );
+    this.$stepStatus = this.stepService.getState('/form-and-route-guard/form-step').pipe(
+      filter(res => res && res.data),
+      tap(res => this.profileForm.setValue(res.data)),
+      tap(_ => this.cdr.detectChanges()),
+    );
   }
 
   /**
@@ -216,6 +314,25 @@ export class ReactiveFormComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Focus first invalid form control or alert message if it exists
+   */
+  private _focusInvalid() {
+    if (this.profileForm.invalid) {
+      const invalid: string = Object.keys(this.profileForm.controls)
+        .find(key => this.profileForm.controls[key].invalid);
+
+      if (invalid) {
+        this.el.nativeElement.querySelector('[formcontrolname="' + invalid + '"]').focus();
+      }
+    } else {
+      const alertMessage = this.el.nativeElement.querySelector('.alert.alert-danger');
+      if (alertMessage) {
+        alertMessage.focus();
+      }
+    }
+  }
+
+  /**
    * Check if email is valid
    * @param control - control to be validated
    */
@@ -224,43 +341,41 @@ export class ReactiveFormComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         if (control.value === 'john.doe@seb.se') {
           resolve({ emailIsTaken: true });
-        } else {resolve(null); }
+        } else {
+          resolve(null);
+        }
       }, 3000);
     });
   }
 
   ngOnInit() {
     // subscribe to control events
-    this.controls.controlEvent$
-      .pipe(
-        takeUntil(this.unsubscribe$)
-      )
-      .subscribe(control => {
-        switch (control.type) {
-          case 'next':
-            this.submitted = true;
-            this.profileForm.markAllAsTouched();
-            break;
-          case 'save':
-            this.submitted = true;
-            this.profileForm.markAllAsTouched();
-            this.save();
-            break;
-          case 'cancel':
-            this.profileForm.reset();
-            this.stepService.saveState('/form-and-route-guard/form-step', this.profileForm.valid, this.profileForm.value);
-            this.submitted = false;
-        }
-      });
+    this.controls.controlEvent$.pipe(takeUntil(this.unsubscribe$)).subscribe(control => {
+      switch (control.type) {
+        case 'next':
+          this.submitted = true;
+          this.profileForm.markAllAsTouched();
+          this._focusInvalid();
+          break;
+        case 'save':
+          this.submitted = true;
+          this.profileForm.markAllAsTouched();
+          this.save();
+          this._focusInvalid();
+          break;
+        case 'cancel':
+          this.profileForm.reset();
+          this.stepService.saveState('/form-and-route-guard/form-step', this.profileForm.valid, this.profileForm.value);
+          this.submitted = false;
+      }
+    });
   }
 
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
-
-}
-`;
+}`;
 
   // expose route config
   routeConfig = `// setup routes and wizard steps in route module

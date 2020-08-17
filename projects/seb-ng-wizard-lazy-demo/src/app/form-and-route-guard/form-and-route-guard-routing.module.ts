@@ -25,7 +25,7 @@ const routes: WizardSteps = [
               type: 'save',
             },
             {
-              name: 'Reset form',
+              name: 'Clear form',
               class: 'btn-outline-danger',
               type: 'cancel',
             },

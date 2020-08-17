@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { filter, takeUntil, tap } from 'rxjs/operators';
 import { WizardControlService } from '../../../../../../../seb-ng-wizard/src/lib/controls/wizard-control.service';
@@ -39,6 +39,7 @@ export class ReactiveFormComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     public controls: WizardControlService,
     private cdr: ChangeDetectorRef,
+    private el: ElementRef,
   ) {
     this.profileForm = fb.group({
       firstName: ['', Validators.required],
@@ -69,6 +70,26 @@ export class ReactiveFormComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Focus first invalid form control or alert message if it exists
+   */
+  private _focusInvalid() {
+    if (this.profileForm.invalid) {
+      const invalid: string = Object.keys(this.profileForm.controls).find(
+        key => this.profileForm.controls[key].invalid,
+      );
+
+      if (invalid) {
+        this.el.nativeElement.querySelector('[formcontrolname="' + invalid + '"]').focus();
+      }
+    } else {
+      const alertMessage = this.el.nativeElement.querySelector('.alert.alert-danger');
+      if (alertMessage) {
+        alertMessage.focus();
+      }
+    }
+  }
+
+  /**
    * Check if email is valid
    * @param control - control to be validated
    */
@@ -91,11 +112,13 @@ export class ReactiveFormComponent implements OnInit, OnDestroy {
         case 'next':
           this.submitted = true;
           this.profileForm.markAllAsTouched();
+          this._focusInvalid();
           break;
         case 'save':
           this.submitted = true;
           this.profileForm.markAllAsTouched();
           this.save();
+          this._focusInvalid();
           break;
         case 'cancel':
           this.profileForm.reset();

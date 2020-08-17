@@ -12,6 +12,19 @@
   model-driven approach for forms. Feel free to use whatever you like and what suits your needs, the complete code with
   comments for this example can be found <a href="" class="external" target="_parent">here</a>.
 </p>
+<ng-container *ngIf="{ isOk: ($stepStatus | async)?.state } as stepStatus">
+  <div class="alert alert-danger alert-icon mx-n3 mx-sm-0" *ngIf="!stepStatus.isOk && submitted" tabindex="-1">
+    <ng-container *ngIf="profileForm.invalid || profileForm.pending"
+      >The form contains error, you need to correct them before proceeding.</ng-container
+    >
+    <ng-container *ngIf="profileForm.valid"
+      >You need to save the information before continuing to the next step.</ng-container
+    >
+  </div>
+  <div class="alert alert-success alert-icon mx-n3 mx-sm-0" *ngIf="stepStatus.isOk && submitted && profileForm.valid">
+    <ng-container *ngIf="profileForm.valid">You're profile was successfully saved!</ng-container>
+  </div>
+</ng-container>
 <form [formGroup]="profileForm" (ngSubmit)="save()">
   <div class="form-row">
     <div class="form-group col-sm-6 col-xl-4">
@@ -155,28 +168,15 @@
             Accept terms
           </label>
         </div>
-        <ng-container *ngIf="submitted">
-          <div class="small text-danger mt-1 mb-n1" *ngIf="accept.invalid">
-            <fa-icon icon="exclamation-triangle" class="mr-1"></fa-icon>You need to accept the terms
-          </div>
-          <div class="small text-success mt-1 mb-n1" *ngIf="accept.valid">
-            <fa-icon icon="check-circle" class="mr-1"></fa-icon>Terms accepted
-          </div>
-        </ng-container>
       </div>
+      <ng-container *ngIf="submitted">
+        <div class="small text-danger mt-1 mb-n1" *ngIf="accept.invalid">
+          <fa-icon icon="exclamation-triangle" class="mr-1"></fa-icon>You need to accept the terms
+        </div>
+        <div class="small text-success mt-1 mb-n1" *ngIf="accept.valid">
+          <fa-icon icon="check-circle" class="mr-1"></fa-icon>Terms accepted
+        </div>
+      </ng-container>
     </div>
   </div>
-  <ng-container *ngIf="{ isOk: ($stepStatus | async)?.state } as stepStatus">
-    <div class="alert alert-danger alert-icon" *ngIf="!stepStatus.isOk && submitted">
-      <ng-container *ngIf="profileForm.invalid || profileForm.pending"
-        >The form contains error, you need to correct them before proceeding.</ng-container
-      >
-      <ng-container *ngIf="profileForm.valid"
-        >You need to save the information before continuing to the next step.</ng-container
-      >
-    </div>
-    <div class="alert alert-success alert-icon" *ngIf="stepStatus.isOk && submitted && profileForm.valid">
-      <ng-container *ngIf="profileForm.valid">You're profile was successfully saved!</ng-container>
-    </div>
-  </ng-container>
 </form>
