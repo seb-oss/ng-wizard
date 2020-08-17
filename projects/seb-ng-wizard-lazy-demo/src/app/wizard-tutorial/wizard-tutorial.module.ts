@@ -21,5 +21,6 @@ import { WizardTutorialComponent } from './wizard-tutorial.component';
     MoreExamplesComponent,
   ],
   imports: [CommonModule, WizardTutorialRoutingModule, WizardModule, SharedModule],
+  entryComponents: [MoreExamplesComponent],
 })
 export class WizardTutorialModule {}
