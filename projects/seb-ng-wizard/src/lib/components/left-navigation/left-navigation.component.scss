@@ -17,7 +17,8 @@ nav {
       background: $accordion-icon no-repeat;
       width: 1.5rem;
       height: 1.5rem;
-      margin-right: map_get($spacers, 2);
+      margin-right: map_get($spacers, 3);
+      margin-top: 3px;
       display: inline-block;
       transform: rotate(0deg);
       transition: transform $transition-slide-in-duration;
