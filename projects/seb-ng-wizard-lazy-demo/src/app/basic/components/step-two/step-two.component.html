@@ -3,12 +3,12 @@
   <code class="d-block" *ngFor="let event of controlEvents">{{ event | json }}</code>
 </ng-container>
 <ng-template #noEvents>
-  <div class="alert alert-info alert-icon">
+  <div class="alert alert-info alert-icon mx-n3 mx-sm-0">
     <h5 class="alert-heading">Nothing has been emitted!</h5>
     Click "Save" down in the footer to emit an event.
   </div>
 </ng-template>
-<div class="card bg-light mt-3">
+<div class="card bg-light my-3 mx-n3 mx-sm-0">
   <h4 class="card-header">Code</h4>
   <div class="card-body">
     <app-code-snippet [data]="template" [lang]="'markup'" [title]="'step-two.component.html'"></app-code-snippet>

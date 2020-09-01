@@ -75,10 +75,10 @@ export class FormAndRouteGuardComponent {
 <ng-container *ngIf="{ isOk: ($stepStatus | async)?.state } as stepStatus">
   <div class="alert alert-danger alert-icon mx-n3 mx-sm-0" *ngIf="!stepStatus.isOk && submitted" tabindex="-1">
     <ng-container *ngIf="profileForm.invalid || profileForm.pending"
-    >The form contains error, you need to correct them before proceeding.</ng-container
+      >The form contains error, you need to correct them before proceeding.</ng-container
     >
     <ng-container *ngIf="profileForm.valid"
-    >You need to save the information before continuing to the next step.</ng-container
+      >You need to save the information before continuing to the next step.</ng-container
     >
   </div>
   <div class="alert alert-success alert-icon mx-n3 mx-sm-0" *ngIf="stepStatus.isOk && submitted && profileForm.valid">
@@ -97,7 +97,6 @@ export class FormAndRouteGuardComponent {
           'is-valid': firstName.valid && submitted
         }"
         id="inputFirstName"
-        placeholder="First name"
         formControlName="firstName"
         required
       />
@@ -123,7 +122,6 @@ export class FormAndRouteGuardComponent {
           'is-valid': lastName.valid && submitted
         }"
         id="inputLastName"
-        placeholder="Last name"
         formControlName="lastName"
         required
       />
@@ -141,12 +139,14 @@ export class FormAndRouteGuardComponent {
     </div>
     <div class="form-group col-md col-xl-8">
       <label for="inputEmail">Email</label>
+      <div class="text-muted">
+        Enter any email except "john.doe@seb.se".
+      </div>
       <input
         type="email"
         class="form-control"
         [ngClass]="{ 'is-invalid': email.invalid && email.touched && submitted, 'is-valid': email.valid && submitted }"
         id="inputEmail"
-        placeholder="Email"
         formControlName="email"
         required
         email
@@ -177,13 +177,16 @@ export class FormAndRouteGuardComponent {
           Validating email</ng-container
         >
       </div>
-      <div class="progress-feedback" *ngIf="(!email.touched && !email.pending && !email.valid) || !submitted">
-        Enter any email except "john.doe@seb.se"
-      </div>
     </div>
     <div class="form-group col-xl-8">
       <label for="inputAddress">Address</label>
-      <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" formControlName="street" />
+      <input
+        type="text"
+        class="form-control"
+        id="inputAddress"
+        placeholder="E.g. 1234 Main St"
+        formControlName="street"
+      />
     </div>
     <div class="form-group col-xl-8">
       <label for="inputAddress2">Address 2</label>
@@ -191,7 +194,7 @@ export class FormAndRouteGuardComponent {
         type="text"
         class="form-control"
         id="inputAddress2"
-        placeholder="Apartment, studio, or floor"
+        placeholder="E.g. apartment, studio, or floor"
         formControlName="extra"
       />
     </div>
@@ -239,7 +242,8 @@ export class FormAndRouteGuardComponent {
       </ng-container>
     </div>
   </div>
-</form>`;
+</form>
+`;
 
   // expose component
   component = `import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit } from '@angular/core';

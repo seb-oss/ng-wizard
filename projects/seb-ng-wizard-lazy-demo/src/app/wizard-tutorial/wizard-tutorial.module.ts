@@ -20,7 +20,7 @@ import { WizardTutorialComponent } from './wizard-tutorial.component';
     ExamplesComponent,
     MoreExamplesComponent,
   ],
-  imports: [CommonModule, WizardTutorialRoutingModule, SebNgWizardModule, SharedModule],
+  imports: [CommonModule, WizardTutorialRoutingModule, SebNgWizardModule.forRoot(), SharedModule],
   entryComponents: [MoreExamplesComponent],
 })
 export class WizardTutorialModule {}
