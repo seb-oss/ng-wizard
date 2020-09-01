@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faArrowLeft } from '@fortawesome/pro-regular-svg-icons/faArrowLeft';
 import { faArrowRight } from '@fortawesome/pro-regular-svg-icons/faArrowRight';
@@ -11,6 +11,29 @@ import { LeftNavigationComponent } from './components/left-navigation/left-navig
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { WizardComponent, WizSecondaryContentDirective } from './components/wizard/wizard.component';
 import { WizardControlService } from './services/wizard-control.service';
+
+interface SebNgWizardConfig {
+  translations: any;
+}
+
+const defaultConfig = {
+  translations: {
+    en: {
+      next: 'Next',
+      prev: 'Back',
+      save: 'Save',
+      close: 'Close',
+    },
+    sv: {
+      next: 'Nästa',
+      prev: 'Tillbaka',
+      save: 'Spara',
+      close: 'Stäng',
+    },
+  },
+};
+
+export const SebNgWizardConfigService = new InjectionToken<SebNgWizardConfig>('SebNgWizardConfig');
 
 @NgModule({
   declarations: [
@@ -29,10 +52,16 @@ export class SebNgWizardModule {
     // add icons that should be available in the app/module
     library.addIcons(faArrowRight, faArrowLeft, faSave, faPrint);
   }
-  static forRoot(): ModuleWithProviders<SebNgWizardModule> {
+  static forRoot(config?: SebNgWizardConfig): ModuleWithProviders<SebNgWizardModule> {
     return {
       ngModule: SebNgWizardModule,
-      providers: [WizardControlService],
+      providers: [
+        WizardControlService,
+        {
+          provide: SebNgWizardConfigService,
+          useValue: config || defaultConfig,
+        },
+      ],
     };
   }
 }

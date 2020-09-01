@@ -9,7 +9,7 @@
       data-dismiss="modal"
       (click)="close.next($event); emitControlEvent($event, closeControl)"
     >
-      <span class="d-none d-md-inline">{{ lang === 'en' ? 'Close' : 'Stäng' }}</span>
+      <span class="d-none d-md-inline">{{ texts?.close }}</span>
     </button>
   </div>
 </nav>

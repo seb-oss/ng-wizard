@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map, startWith } from 'rxjs/operators';
 import { WizardControl, WizardControls } from '../../models/wizard-step';
+import { SebNgWizardConfigService } from '../../seb-ng-wizard.module';
 import { WizardControlService } from '../../services/wizard-control.service';
 
 @Component({
@@ -12,7 +13,12 @@ import { WizardControlService } from '../../services/wizard-control.service';
 })
 export class ControlsComponent {
   $controls: Observable<WizardControls>;
-  constructor(private route: ActivatedRoute, public router: Router, private wizardControl: WizardControlService) {
+  constructor(
+    @Inject(SebNgWizardConfigService) private config,
+    private route: ActivatedRoute,
+    public router: Router,
+    private wizardControl: WizardControlService,
+  ) {
     this.$controls = this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
       map(_ => {
@@ -27,6 +33,11 @@ export class ControlsComponent {
         }
       }),
       startWith(this.route.snapshot.firstChild ? this.route.snapshot.firstChild.data.controls : []),
+      map(controls =>
+        controls.map(control => {
+          return { ...control, name: this.config.translations['en'][control.type] || control.name };
+        }),
+      ),
     );
   }
 

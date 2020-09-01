@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { WizardControl } from '../../models/wizard-step';
+import { SebNgWizardConfigService } from '../../seb-ng-wizard.module';
 import { WizardControlService } from '../../services/wizard-control.service';
 
 @Component({
@@ -18,14 +19,18 @@ export class TopBarComponent {
   hideClose = false;
 
   @Input()
-  lang: 'sv' | 'en';
+  lang: 'sv' | 'en' = 'en';
 
   @Output()
   close: EventEmitter<MouseEvent> = new EventEmitter();
-  constructor(private wizardControl: WizardControlService) {}
+
+  texts: any = {};
+  constructor(@Inject(SebNgWizardConfigService) private config, private wizardControl: WizardControlService) {
+    this.texts = this.config.translations[this.lang];
+  }
 
   closeControl: WizardControl = {
-    name: 'Close',
+    name: this.texts.next,
     type: 'close',
   };
 
