@@ -5,7 +5,11 @@
   "version": "0.0.0-semantically-released",
   "peerDependencies": {
     "@angular/common": "^8.2.0",
-    "@angular/core": "^8.2.0"
+    "@angular/core": "^8.2.0",
+    "@fortawesome/angular-fontawesome": "^0.5.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.26",
+    "@fortawesome/pro-regular-svg-icons": "^5.11.2",
+    "@sebgroup/bootstrap": "^5.3.0"
   },
   "publishConfig": {
     "access": "public"

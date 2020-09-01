@@ -3,7 +3,7 @@ import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@a
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
 import { filter, map, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
-import { WizardStep, WizardSteps } from '../models/wizard-step';
+import { WizardStep, WizardSteps } from '../../models/wizard-step';
 
 @Component({
   selector: 'wiz-left-navigation',

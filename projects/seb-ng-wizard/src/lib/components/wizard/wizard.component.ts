@@ -12,7 +12,7 @@ import {
 import { ActivatedRoute, NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { merge, Observable, of } from 'rxjs';
 import { filter, map, shareReplay, tap } from 'rxjs/operators';
-import { WizardStep, WizardStepData, WizardSteps } from '../models/wizard-step';
+import { WizardStep, WizardStepData, WizardSteps } from '../../models/wizard-step';
 
 @Directive({
   selector: '[wizSecondaryContentHost]',
@@ -62,9 +62,9 @@ export class WizardComponent implements OnInit {
     private route: ActivatedRoute,
     private componentFactoryResolver: ComponentFactoryResolver,
   ) {
-    this.steps = <WizardSteps>(
-      this.route.routeConfig.children.filter(childRoute => childRoute.path !== '' && childRoute.data)
-    );
+    // check if route has config, if not use root config
+    const routeConfig = this.route.routeConfig ? this.route.routeConfig.children : this.router.config;
+    this.steps = <WizardSteps>routeConfig.filter(childRoute => childRoute.path !== '' && childRoute.data);
   }
   public ngOnInit(): void {
     const navigationEnd = this.router.events.pipe(filter((e: RouterEvent) => e instanceof NavigationEnd));
@@ -98,8 +98,9 @@ export class WizardComponent implements OnInit {
   }
 
   private matchesRoute(step: WizardStep, url: string): boolean {
-    const parentRoute = this.route.parent.routeConfig.path;
-    const pathCheck = `${parentRoute}/${step.path}`;
+    const parentRoute = this.route.parent ? this.route.parent.routeConfig.path + '/' : '';
+    const pathCheck = `${parentRoute}${step.path}`;
+    console.log(pathCheck);
 
     if (this.routerOutletName) {
       return url.includes(`(${this.routerOutletName}:${pathCheck})`);

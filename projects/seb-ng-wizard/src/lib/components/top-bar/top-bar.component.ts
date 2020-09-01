@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { WizardControlService } from '../controls/wizard-control.service';
-import { WizardControl } from '../models/wizard-step';
+import { WizardControl } from '../../models/wizard-step';
+import { WizardControlService } from '../../services/wizard-control.service';
 
 @Component({
   selector: 'wiz-top-bar',

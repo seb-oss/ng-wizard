@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { WizardStep } from '../../models/wizard-step';
 import { LeftNavigationComponent } from '../left-navigation/left-navigation.component';
-import { WizardStep } from '../models/wizard-step';
 import { TopBarComponent } from '../top-bar/top-bar.component';
 import { WizardComponent } from './wizard.component';
 
