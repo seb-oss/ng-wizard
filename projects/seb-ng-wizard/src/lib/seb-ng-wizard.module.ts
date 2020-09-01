@@ -9,7 +9,8 @@ import { faSave } from '@fortawesome/pro-regular-svg-icons/faSave';
 import { ControlsComponent } from './components/controls/controls.component';
 import { LeftNavigationComponent } from './components/left-navigation/left-navigation.component';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
-import { WizardComponent, WizSecondaryContentDirective } from './components/wizard/wizard.component';
+import { WizardComponent } from './components/wizard/wizard.component';
+import { SecondaryContentComponent, WizSecondaryContentDirective } from './directives/secondary-content.directive';
 import { WizardControlService } from './services/wizard-control.service';
 
 interface SebNgWizardConfig {

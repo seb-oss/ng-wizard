@@ -1,25 +1,9 @@
-import {
-  Component,
-  ComponentFactoryResolver,
-  Directive,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+import { Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { merge, Observable, of } from 'rxjs';
 import { filter, map, shareReplay, tap } from 'rxjs/operators';
+import { WizSecondaryContentDirective } from '../../directives/secondary-content.directive';
 import { WizardStep, WizardStepData, WizardSteps } from '../../models/wizard-step';
-
-@Directive({
-  selector: '[wizSecondaryContentHost]',
-})
-export class WizSecondaryContentDirective {
-  constructor(public viewContainerRef: ViewContainerRef) {}
-}
 
 @Component({
   selector: 'wiz-wizard',
@@ -118,8 +102,4 @@ export class WizardComponent implements OnInit {
       componentRef.instance.data = secondaryContent.data;
     }, 0);
   }
-}
-
-export interface SecondaryContentComponent {
-  data: any;
 }
