@@ -10,7 +10,7 @@ import { FormAndRouteGuardComponent } from './form-and-route-guard.component';
 
 @NgModule({
   declarations: [FormAndRouteGuardComponent, ReactiveFormComponent, ProtectedStepComponent, ProtectedStepInfoComponent],
-  imports: [CommonModule, SharedModule, SebNgWizardModule, FormAndRouteGuardRoutingModule],
+  imports: [CommonModule, SharedModule, SebNgWizardModule.forRoot(), FormAndRouteGuardRoutingModule],
   entryComponents: [ProtectedStepInfoComponent],
 })
 export class FormAndRouteGuardModule {}
