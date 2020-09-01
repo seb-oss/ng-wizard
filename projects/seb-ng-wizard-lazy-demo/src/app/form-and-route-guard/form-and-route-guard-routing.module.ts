@@ -1,7 +1,7 @@
 // setup routes and wizard steps in route module
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { WizardSteps } from '../../../../seb-ng-wizard/src/lib/models/wizard-step';
+import { WizardSteps } from '@sebgroup/ng-wizard';
 import { ProtectedStepInfoComponent } from './components/secondary-content/protected-step-info/protected-step-info.component';
 import { ProtectedStepComponent } from './components/steps/protected-step/protected-step.component';
 import { ReactiveFormComponent } from './components/steps/reactive-form/reactive-form.component';
@@ -56,7 +56,6 @@ const routes: WizardSteps = [
         },
         canActivate: [StepGuard],
       },
-      { path: '**', redirectTo: 'form-step', pathMatch: 'full' },
     ],
   },
 ];

@@ -1,7 +1,7 @@
 // setup routes and wizard steps in route module
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { WizardSteps } from '../../../../seb-ng-wizard/src/lib/models/wizard-step';
+import { WizardSteps } from '@sebgroup/ng-wizard';
 import { BasicComponent } from './basic.component';
 import { StepOneComponent } from './components/step-one/step-one.component';
 import { StepTwoComponent } from './components/step-two/step-two.component';
