@@ -4,7 +4,10 @@
   [ngClass]="controls.length === 1 && controls[0].type === 'next' ? 'justify-content-end' : 'justify-content-between'"
 >
   <div
-    class="col-12 mb-3 mb-sm-0"
+    class="mb-3 mb-sm-0 {{ 'order-sm-' + i }}"
+    [class.col-6]="controls.length <= 2 || control.type === 'next' || control.type === 'prev'"
+    [class.col-12]="controls.length > 2 && control.type !== 'next' && control.type !== 'prev'"
+    [class.order-first]="controls.length > 2 && control.type !== 'next' && control.type !== 'prev'"
     [class.col-md-auto]="(i !== 0 && controls.length >= 3) || controls.length < 3"
     [class.col-sm-auto]="controls.length < 3"
     [class.col-sm]="controls.length >= 3"
@@ -18,9 +21,10 @@
         [routerLink]="control.path"
         routerLinkActive="disabled"
         (click)="emitControlEvent($event, control)"
+        [title]="control.name"
       >
         <fa-icon *ngIf="control.type === 'prev'" icon="arrow-left" class="mr-2"></fa-icon>
-        {{ control.name }}
+        <span class="w-100 text-truncate">{{ control.name }}</span>
         <fa-icon *ngIf="control.type === 'next'" icon="arrow-right" class="ml-2"></fa-icon>
       </a>
     </ng-container>
@@ -31,7 +35,7 @@
         [ngClass]="control.class || (control.type !== 'next' ? 'btn-outline-primary' : 'btn-primary')"
         (click)="emitControlEvent($event, control)"
       >
-        {{ control.name }}
+        <span class="w-100 text-truncate">{{ control.name }}</span>
         <fa-icon *ngIf="control.type === 'save'" icon="save" class="ml-2"></fa-icon>
         <fa-icon *ngIf="control.type === 'print'" icon="print" class="ml-2"></fa-icon>
       </button>
