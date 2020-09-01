@@ -26,6 +26,14 @@ nav {
       transform: rotate(-180deg);
     }
   }
+  .list-group-ordered .active {
+    a {
+      color: $black;
+    }
+    &::before {
+      background: $black;
+    }
+  }
   border-bottom: $border-color $border-width solid;
 
   @include media-breakpoint-up(md) {
