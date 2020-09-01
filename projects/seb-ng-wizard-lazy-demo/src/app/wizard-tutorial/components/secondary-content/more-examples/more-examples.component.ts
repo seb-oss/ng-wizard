@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { SecondaryContentComponent } from '../../../../../../../seb-ng-wizard/src/lib/wizard/wizard.component';
+import { SecondaryContentComponent } from '../../../../../../../seb-ng-wizard/src/lib/components/wizard/wizard.component';
 
 @Component({
   selector: 'app-more-examples',

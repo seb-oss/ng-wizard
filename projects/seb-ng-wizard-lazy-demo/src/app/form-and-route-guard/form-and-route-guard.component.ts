@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { WizardControlService } from '../../../../seb-ng-wizard/src/lib/controls/wizard-control.service';
+import { WizardControlService } from '../../../../seb-ng-wizard/src/lib/services/wizard-control.service';
 
 @Component({
   selector: 'app-form-and-route-guard',

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { WizardSteps } from '../../../../seb-ng-wizard/src/lib/models/wizard-step';
-import { StepGuard } from '../form-and-route-guard/guards/step.guard';
+import { WizardSteps } from '@sebgroup/ng-wizard';
 import { MoreExamplesComponent } from './components/secondary-content/more-examples/more-examples.component';
 import { ExamplesComponent } from './components/steps/examples/examples.component';
 import { GettingStartedComponent } from './components/steps/getting-started/getting-started.component';

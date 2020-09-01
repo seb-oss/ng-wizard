@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { WizardModule } from '../../../../seb-ng-wizard/src/lib/wizard/wizard.module';
+import { SebNgWizardModule } from '@sebgroup/ng-wizard';
 import { SharedModule } from '../shared/shared.module';
 
 import { MoreExamplesComponent } from './components/secondary-content/more-examples/more-examples.component';
@@ -20,7 +20,7 @@ import { WizardTutorialComponent } from './wizard-tutorial.component';
     ExamplesComponent,
     MoreExamplesComponent,
   ],
-  imports: [CommonModule, WizardTutorialRoutingModule, WizardModule, SharedModule],
+  imports: [CommonModule, WizardTutorialRoutingModule, SebNgWizardModule, SharedModule],
   entryComponents: [MoreExamplesComponent],
 })
 export class WizardTutorialModule {}

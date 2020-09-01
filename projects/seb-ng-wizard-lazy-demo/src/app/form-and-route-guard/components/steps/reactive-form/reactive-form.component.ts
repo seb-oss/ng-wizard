@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { WizardControlService } from '@sebgroup/ng-wizard';
 import { Observable, Subject } from 'rxjs';
 import { filter, takeUntil, tap } from 'rxjs/operators';
-import { WizardControlService } from '../../../../../../../seb-ng-wizard/src/lib/controls/wizard-control.service';
 import { StepService, StepState } from '../../../services/step.service';
 
 @Component({

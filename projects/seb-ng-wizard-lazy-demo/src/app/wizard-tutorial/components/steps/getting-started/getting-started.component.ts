@@ -6,15 +6,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GettingStartedComponent implements OnInit {
   importModule = `// app.module.ts
-import { WizardModule } from '@sebgroup/ng-wizard'; // <-- Add this line
+import { SebNgWizardModule } from '@sebgroup/ng-wizard'; // <-- Add this line
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';  // <-- Add this line to get animations
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';  // <-- Add this line to use correct icons
+
+
 
 @NgModule({
   imports: [
     AppRoutingModule, // holds wizard steps as routes
-    WizardModule  // <-- Add this line
+    BrowserAnimationsModule, // <-- Add this line to get animations
+    SebNgWizardModule,  // <-- Add this line
+    FontAwesomeModule //  <-- Add this line to get correct icons
   ],
 })
-export class AppModule {}`;
+export class AppModule {
+  constructor(library: FaIconLibrary) {
+    // add icons that should be available in the app/module
+    library.addIcons(
+      faCalendarAlt
+    );
+  }
+}`;
 
   addComponent = `<!-- app.component.html -->
 <wiz-wizard title="SEB ng-wizard">
@@ -33,34 +46,38 @@ import { StepTwoComponent } from './components/step-two/step-two.component';
 const routes: WizardSteps = [
   {
     path: '',
+    redirectTo: 'step-one'
+  }, {
+    path: 'step-one',
     component: StepOneComponent,
-    children: [
-      { path: '', redirectTo: 'step-one' },
-      { path: 'step-one', component: StepOneComponent,
-        data: {
-          heading: 'Step one',
-          controls: [{
-            name: 'Step two',
-            path: 'step-two',
-            type: 'next'
-          }]
-        }
-      },
-      { path: 'step-two', component: StepTwoComponent,
-        data: {
-          heading: 'Step two',
-          controls: [{
-            name: 'Step one',
-            path: 'step-one',
-            type: 'prev'
-          }, {
-            name: 'Save',
-            path: 'step-completed',
-            type: 'save'
-          }]
-        }
-      }],
-  },
+    data: {
+      heading: 'Step one',
+      controls: [{
+        name: 'Step two',
+        path: 'step-two',
+        type: 'next'
+      }]
+    }
+  }, {
+    path: 'step-two',
+    component: StepTwoComponent,
+    data: {
+      heading: 'Step two',
+      controls: [{
+        name: 'Step one',
+        path: 'step-one',
+        type: 'prev'
+      }, {
+        name: 'Save',
+        path: 'step-completed',
+        type: 'save'
+      }]
+    },
+  }, {
+    path: '**',
+    redirectTo: 'step-one',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

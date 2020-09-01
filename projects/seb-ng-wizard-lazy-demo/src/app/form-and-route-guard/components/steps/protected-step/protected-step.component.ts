@@ -388,45 +388,46 @@ import { ProtectedStepComponent } from './components/steps/protected-step/protec
 import { ReactiveFormComponent } from './components/steps/reactive-form/reactive-form.component';
 import { FormAndRouteGuardComponent } from './form-and-route-guard.component';
 
-const routes: WizardSteps = [
-  {
-    path: '',
-    component: FormAndRouteGuardComponent,
-    children: [
-      { path: '', redirectTo: 'form-step' },
-      { path: 'form-step', component: ReactiveFormComponent,
-        data: {
-          heading: 'Protecting steps',
-          controls: [{
-            name: 'Save form',
-            type: 'save'
-          }, {
-            name: 'Reset form',
-            class: 'btn-outline-danger',
-            type: 'cancel'
-          }, {
-            name: 'Next',
-            path: 'protected-step',
-            type: 'next'
-          }],
-          secondaryContent: {
-            component: ProtectedStepInfoComponent
-          }
-        }
-      },
-      { path: 'protected-step', component: ProtectedStepComponent,
-        data: {
-          heading: 'Protected step',
-          controls: [{
-            name: 'Go back',
-            path: 'form-step',
-            type: 'prev'
-          }]
-        }, canActivate: [StepGuard]
-      },
-      { path: '**', redirectTo: 'form-step', pathMatch: 'full' }],
-  },
-];
+const routes: WizardSteps = [{
+  path: '',
+  redirectTo: 'form-step'
+}, {
+  path: 'form-step',
+  component: ReactiveFormComponent,
+  data: {
+    heading: 'Protecting steps',
+    controls: [{
+      name: 'Save form',
+      type: 'save'
+    }, {
+      name: 'Reset form',
+      class: 'btn-outline-danger',
+      type: 'cancel'
+    }, {
+      name: 'Next',
+      path: 'protected-step',
+      type: 'next'
+    }],
+    secondaryContent: {
+      component: ProtectedStepInfoComponent
+    }
+  }
+}, {
+  path: 'protected-step',
+  component: ProtectedStepComponent,
+  data: {
+    heading: 'Protected step',
+    controls: [{
+      name: 'Go back',
+      path: 'form-step',
+      type: 'prev'
+    }]
+  }, canActivate: [StepGuard]
+}, {
+  path: '**',
+  redirectTo: 'form-step',
+  pathMatch: 'full'
+}];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
