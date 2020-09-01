@@ -100,7 +100,6 @@ export class WizardComponent implements OnInit {
   private matchesRoute(step: WizardStep, url: string): boolean {
     const parentRoute = this.route.parent ? this.route.parent.routeConfig.path + '/' : '';
     const pathCheck = `${parentRoute}${step.path}`;
-    console.log(pathCheck);
 
     if (this.routerOutletName) {
       return url.includes(`(${this.routerOutletName}:${pathCheck})`);
