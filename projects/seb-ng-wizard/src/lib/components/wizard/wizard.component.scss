@@ -1,4 +1,4 @@
-@import '../../../../../../node_modules/@sebgroup/bootstrap/scss/core';
+@import '~@sebgroup/bootstrap/scss/core';
 $navbar-brand-height: 3.5rem;
 $wizard-footer-height: ($btn-padding-y * 2) + $font-size-base * $btn-line-height + ($spacer * 2);
 :host-context > .row {

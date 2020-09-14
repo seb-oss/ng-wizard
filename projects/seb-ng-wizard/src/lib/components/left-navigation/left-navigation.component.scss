@@ -1,4 +1,4 @@
-@import '../../../../../../node_modules/@sebgroup/bootstrap/scss/core';
+@import '~@sebgroup/bootstrap/scss/core';
 $navbar-brand-height: 3.5rem;
 .step-wrapper {
   overflow: hidden;
@@ -12,7 +12,7 @@ nav {
   }
   .toggle-step {
     cursor: pointer;
-    &::before {
+    &::after {
       content: '';
       background: $accordion-icon no-repeat;
       width: 1.5rem;
@@ -23,7 +23,7 @@ nav {
       transform: rotate(0deg);
       transition: transform $transition-slide-in-duration;
     }
-    &.active::before {
+    &.active::after {
       transform: rotate(-180deg);
     }
   }
@@ -40,5 +40,6 @@ nav {
   @include media-breakpoint-up(md) {
     width: 16rem;
     height: calc(100vh - #{$navbar-brand-height});
+    border-right: $border-color $border-width solid;
   }
 }
