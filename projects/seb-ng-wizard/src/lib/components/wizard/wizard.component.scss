@@ -3,12 +3,19 @@ $navbar-brand-height: 3.5rem;
 $wizard-footer-height: ($btn-padding-y * 2) + $font-size-base * $btn-line-height + ($spacer * 2);
 :host-context > .row {
   max-height: calc(100vh - #{$navbar-brand-height});
+  width: 100%;
   margin-top: $navbar-brand-height;
+  @include media-breakpoint-up(md) {
+    margin-top: 0;
+    top: $navbar-brand-height;
+    position: fixed;
+  }
 }
 @include media-breakpoint-up(md) {
-  .temp {
+  .wizard-content-container {
     height: calc(100vh - #{$navbar-brand-height} - #{$wizard-footer-height} - 3px);
-    overflow: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }
 ::ng-deep .wizard-main {
