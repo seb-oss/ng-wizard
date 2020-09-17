@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { WizardSteps } from '@sebgroup/ng-wizard';
 import { BasicComponent } from './basic.component';
+import { StepFinalComponent } from './components/step-final/step-final.component';
 import { StepOneComponent } from './components/step-one/step-one.component';
 import { StepTwoComponent } from './components/step-two/step-two.component';
 
@@ -46,6 +47,31 @@ const routes: WizardSteps = [
               class: 'btn-primary',
               name: 'Save',
               type: 'save',
+            },
+            {
+              class: 'btn-primary',
+              path: 'step-final',
+              type: 'next',
+            },
+          ],
+        },
+      },
+      {
+        path: 'step-final',
+        component: StepFinalComponent,
+        data: {
+          heading: 'Final step',
+          hideNavigation: true,
+          controls: [
+            {
+              name: 'Step two',
+              path: 'step-two',
+              type: 'prev',
+            },
+            {
+              class: 'btn-primary',
+              name: 'Close',
+              type: 'close',
             },
           ],
         },
