@@ -9,8 +9,14 @@
   There are many ways to set up a form in angular, this example uses
   <a href="https://angular.io/api/forms/FormBuilder" target="_blank" class="external">Form Builder</a> and
   <a href="https://angular.io/guide/reactive-forms" target="_blank" class="external">Reactive Forms</a> which provides a
-  model-driven approach for forms. Feel free to use whatever you like and what suits your needs, the complete code with
-  comments for this example can be found <a href="" class="external" target="_parent">here</a>.
+  model-driven approach for forms. Feel free to use whatever you like and whatever suits your needs, the complete code
+  with comments for this example can be found
+  <a
+    href="https://github.com/sebgroup/ng-wizard/tree/master/projects/seb-ng-wizard-lazy-demo/src/app/form-and-route-guard"
+    class="external"
+    target="_parent"
+    >in github</a
+  >.
 </p>
 <ng-container *ngIf="{ isOk: ($stepStatus | async)?.state } as stepStatus">
   <div class="alert alert-danger alert-icon mx-n3 mx-sm-0" *ngIf="!stepStatus.isOk && submitted" tabindex="-1">

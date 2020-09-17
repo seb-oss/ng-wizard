@@ -81,7 +81,7 @@ const routes: WizardSteps = [
           ],
           secondaryContent: {
             component: MoreExamplesComponent,
-            class: 'col-12 col-lg-auto order-0 order-md-1 ml-lg-3',
+            class: 'col-12 col-lg-auto order-last ml-lg-3 mb-3',
             data: {
               heading: 'Want more examples?',
             },
