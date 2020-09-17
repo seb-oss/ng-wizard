@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    
+
     - name: Get branch name
       shell: bash
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF##*/})"
@@ -48,7 +48,7 @@ jobs:
     - name: Get last release
     # if: steps.semantic.outputs.new-release-published !== 'true'
       id: version
-      uses: abatilo/release-info-action@v1.1.0
+      uses: abatilo/release-info-action@v1.3.0
       with:
         owner: sebgroup
         repo: ng-wizard
