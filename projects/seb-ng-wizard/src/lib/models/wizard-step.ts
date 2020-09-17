@@ -8,6 +8,7 @@ export interface WizardStep extends Route {
 
 export interface WizardStepData {
   heading: string; // step heading
+  hideNavigation: boolean;
   controls: WizardControl[];
   secondaryContent?: {
     component: any;
@@ -17,7 +18,7 @@ export interface WizardStepData {
 }
 
 export interface WizardControl {
-  name: string; // label for action
+  name?: string; // label for action
   path?: string; // path where action takes user (optional)
   class?: string; // class to be added to control (optional)
   type: 'next' | 'prev' | 'cancel' | 'save' | 'close'; // type of action (determines icon and can be used for custom triggers)

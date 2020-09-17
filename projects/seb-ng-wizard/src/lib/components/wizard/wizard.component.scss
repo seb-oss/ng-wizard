@@ -16,17 +16,21 @@ $wizard-footer-height: ($btn-padding-y * 2) + $font-size-base * $btn-line-height
     height: calc(100vh - #{$navbar-brand-height} - #{$wizard-footer-height} - 3px);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    transition: all 400ms ease-out;
   }
 }
-::ng-deep .wizard-main {
-  max-width: 768px;
+
+::ng-deep .wiz-left-navigation nav {
+  transition: all 400ms ease-out;
 }
+
 ::ng-deep .wizard-footer {
   @include media-breakpoint-up(md) {
+    transition: all 400ms ease-out;
     position: fixed;
     bottom: 0;
     left: 16rem;
-    width: calc(100vw - 16rem);
+    width: calc(100% - 16rem);
     padding: 1rem;
     border-top: solid $modal-footer-border-color 1px;
     background: $modal-content-bg;
@@ -51,6 +55,23 @@ $wizard-footer-height: ($btn-padding-y * 2) + $font-size-base * $btn-line-height
     }
   }
 }
+
+.nav-hidden {
+  .wizard-content-container {
+    transform: translate3d(-16rem, 0px, 0px);
+  }
+  ::ng-deep .wizard-footer {
+    transform: translate3d(-16rem, 0px, 0px);
+    width: calc(100% + 16rem);
+  }
+  ::ng-deep .wiz-left-navigation nav {
+    transform: translate3d(-16rem, 0, 0);
+  }
+}
+::ng-deep .wizard-main {
+  max-width: 768px;
+}
+
 /*
 
 :host-context {
