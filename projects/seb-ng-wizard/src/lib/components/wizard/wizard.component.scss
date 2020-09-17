@@ -55,17 +55,21 @@ $wizard-footer-height: ($btn-padding-y * 2) + $font-size-base * $btn-line-height
     }
   }
 }
-
 .nav-hidden {
-  .wizard-content-container {
-    transform: translate3d(-16rem, 0px, 0px);
-  }
-  ::ng-deep .wizard-footer {
-    transform: translate3d(-16rem, 0px, 0px);
-    width: calc(100% + 16rem);
-  }
   ::ng-deep .wiz-left-navigation nav {
-    transform: translate3d(-16rem, 0, 0);
+    display: none;
+  }
+  @include media-breakpoint-up(md) {
+    .wizard-content-container {
+      transform: translate3d(-16rem, 0px, 0px);
+    }
+    ::ng-deep .wizard-footer {
+      transform: translate3d(-16rem, 0px, 0px);
+      width: calc(100% + 16rem);
+    }
+    ::ng-deep .wiz-left-navigation nav {
+      transform: translate3d(-16rem, 0, 0);
+    }
   }
 }
 ::ng-deep .wizard-main {
