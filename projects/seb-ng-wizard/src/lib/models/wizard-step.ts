@@ -8,7 +8,7 @@ export interface WizardStep extends Route {
 
 export interface WizardStepData {
   heading: string; // step heading
-  hideNavigation: boolean;
+  hideNavigation?: boolean;
   controls: WizardControl[];
   secondaryContent?: {
     component: any;
