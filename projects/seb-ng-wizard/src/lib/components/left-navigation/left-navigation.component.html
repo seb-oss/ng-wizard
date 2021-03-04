@@ -1,4 +1,4 @@
-<nav class="bg-light py-3 pl-3">
+<nav class="bg-secondary py-3">
   <div
     class="d-md-none toggle-step d-flex justify-content-between"
     [class.active]="showStepNavigation$ | async"
@@ -10,9 +10,9 @@
     </div>
   </div>
   <div class="step-wrapper" @expand *ngIf="(showStepNavigation$ | async) || isDesktop">
-    <ol class="list-group list-group-ordered mt-3">
+    <ol class="list-group list-group-wizard mt-3">
       <li
-        class="list-group-item-action"
+        class="list-group-item"
         *ngFor="let step of steps; index as i"
         [class.list-group-item-success]="isPreviousStep(i)"
         [routerLinkActive]="'active'"

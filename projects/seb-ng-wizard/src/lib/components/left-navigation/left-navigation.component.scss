@@ -2,16 +2,20 @@
 $navbar-brand-height: 3.5rem;
 .step-wrapper {
   overflow: hidden;
+  overflow: visible;
 }
-$wiz-navigation-bg-color: $gray-400;
+$wiz-navigation-bg-color: $gray-300;
+$box-shadow-wizard: 0 0 0.5rem rgba($black, 0.15) !default;
 
 nav {
   .list-group-ordered .list-group-item-action:hover,
   .list-group-ordered .active {
     background: transparent;
   }
+
   .toggle-step {
     cursor: pointer;
+
     &::after {
       content: '';
       background: $accordion-icon no-repeat;
@@ -23,23 +27,131 @@ nav {
       transform: rotate(0deg);
       transition: transform $transition-slide-in-duration;
     }
+
     &.active::after {
       transform: rotate(-180deg);
     }
   }
+
   .list-group-ordered .active {
-    a {
+    > a {
       color: $black;
     }
+
     &::before {
       background: $black;
     }
   }
+
   border-bottom: $border-color $border-width solid;
 
   @include media-breakpoint-up(md) {
     width: 16rem;
     height: calc(100vh - #{$navbar-brand-height});
-    border-right: $border-color $border-width solid;
+    //border-right: $border-color $border-width solid;
+  }
+
+  .list-group-wizard {
+    counter-reset: number;
+    list-style-type: none;
+
+    .list-group-item {
+      padding: 1rem;
+      cursor: pointer;
+
+      & + .list-group-item {
+        border-top: solid 1px transparent;
+      }
+
+      &::before {
+        counter-increment: number;
+        content: counter(number) '\a0';
+        margin-right: 1rem;
+      }
+
+      &:hover {
+        @include box-shadow($box-shadow-wizard);
+        background: #fff;
+      }
+
+      > a {
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 1rem 2rem 1rem 2.5rem;
+        width: 100%;
+        text-decoration: none;
+        font-weight: normal;
+        color: inherit;
+
+        &:focus {
+          //@include box-shadow($box-shadow-wizard);
+          outline: none;
+          @include box-shadow(0px 0px 4px 2px $input-focus-border-color inset);
+          @include box-shadow(0px 0px 4px 2px $input-focus-border-color);
+          z-index: 2;
+          //background: red;
+        }
+      }
+
+      &.active {
+        &::before {
+          background: none;
+          color: inherit;
+        }
+
+        font-weight: 500;
+        color: inherit;
+        background: #fff;
+
+        > a {
+          font-weight: inherit;
+          color: inherit;
+
+          &::before {
+            content: '';
+            display: block;
+            background: black;
+            width: 6px;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+          }
+        }
+      }
+
+      &.list-group-item-success {
+        font-weight: 500;
+        background: $gray-100;
+
+        &:not(.active)::after {
+          content: '';
+          display: inline-block;
+          background-position: center;
+          background-repeat: no-repeat;
+          vertical-align: top;
+          margin-top: 4px;
+          width: 1rem;
+          height: 1rem;
+          position: absolute;
+          right: 1rem;
+          background-image: str-replace(
+            map-get($theme-icons, 'success'),
+            str-replace(#{"fill='" + $icon-fill-color + "'"}, '#', '%23'),
+            str-replace(#{"fill='" + color-yiq($white) + "'"}, '#', '%23')
+          );
+        }
+
+        > a {
+          font-weight: inherit;
+        }
+
+        &:not(:hover) + .list-group-item-success {
+          border-top: solid 1px $gray-200;
+        }
+      }
+    }
   }
 }
