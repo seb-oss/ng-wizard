@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve seb-ng-wizard-lazy-demo --port 4201",
+    "start": "ng serve seb-ng-wizard-lazy-demo --port 4201 --host=0.0.0.0",
     "prebuild": "rimraf dist",
     "build": "ng build seb-ng-wizard",
+    "build:watch": "ng build seb-ng-wizard --watch",
     "prebuild:demo": "rimraf dist/seb-ng-wizard-lazy-demo",
     "build:demo": "ng build seb-ng-wizard-lazy-demo --prod --base-href /ng-wizard/",
     "test": "ng test",
