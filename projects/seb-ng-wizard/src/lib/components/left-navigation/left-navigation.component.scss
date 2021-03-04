@@ -1,4 +1,5 @@
 @import '~@sebgroup/bootstrap/scss/core';
+@import '../wizard/variables.scss';
 $navbar-brand-height: 3.5rem;
 .step-wrapper {
   overflow: hidden;
@@ -46,7 +47,7 @@ nav {
   border-bottom: $border-color $border-width solid;
 
   @include media-breakpoint-up(md) {
-    width: 16rem;
+    width: $left-nav-width;
     height: calc(100vh - #{$navbar-brand-height});
     //border-right: $border-color $border-width solid;
   }
@@ -79,7 +80,7 @@ nav {
         position: absolute;
         top: 0;
         left: 0;
-        padding: 1rem 2rem 1rem 2.5rem;
+        padding: 1rem 2.5rem;
         width: 100%;
         text-decoration: none;
         font-weight: normal;
@@ -125,6 +126,9 @@ nav {
       &.list-group-item-success {
         font-weight: 500;
         background: $gray-100;
+        &.active {
+          background: #fff;
+        }
 
         &:not(.active)::after {
           content: '';
@@ -147,7 +151,6 @@ nav {
         > a {
           font-weight: inherit;
         }
-
         &:not(:hover) + .list-group-item-success {
           border-top: solid 1px $gray-200;
         }

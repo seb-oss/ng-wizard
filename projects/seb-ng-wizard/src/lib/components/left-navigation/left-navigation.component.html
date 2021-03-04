@@ -4,7 +4,7 @@
     [class.active]="showStepNavigation$ | async"
     (click)="toggleStepNavigation()"
   >
-    <div class="toggle-content">
+    <div class="toggle-content pl-3 pl-md-0">
       <h2 class="mb-1" [innerText]="activeStep?.data.heading"></h2>
       <span class="small">{{ getStepInfo() }}</span>
     </div>
