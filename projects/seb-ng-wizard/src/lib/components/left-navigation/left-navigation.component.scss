@@ -51,7 +51,6 @@ nav {
     height: calc(100vh - #{$navbar-brand-height});
     //border-right: $border-color $border-width solid;
   }
-
   .list-group-wizard {
     counter-reset: number;
     list-style-type: none;
@@ -66,8 +65,8 @@ nav {
 
       &::before {
         counter-increment: number;
-        content: counter(number) '\a0';
-        margin-right: 1rem;
+        content: counters(number, '.') '\a0';
+        //margin-right: 1rem;
       }
 
       &:hover,
@@ -137,11 +136,12 @@ nav {
           background-position: center;
           background-repeat: no-repeat;
           vertical-align: top;
-          margin-top: 4px;
+          //margin-top: 4px;
           width: 1rem;
           height: 1rem;
           position: absolute;
           right: 1rem;
+          top: 1.25rem;
           background-image: str-replace(
             map-get($theme-icons, 'success'),
             str-replace(#{"fill='" + $icon-fill-color + "'"}, '#', '%23'),
@@ -155,6 +155,26 @@ nav {
         &:not(:hover) + .list-group-item-success {
           border-top: solid 1px $gray-200;
         }
+      }
+      // nested
+      .list-group-wizard .list-group-item {
+        border-top: solid 1px $gray-200;
+        > a {
+          padding-left: 3.25rem;
+        }
+      }
+    }
+    &.indent {
+      .list-group-wizard .list-group-item {
+        padding-left: 2rem;
+        > a {
+          padding-left: 4.25rem !important;
+        }
+      }
+    }
+    &.no-sub {
+      .list-group-wizard {
+        display: none;
       }
     }
   }

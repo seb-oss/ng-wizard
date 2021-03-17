@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="step-wrapper" @expand *ngIf="(showStepNavigation$ | async) || isDesktop">
-    <ol class="list-group list-group-wizard mt-3">
+    <ol class="list-group list-group-wizard mt-3 indent no-sub">
       <li
         class="list-group-item"
         *ngFor="let step of steps; index as i"
@@ -18,6 +18,17 @@
         [routerLinkActive]="'active'"
       >
         <a [routerLink]="step.path">{{ step.data.heading }}</a>
+        <ol class="list-group list-group-wizard mx-n3 mt-3 mb-n3" *ngIf="i >= 2">
+          <li class="list-group-item list-group-item-success">
+            <a href="#">A sub step</a>
+          </li>
+          <li class="list-group-item list-group-item-success">
+            <a href="#">Another sub step</a>
+          </li>
+          <li class="list-group-item" [class.list-group-item-success]="i < 3">
+            <a href="#">Another long sub step{{ i > 2 ? ' not completed' : '' }}</a>
+          </li>
+        </ol>
       </li>
     </ol>
   </div>
