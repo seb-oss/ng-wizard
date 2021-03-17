@@ -70,7 +70,8 @@ nav {
         margin-right: 1rem;
       }
 
-      &:hover {
+      &:hover,
+      &.active {
         @include box-shadow($box-shadow-wizard);
         background: #fff;
       }
@@ -89,8 +90,8 @@ nav {
         &:focus {
           //@include box-shadow($box-shadow-wizard);
           outline: none;
-          @include box-shadow(0px 0px 4px 2px $input-focus-border-color inset);
-          @include box-shadow(0px 0px 4px 2px $input-focus-border-color);
+          @include box-shadow(0px 0px 4px 1px $input-focus-border-color inset);
+          @include box-shadow(0px 0px 4px 1px $input-focus-border-color);
           z-index: 2;
           //background: red;
         }
@@ -110,7 +111,7 @@ nav {
           font-weight: inherit;
           color: inherit;
 
-          &::before {
+          /*&::before {
             content: '';
             display: block;
             background: black;
@@ -119,7 +120,7 @@ nav {
             left: 0;
             position: absolute;
             top: 0;
-          }
+          }*/
         }
       }
 
