@@ -88,7 +88,8 @@ export class WizardComponent implements OnInit {
     if (this.routerOutletName) {
       return url.includes(`(${this.routerOutletName}:${pathCheck})`);
     }
-    return pathCheck === url || `/${pathCheck}` === url;
+
+    return url.includes(pathCheck);
   }
 
   loadComponent(secondaryContent: any) {

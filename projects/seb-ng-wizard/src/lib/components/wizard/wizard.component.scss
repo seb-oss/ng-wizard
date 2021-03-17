@@ -199,3 +199,11 @@ $wizard-footer-height: ($btn-padding-y * 2) + $font-size-base * $btn-line-height
     max-width: calc(320px - #{$modal-inner-padding * 2});
   }
 }
+/* stylelint-disable selector-type-no-unknown */
+:host.full-width::ng-deep {
+  .wizard-main,
+  .wizard-footer wiz-controls > div {
+    max-width: initial;
+  }
+}
+/* stylelint-enable selector-type-no-unknown */

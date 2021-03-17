@@ -7,7 +7,7 @@
 >
   <ng-content select=".wizard-actions"></ng-content>
 </wiz-top-bar>
-<div class="row no-gutters" [class.nav-hidden]="(activeStep$ | async).data.hideNavigation">
+<div class="row no-gutters" [class.nav-hidden]="(activeStep$ | async)?.data?.hideNavigation">
   <div class="col-12 col-md-auto">
     <wiz-left-navigation
       class="wiz-left-navigation"
@@ -32,7 +32,7 @@
       </div>
     </div>
     <div *ngIf="content.children.length > 0" class="container-fluid">
-      <div class="wizard-footer px-md-4 px-xl-5" [class.nav-hidden]="(activeStep$ | async).data.hideNavigation">
+      <div class="wizard-footer px-md-4 px-xl-5" [class.nav-hidden]="(activeStep$ | async)?.data?.hideNavigation">
         <wiz-controls>
           <ng-content select=".wizard-control-icon"></ng-content>
         </wiz-controls>
