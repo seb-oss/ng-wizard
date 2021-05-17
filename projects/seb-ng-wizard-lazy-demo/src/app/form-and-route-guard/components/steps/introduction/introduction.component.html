@@ -1,0 +1,24 @@
+<p class="lead">
+  Wizards are generally used when we need to gather information that can be divided into steps or when we want guide the
+  user through a process ie. KYC and AML, application for new service etc.
+</p>
+<p>
+  Basic concept for this component built for Angular, involves using a route guard with
+  <a href="https://angular.io/api/router/CanActivate" target="_blank" class="external">CanActivate</a> to prevent
+  navigation to a specific route. In this example we're going to use a simple service to store the form data which in
+  turn will be used by the route guard to determine if navigation is allowed or not. We're also going to implement form
+  validation to make sure the information we enter is valid before storing it in our service.
+</p>
+<p>
+  There are many ways to set up a form in angular, this example uses
+  <a href="https://angular.io/api/forms/FormBuilder" target="_blank" class="external">Form Builder</a> and
+  <a href="https://angular.io/guide/reactive-forms" target="_blank" class="external">Reactive Forms</a> which provides a
+  model-driven approach for forms. Feel free to use whatever you like and whatever suits your needs, the complete code
+  with comments for this example can be found
+  <a
+    href="https://github.com/sebgroup/ng-wizard/tree/master/projects/seb-ng-wizard-lazy-demo/src/app/form-and-route-guard"
+    class="external"
+    target="_parent"
+    >in github</a
+  >.
+</p>

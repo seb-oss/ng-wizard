@@ -1,11 +1,20 @@
 import { Component } from '@angular/core';
+import { WizardStepData, WizardStepsService } from '@sebgroup/ng-wizard';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { WizardControlService } from '../../../../seb-ng-wizard/src/lib/services/wizard-control.service';
+import { StepService } from './services/step.service';
 
 @Component({
   selector: 'app-form-and-route-guard',
   templateUrl: './form-and-route-guard.component.html',
+  providers: [StepService],
 })
 export class FormAndRouteGuardComponent {
+  /*get state(): BehaviorSubject<any> {
+    return this.stepService.$steps
+
+  }*/
+
   constructor(private controls: WizardControlService) {}
 
   /**

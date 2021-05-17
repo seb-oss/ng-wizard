@@ -1,0 +1,46 @@
+<ng-container *ngIf="{ isOk: ($stepStatus | async)?.state } as stepStatus">
+  <div class="alert alert-danger alert-icon mx-n3 mx-sm-0" *ngIf="!stepStatus.isOk && submitted" tabindex="-1">
+    <ng-container *ngIf="accountDetailsForm.invalid || accountDetailsForm.pending"
+      >The form contains error, you need to correct them before proceeding.</ng-container
+    >
+    <ng-container *ngIf="accountDetailsForm.valid"
+      >You need to save the information before continuing to the next step.</ng-container
+    >
+  </div>
+  <div
+    class="alert alert-success alert-icon mx-n3 mx-sm-0"
+    *ngIf="stepStatus.isOk && submitted && accountDetailsForm.valid"
+  >
+    <ng-container *ngIf="accountDetailsForm.valid">You're profile was successfully saved!</ng-container>
+  </div>
+</ng-container>
+<form [formGroup]="accountDetailsForm" (ngSubmit)="save()">
+  <div class="form-row">
+    <div class="form-group col-12 col-sm-auto">
+      <label class="col-form-label">Type of account</label>
+      <div
+        [ngClass]="{ 'border rounded px-3 pt-3': accountDetailsForm && submitted }"
+        [class.border-danger]="accountDetailsForm.invalid && submitted"
+        [class.border-success]="accountDetailsForm.valid && submitted"
+        [class.mb-3]="accountDetailsForm.valid && submitted"
+      >
+        <div class="form-group" *ngFor="let radioButton of accountTypes; let i = index">
+          <div class="custom-control custom-radio">
+            <input
+              type="radio"
+              class="custom-control-input"
+              [attr.id]="'accountTypeOption_' + i"
+              [value]="radioButton.name"
+              formControlName="accountType"
+            />
+            <label class="custom-control-label" [for]="'accountTypeOption_' + i">{{ radioButton.name }}</label>
+          </div>
+        </div>
+      </div>
+      <p *ngIf="submitted && accountDetailsForm.invalid" class="small text-danger mt-1">
+        Error text
+      </p>
+    </div>
+  </div>
+</form>
+<router-outlet></router-outlet>
