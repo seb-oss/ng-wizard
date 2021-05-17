@@ -1,9 +1,10 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, HostListener, Inject, Input, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
-import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, merge, Observable, Subject } from 'rxjs';
 import { filter, map, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
-import { WizardStep, WizardSteps } from '../../models/wizard-step';
+import { SebNgWizardConfigService, WizardTranslations } from '../../seb-ng-wizard.module';
+import { WizardStepsService } from '../../services/wizard-steps.service';
 
 @Component({
   selector: 'wiz-left-navigation',
@@ -20,6 +21,10 @@ import { WizardStep, WizardSteps } from '../../models/wizard-step';
   styleUrls: ['./left-navigation.component.scss'],
 })
 export class LeftNavigationComponent implements OnInit {
+  activeStep$ = this.wizardStepService.activeStep$;
+
+  steps$ = this.wizardStepService.steps$.pipe(map(obj => Object.values(obj)));
+
   get isDesktop(): boolean {
     return this._isDesktop;
   }
@@ -29,17 +34,11 @@ export class LeftNavigationComponent implements OnInit {
   }
 
   @Input()
-  steps: WizardSteps;
-
-  @Input()
-  activeStep: WizardStep;
-
-  @Input()
   lang = 'sv';
 
-  @Output()
-  navigate: EventEmitter<WizardStep> = new EventEmitter();
-
+  public stepDescription$ = combineLatest([this.steps$, this.activeStep$]).pipe(
+    map(([steps, activeStep]) => `Step ${Math.floor(activeStep.data.number)} of ${steps.length}`),
+  );
   private _isDesktop: boolean;
   private _toggleNavigationTrigger$: Subject<boolean> = new Subject();
   private _showStepNavigation$: BehaviorSubject<boolean> = new BehaviorSubject(true);
@@ -61,27 +60,15 @@ export class LeftNavigationComponent implements OnInit {
     this._isDesktop = event.target.innerWidth >= 768;
   }
 
-  get activeStepNumber(): number {
-    try {
-      return 1 + this.steps.findIndex(step => step.path === this.activeStep.path);
-    } catch (e) {
-      return 0;
-    }
-  }
-  constructor(private router: Router) {}
-
-  isPreviousStep(stepNumber: number) {
-    return stepNumber < this.activeStepNumber;
-  }
+  constructor(
+    @Inject(SebNgWizardConfigService) public config,
+    public translations: WizardTranslations,
+    private router: Router,
+    public wizardStepService: WizardStepsService,
+  ) {}
 
   toggleStepNavigation() {
     this._toggleNavigationTrigger$.next(!this._showStepNavigation$.getValue());
-  }
-
-  getStepInfo() {
-    return `${this.lang === 'sv' ? 'Steg' : 'Step'} ${this.activeStepNumber} ${this.lang === 'sv' ? 'av' : 'of'} ${
-      this.steps.length
-    }`;
   }
 
   ngOnInit(): void {
