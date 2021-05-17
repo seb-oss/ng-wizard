@@ -21,6 +21,7 @@
           [ngClass]="control.class || (control.type !== 'next' ? 'btn-outline-primary' : 'btn-primary')"
           [routerLink]="control.path"
           routerLinkActive="disabled"
+          queryParamsHandling="merge"
           (click)="emitControlEvent($event, control)"
           [title]="control.name"
         >
