@@ -1,0 +1,13 @@
+<wiz-wizard title="SEB ng-wizard: Protecting steps">
+  <!-- wizard-actions can be used to add controls to header -->
+  <div class="wizard-actions">
+    <ng-container *transloco="let t">
+      <button class="btn btn-secondary d-flex justify-content-between" (click)="toggleLang()">
+        {{ t('language') }}
+      </button>
+    </ng-container>
+  </div>
+  <div class="wizard-main col-12 col-lg order-1 order-md-0 mr-lg-3">
+    <router-outlet></router-outlet>
+  </div>
+</wiz-wizard>
