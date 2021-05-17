@@ -1,0 +1,44 @@
+<p class="lead">
+  Use the status property of a step to highlight and clarify wizard progress - completed steps, errors etc.
+</p>
+<p>
+  By default steps will be marked as finished or complete when you've passed them. If you want to handle step states
+  manually it's possible to do so using the <code>markPassedAsSuccess</code> config option. It's also possible to set
+  other states using the <code>setState</code> method.
+</p>
+<h3>Set state for active step</h3>
+<p>Set state for active step using the <code>setState</code> method.</p>
+<div class="form-row mb-3">
+  <div class="col-12 col-sm-auto mb-3" *ngFor="let state of states">
+    <button class="btn btn-outline-primary w-100" (click)="setState(state)">
+      {{ state ? 'Set ' + state : 'Clear' }} state
+    </button>
+  </div>
+</div>
+<h3>Set state for step based on route path</h3>
+<p>Set state of any step by passing the route path to the <code>setState</code> method.</p>
+<div class="row">
+  <div class="col-12 col-sm-auto">
+    <div class="form-group">
+      <label for="pathInput">Route path</label>
+      <input
+        disabled
+        type="text"
+        class="form-control"
+        id="pathInput"
+        aria-describedby="pathHelp"
+        placeholder="Enter route path"
+      />
+      <small id="pathHelp" class="form-text text-muted"
+        >Enter valid route path for step you wish to update state for.</small
+      >
+    </div>
+  </div>
+</div>
+<div class="form-row">
+  <div class="col-12 col-sm-auto mb-3" *ngFor="let state of states">
+    <button class="btn btn-outline-primary w-100" (click)="setIntroState(state)">
+      {{ state ? 'Set ' + state : 'Clear' }} state
+    </button>
+  </div>
+</div>

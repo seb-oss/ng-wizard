@@ -12,6 +12,6 @@ export class MoreExamplesComponent implements OnInit, OnDestroy, SecondaryConten
   ngOnInit() {}
 
   ngOnDestroy(): void {
-    console.log('DESTROY!');
+    // console.log('DESTROY!');
   }
 }

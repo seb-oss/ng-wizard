@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-examples',
-  templateUrl: './examples.component.html',
+  template: '<router-outlet></router-outlet>',
 })
-export class ExamplesComponent implements OnInit {
+export class ExamplesWrapperComponent implements OnInit {
   examples = [
     {
       title: 'Basic example',
@@ -24,8 +24,9 @@ export class ExamplesComponent implements OnInit {
     },
     {
       title: 'With language and translations',
-      description: 'Coming soon...',
-      path: '',
+      description:
+        'Use the wizard with different languages and pass translations. This example uses transloco but you could use any library or custom setup as long as it can return translations as key value pairs.',
+      path: '/language',
     },
   ];
   constructor() {}

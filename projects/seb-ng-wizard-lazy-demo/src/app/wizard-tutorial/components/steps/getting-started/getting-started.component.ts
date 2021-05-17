@@ -6,19 +6,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GettingStartedComponent implements OnInit {
   importModule = `// app.module.ts
-import { SebNgWizardModule } from '@sebgroup/ng-wizard'; // <-- Add this line
+import { SebNgWizardModule, WizardStepsService } from '@sebgroup/ng-wizard'; // <-- Add this line
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';  // <-- Add this line to get animations
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';  // <-- Add this line to use correct icons
-
-
 
 @NgModule({
   imports: [
     AppRoutingModule, // holds wizard steps as routes
     BrowserAnimationsModule, // <-- Add this line to get animations
-    SebNgWizardModule,  // <-- Add this line
+    SebNgWizardModule.forRoot(),  // <-- Add wizard (pass optional config)
     FontAwesomeModule //  <-- Add this line to get correct icons
   ],
+  providers: [WizardStepsService] // <-- Add wizard steps service
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {
@@ -53,8 +52,6 @@ const routes: WizardSteps = [
     data: {
       heading: 'Step one',
       controls: [{
-        name: 'Step two',
-        path: 'step-two',
         type: 'next'
       }]
     }
@@ -64,8 +61,6 @@ const routes: WizardSteps = [
     data: {
       heading: 'Step two',
       controls: [{
-        name: 'Step one',
-        path: 'step-one',
         type: 'prev'
       }, {
         name: 'Save',

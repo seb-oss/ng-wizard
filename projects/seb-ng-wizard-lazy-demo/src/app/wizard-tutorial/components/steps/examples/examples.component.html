@@ -1,5 +1,6 @@
-<div class="pb-4" *ngFor="let example of examples">
+<!--<div class="pb-4" *ngFor="let example of examples">
   <h3>{{ example.title }}</h3>
   <p class="mb-1">{{ example.description }}</p>
   <a *ngIf="example.path" [routerLink]="example.path" target="_blank" class="external">Show example</a>
-</div>
+</div>-->
+<router-outlet></router-outlet>
