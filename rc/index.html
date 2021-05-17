@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>@sebroup/ng-wizard</title>
+    <base href="/ng-wizard/rc/">    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <script>
+      (function() {
+        const redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect != location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      })();
+    </script>
+  <link rel="stylesheet" href="styles.6e98b9e09612ff7539a1.css"></head>
+  <body>
+    <app-root></app-root>
+  <script src="runtime-es2015.8ba0ff984233355e04b9.js" type="module"></script><script src="runtime-es5.8ba0ff984233355e04b9.js" nomodule defer></script><script src="polyfills-es5.f174c169312dd8cc4f0b.js" nomodule defer></script><script src="polyfills-es2015.80106084704d81157aec.js" type="module"></script><script src="scripts.64847f061b5ce2c1450c.js" defer></script><script src="main-es2015.de4c0e8979cb2170a76a.js" type="module"></script><script src="main-es5.de4c0e8979cb2170a76a.js" nomodule defer></script></body>
+</html>
