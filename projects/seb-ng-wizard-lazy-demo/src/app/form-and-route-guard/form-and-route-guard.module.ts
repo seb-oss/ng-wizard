@@ -9,6 +9,7 @@ import { ConfirmationComponent } from './components/steps/confirmation/confirmat
 import { IntroductionComponent } from './components/steps/introduction/introduction.component';
 import { PersonalDetailsComponent } from './components/steps/personal-details/personal-details.component';
 import { ProtectedStepComponent } from './components/steps/protected-step/protected-step.component';
+import { ReactiveFormComponent } from './components/steps/reactive-form/reactive-form.component';
 import { FormAndRouteGuardRoutingModule } from './form-and-route-guard-routing.module';
 import { FormAndRouteGuardComponent } from './form-and-route-guard.component';
 import { StepGuard } from './guards/step.guard';
@@ -24,6 +25,7 @@ import { StepService } from './services/step.service';
     ConfirmationComponent,
     IntroductionComponent,
     KycComponent,
+    ReactiveFormComponent,
   ],
   imports: [CommonModule, SharedModule, SebNgWizardModule.forRoot(), FormAndRouteGuardRoutingModule],
   entryComponents: [ProtectedStepInfoComponent],
