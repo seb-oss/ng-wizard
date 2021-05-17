@@ -1,27 +1,30 @@
-<wiz-top-bar
-  [title]="title"
-  [hideClose]="hideCloseButton"
-  [progress]="progress$ | async"
-  [lang]="lang"
-  (close)="close.next($event)"
->
+<wiz-top-bar [title]="title" [hideClose]="hideCloseButton" [lang]="lang" (close)="close.next($event)">
   <ng-content select=".wizard-actions"></ng-content>
 </wiz-top-bar>
 <div class="row no-gutters" [class.nav-hidden]="(activeStep$ | async)?.data?.hideNavigation">
   <div class="col-12 col-md-auto">
-    <wiz-left-navigation
-      class="wiz-left-navigation"
-      [activeStep]="activeStep$ | async"
-      [steps]="steps"
-      [lang]="lang"
-    ></wiz-left-navigation>
+    <wiz-left-navigation class="wiz-left-navigation" [lang]="lang"></wiz-left-navigation>
   </div>
   <div class="col-12 col-md bg-white">
     <div class="container-fluid p-3 p-md-4 px-xl-5 bg-white wizard-content-container">
-      <h1 class="d-none d-md-block" [innerText]="(activeStep$ | async)?.data.heading || ''"></h1>
+      <ng-container *ngIf="translations.translations$ | async as t">
+        <h2
+          *ngIf="(activeStep$ | async)?.data.pageHeading"
+          class="h5 font-weight-normal"
+          [innerText]="t[(activeStep$ | async)?.data.heading] || (activeStep$ | async)?.data.heading || ''"
+        ></h2>
+        <h3
+          class="h2"
+          [innerText]="
+            t[(activeStep$ | async)?.data.pageHeading] ||
+            (activeStep$ | async)?.data.pageHeading ||
+            (activeStep$ | async)?.data.heading ||
+            ''
+          "
+        ></h3>
+      </ng-container>
       <div class="row no-gutters" #content>
         <ng-content select=".wizard-main"></ng-content>
-        <!--<ng-content select=".wizard-right-content"></ng-content>-->
         <div
           *ngIf="(activeStep$ | async)?.data?.secondaryContent as secondaryContent"
           class="wizard-secondary-content"
