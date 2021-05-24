@@ -1,0 +1,68 @@
+<p class="lead">Wizard steps extends angular Routes and relies on the data property of the route.</p>
+<h4>Step data options</h4>
+<p>The list below describes the different properties you can declare for your step/route in the data object.</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>heading</code></td>
+      <td>string</td>
+      <td>
+        Heading/text for link to step in navigation and as a category/label heading in each step. If no page header is
+        defined the heading will be used as page heading too.
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><code>pageHeading</code></td>
+      <td>string</td>
+      <td>Page heading for step. If no page heading is defined the wizard will fall back to heading instead.</td>
+      <td><strong>(Optional)</strong></td>
+    </tr>
+    <tr>
+      <td><code>controls</code></td>
+      <td><code>WizardControl[]</code></td>
+      <td>
+        Add controls/actions in footer of the step, if no controls are declared, controls for previous and next will be
+        added by default. For more info see
+        <a routerLink="/wizard/options-and-configuration/step-controls">Step controls</a>.
+      </td>
+      <td><strong>(Optional)</strong></td>
+    </tr>
+    <tr>
+      <td><code>state</code></td>
+      <td><code>'success' | 'warning' | 'danger' | 'info'</code></td>
+      <td>
+        Set state for a step (adds icon and highlights state in navigation). For more info see
+        <a routerLink="/step-states">Step states</a>.
+      </td>
+      <td><strong>(Optional)</strong></td>
+    </tr>
+    <tr>
+      <td><code>secondaryContent</code></td>
+      <td><code>SecondaryContent</code></td>
+      <td>
+        Add secondary content to step. For more info see
+        <a routerLink="/wizard/options-and-configuration/step-controls">Secondary content</a>.
+      </td>
+      <td><strong>(Optional)</strong></td>
+    </tr>
+    <tr>
+      <td><code>subSteps</code></td>
+      <td><code>string[]</code></td>
+      <td>
+        List of sub steps available for step. Declare sub steps as children to route to let angular know that the route
+        is available. Add the path to <code>subSteps</code> to add it to the wizard navigation. For more info see
+        <a routerLink="/sub-steps">Sub steps</a>.
+      </td>
+      <td><strong>(Optional)</strong></td>
+    </tr>
+  </tbody>
+</table>

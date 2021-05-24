@@ -1,21 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { WizardSteps } from '@sebgroup/ng-wizard';
+import { WizardStep } from '@sebgroup/ng-wizard';
 import { MoreExamplesComponent } from './components/secondary-content/more-examples/more-examples.component';
 import { ExamplesWrapperComponent } from './components/steps/examples/examples.component';
 import { ExamplesComponent } from './components/steps/examples/sub-steps/examples/examples.component';
 import { LanguageComponent } from './components/steps/examples/sub-steps/language/language.component';
 import { PreventNavigationComponent } from './components/steps/examples/sub-steps/prevent-navigation/prevent-navigation.component';
+import { AdditionalContentComponent } from './components/steps/examples/sub-steps/secondary-content/additional-content/additional-content.component';
 import { SecondaryContentComponent } from './components/steps/examples/sub-steps/secondary-content/secondary-content.component';
 import { StepStatesComponent } from './components/steps/examples/sub-steps/step-states/step-states.component';
 import { SubStepsComponent } from './components/steps/examples/sub-steps/sub-steps/sub-steps.component';
 import { GettingStartedComponent } from './components/steps/getting-started/getting-started.component';
+import { AddComponentComponent } from './components/steps/getting-started/sub-steps/add-component/add-component.component';
+import { AddStepsComponent } from './components/steps/getting-started/sub-steps/add-steps/add-steps.component';
+import { GettingStartedComponent as Index } from './components/steps/getting-started/sub-steps/getting-started/getting-started.component';
+import { ImportModuleComponent } from './components/steps/getting-started/sub-steps/import-module/import-module.component';
 import { IntroductionComponent } from './components/steps/introduction/introduction.component';
 import { OptionsComponent } from './components/steps/options/options.component';
+import { OptionsAndConfigurationComponent } from './components/steps/options/sub-steps/options-and-configuration/options-and-configuration.component';
+import { StepConfigurationComponent } from './components/steps/options/sub-steps/step-configuration/step-configuration.component';
+import { StepControlsComponent } from './components/steps/options/sub-steps/step-controls/step-controls.component';
 
 import { WizardTutorialComponent } from './wizard-tutorial.component';
 
-const routes: WizardSteps = [
+const routes: WizardStep[] = [
   {
     path: '',
     component: WizardTutorialComponent,
@@ -26,12 +34,6 @@ const routes: WizardSteps = [
         component: IntroductionComponent,
         data: {
           heading: 'Introduction',
-          controls: [
-            {
-              name: 'Get started',
-              type: 'next',
-            },
-          ],
         },
       },
       {
@@ -40,17 +42,42 @@ const routes: WizardSteps = [
         data: {
           heading: 'Get started',
           pageHeading: 'Install, setup and use the wizard',
-          controls: [
-            {
-              name: 'Introduction',
-              type: 'prev',
-            },
-            {
-              name: 'Options and configuration',
-              type: 'next',
-            },
-          ],
+          subSteps: ['import-module', 'add-component', 'add-steps'],
         },
+        children: [
+          {
+            path: '',
+            component: Index,
+            data: {
+              heading: 'Import module',
+              pageHeading: 'Import and configure wizard module',
+            },
+          },
+          {
+            path: 'import-module',
+            component: ImportModuleComponent,
+            data: {
+              heading: 'Import module',
+              pageHeading: 'Import and configure wizard module',
+            },
+          },
+          {
+            path: 'add-component',
+            component: AddComponentComponent,
+            data: {
+              heading: 'Add component',
+              pageHeading: 'Add and configure wizard component',
+            },
+          },
+          {
+            path: 'add-steps',
+            component: AddStepsComponent,
+            data: {
+              heading: 'Add steps',
+              pageHeading: 'Add and configure wizard steps',
+            },
+          },
+        ],
       },
       {
         path: 'options-and-configuration',
@@ -58,17 +85,34 @@ const routes: WizardSteps = [
         data: {
           heading: 'Options and configuration',
           pageHeading: 'Customize the wizard',
-          controls: [
-            {
-              name: 'Get started',
-              type: 'prev',
-            },
-            {
-              name: 'Examples',
-              type: 'next',
-            },
-          ],
+          subSteps: ['step-configuration', 'step-controls'],
         },
+        children: [
+          {
+            path: '',
+            component: OptionsAndConfigurationComponent,
+            data: {
+              heading: 'Options and configuration',
+              pageHeading: 'Customize and configure the wizard',
+            },
+          },
+          {
+            path: 'step-configuration',
+            component: StepConfigurationComponent,
+            data: {
+              heading: 'Step configuration',
+              pageHeading: 'Setup and configure steps',
+            },
+          },
+          {
+            path: 'step-controls',
+            component: StepControlsComponent,
+            data: {
+              heading: 'Step controls',
+              pageHeading: 'Customize step controls in footer',
+            },
+          },
+        ],
       },
       {
         path: 'examples',
@@ -76,18 +120,6 @@ const routes: WizardSteps = [
         data: {
           heading: 'Examples',
           pageHeading: 'How to use the wizard',
-          controls: [
-            {
-              name: 'Options and configuration',
-              path: 'options-and-configuration',
-              type: 'prev',
-            },
-            {
-              name: 'Options and configuration',
-              path: 'examples/step-states',
-              type: 'next',
-            },
-          ],
           subSteps: ['step-states', 'secondary-content', 'prevent-navigation', 'language', 'sub-steps'],
           secondaryContent: {
             component: MoreExamplesComponent,
@@ -109,16 +141,6 @@ const routes: WizardSteps = [
               pageHeading: 'Set a state for a step',
               state: 'info',
               heading: 'Step states',
-              controls: [
-                {
-                  path: 'examples',
-                  type: 'prev',
-                },
-                {
-                  path: 'examples/secondary-content',
-                  type: 'next',
-                },
-              ],
             },
           },
           {
@@ -127,16 +149,13 @@ const routes: WizardSteps = [
             data: {
               pageHeading: 'Add additional content',
               heading: 'Secondary content',
-              controls: [
-                {
-                  path: 'examples/step-states',
-                  type: 'prev',
+              secondaryContent: {
+                component: AdditionalContentComponent,
+                class: 'col-12 col-lg-auto order-last ml-lg-3 mb-3',
+                data: {
+                  heading: 'Alert box',
                 },
-                {
-                  path: 'examples/prevent-navigation',
-                  type: 'next',
-                },
-              ],
+              },
             },
           },
           {
@@ -145,16 +164,6 @@ const routes: WizardSteps = [
             data: {
               heading: 'Prevent navigation',
               pageHeading: 'Use route guards to prevent navigation',
-              controls: [
-                {
-                  path: 'examples/secondary-content',
-                  type: 'prev',
-                },
-                {
-                  path: 'examples/language',
-                  type: 'next',
-                },
-              ],
             },
           },
           {
@@ -163,16 +172,6 @@ const routes: WizardSteps = [
             data: {
               heading: 'Language',
               pageHeading: 'Support different languages and translations',
-              controls: [
-                {
-                  path: 'examples/prevent-navigation',
-                  type: 'prev',
-                },
-                {
-                  path: 'examples/sub-steps',
-                  type: 'next',
-                },
-              ],
             },
           },
           {
@@ -181,12 +180,6 @@ const routes: WizardSteps = [
             data: {
               heading: 'Sub steps',
               pageHeading: 'Use sub steps when you need to drill down',
-              controls: [
-                {
-                  path: 'examples/language',
-                  type: 'prev',
-                },
-              ],
             },
           },
         ],

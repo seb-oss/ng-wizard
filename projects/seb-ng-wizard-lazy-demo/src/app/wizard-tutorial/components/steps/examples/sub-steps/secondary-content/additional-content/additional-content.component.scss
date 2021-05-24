@@ -1,0 +1,16 @@
+@import '~@sebgroup/bootstrap/scss/core';
+
+svg {
+  margin: 0 auto;
+  transform: rotate(-90deg);
+  background: $red;
+  border-radius: 50%;
+  display: block;
+}
+circle {
+  fill: $red;
+  stroke: $blue;
+  stroke-width: 50;
+  stroke-dasharray: 0 158;
+  transition: stroke-dasharray 0.3s ease;
+}

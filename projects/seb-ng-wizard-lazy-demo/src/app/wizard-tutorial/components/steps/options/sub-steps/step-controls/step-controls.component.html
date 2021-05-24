@@ -1,0 +1,54 @@
+<p class="lead">Add an array of controls to the data object of the step to add them in the footer.</p>
+<p>The wizard will try to be smart when laying out the controls/buttons in the footer,</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>type</code></td>
+      <td><code>'next' | 'prev' | 'cancel' | 'save' | 'close'</code></td>
+      <td>
+        Type of control. Both <code>next</code> and <code>prev</code> will add icons and by default as well as try to
+        navigate to next/previous step if no path is passed.
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><code>text</code></td>
+      <td>string</td>
+      <td>
+        Text that will be added to the control. Use a unique key instead if you want to use translations, see
+        <a routerLink="">language example</a> for more info.
+      </td>
+      <td><strong>(Optional)</strong></td>
+    </tr>
+    <tr>
+      <td><code>title</code></td>
+      <td>string</td>
+      <td>
+        Title that will be added to control (useful for screen readers etc.) if no title is added the text will be used
+        instead. Use a unique key if you want to use translations, see <a routerLink="">language example</a> for more
+        info.
+      </td>
+      <td><strong>(Optional)</strong></td>
+    </tr>
+    <tr>
+      <td><code>path</code></td>
+      <td>string</td>
+      <td>Add a path to the control which will be used a path for the router link.</td>
+      <td><strong>(Optional)</strong></td>
+    </tr>
+    <tr>
+      <td><code>class</code></td>
+      <td>string</td>
+      <td>Add a custom class to the control/button.</td>
+      <td><strong>(Optional)</strong></td>
+    </tr>
+  </tbody>
+</table>

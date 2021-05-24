@@ -1,1 +1,15 @@
-Coming soon
+<p class="lead">Currently the wizard supports main and secondary content. This example shows how to add the latter.</p>
+<p>
+  It's possible to add any content as secondary content, just create a component with the content you want to add and
+  extend it using the <code>SecondaryContentComponent</code> class. Once you've done that it's just a matter of hooking
+  it up with your step and optionally pass some data to it.
+</p>
+
+<h4>Create a component for secondary content</h4>
+<p>We're creating a component called additional content which contains a content box and a moc chart.</p>
+<div markdown [data]="additionalContentTs | language: 'typescript'" class="ml-n5 mr-n3 mx-sm-0 mb-4"></div>
+<div markdown [data]="additionalContentHtml | language: 'markup'" class="ml-n5 mr-n3 mx-sm-0 mb-4"></div>
+
+<h4>Add it to the step configuration</h4>
+<p>We're adding it to this step we're currently on.</p>
+<div markdown [data]="stepConfig | language: 'typescript'" class="ml-n5 mr-n3 mx-sm-0 mb-4"></div>
