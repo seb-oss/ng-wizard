@@ -9,6 +9,7 @@ export interface WizardStepConfigs {
 export interface WizardStepConfig {
   data: WizardStepData;
   path: string;
+  fullPath?: string;
   children?: {
     [key: string]: WizardStepConfig;
   };
@@ -23,7 +24,7 @@ export interface WizardStepData {
   heading: string; // step heading
   pageHeading?: string; // step heading
   hideNavigation?: boolean;
-  controls: WizardControl[];
+  controls?: WizardControl[];
   state?: 'success' | 'warning' | 'danger' | 'info';
   secondaryContent?: {
     component: any;

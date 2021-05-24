@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { BehaviorSubject, merge, Observable } from 'rxjs';
-import { filter, map, shareReplay } from 'rxjs/operators';
-import { WizardStepConfig, WizardStepConfigs } from '../models/wizard-step';
+import { filter, map, shareReplay, withLatestFrom } from 'rxjs/operators';
+import { WizardControls, WizardStepConfig, WizardStepConfigs } from '../models/wizard-step';
 /** Wizard Steps
  * Multiton service (one instance per wizard component) to keep track of step state and do runtime updates do step configuration
  * */
@@ -20,7 +20,6 @@ export class WizardSteps {
   get steps(): WizardStepConfigs {
     return this._steps$.getValue();
   }
-  private _steps$: BehaviorSubject<WizardStepConfigs | {}> = new BehaviorSubject({});
 
   constructor(private router: Router) {
     // get current route from snapshot
@@ -45,23 +44,30 @@ export class WizardSteps {
         // create config object for route children
         const routeChildren = currentValue.children
           ? currentValue.children.reduce((previousRouteConfig, currentRouteConfig, i) => {
+              let childData = { ...currentRouteConfig.data };
+              // add default controls for prev and next if no controls are defined
+              if (!childData.controls) {
+                const controls: WizardControls = [{ type: 'prev' }, { type: 'next' }];
+                childData = { ...childData, controls };
+              }
               return {
                 ...previousRouteConfig,
                 [currentRouteConfig.path]: {
-                  data: { ...currentRouteConfig.data, number: index + 1 + i / 10 },
+                  data: { ...childData, number: index + 1 + i / 10 },
                   path: currentRouteConfig.path,
+                  fullPath: `${currentValue.path}/${currentRouteConfig.path}`,
                 },
               };
             }, {})
           : false;
 
         // create unique id for config based on route path, ie. id will be the same unless route path changes
-        const id = this.stepGuid(
+        const id = this._stepGuid(
           initialStepPath.substring(0, initialStepPath.lastIndexOf('/') + 1) + currentValue.path,
         );
 
         // create step config
-        let step: WizardStepConfigs = {
+        let step: WizardStepConfig = {
           data: {
             ...currentValue.data,
             number: index + 1,
@@ -69,6 +75,17 @@ export class WizardSteps {
           path: currentValue.path,
         };
 
+        // add default controls for prev and next if no controls are defined
+        if (!step.data.controls) {
+          const controls: WizardControls = [{ type: 'prev' }, { type: 'next' }];
+          step = {
+            ...step,
+            data: {
+              ...step.data,
+              controls,
+            },
+          };
+        }
         // if step contains children (sub steps)...
         if (routeChildren) {
           // ...add them
@@ -82,6 +99,7 @@ export class WizardSteps {
       }, {}),
     );
   }
+  private _steps$: BehaviorSubject<WizardStepConfigs | {}> = new BehaviorSubject({});
 
   activeStep$: Observable<WizardStepConfig> = merge(
     this.router.events.pipe(
@@ -93,8 +111,33 @@ export class WizardSteps {
     this.steps$.pipe(map(_ => this.getStepByUrl(this.router.routerState.snapshot.url))),
   ).pipe(shareReplay(1));
 
+  private _stepsInOrder$ = this.steps$.pipe(
+    map(configs =>
+      Object.values(configs)
+        .reduce((previousValue, currentValue) => {
+          let order = [
+            {
+              order: currentValue.data.number,
+              path: currentValue.path,
+            },
+          ];
+          if (currentValue.children) {
+            order = [
+              ...order,
+              ...Object.values(currentValue.children)
+                .filter(child => child.path !== '')
+                .reduce((p, c) => [...p, { order: c.data.number, path: `${currentValue.path}/${c.path}` }], []),
+            ];
+          }
+          return [...previousValue, ...order];
+        }, [])
+        .sort((a, b) => a.order - b.order),
+    ),
+    shareReplay(1),
+  );
+
   getStepByUrl(url: string): WizardStepConfig {
-    const p = this.getStepReferenceByUrl(url);
+    const p = this._getStepReferenceByUrl(url);
     const stepId = p.stepPath.id;
     const subStepId = p.subPath.path;
     if (subStepId) {
@@ -104,8 +147,15 @@ export class WizardSteps {
     }
   }
 
-  getStepByNumber(number: number): WizardStepConfig {
-    return Object.values(this.steps).find(step => step.data.number === number) || null;
+  getPathTo(direction: 'next' | 'prev'): Observable<string> {
+    return this._stepsInOrder$.pipe(
+      withLatestFrom(this.activeStep$),
+      map(
+        ([res, active]) =>
+          res[res.findIndex(step => step.path === (active.fullPath || active.path)) + (direction === 'next' ? 1 : -1)],
+      ),
+      map(step => (step ? step.path : null)),
+    );
   }
 
   setState(value: any, path?: string) {
@@ -113,7 +163,7 @@ export class WizardSteps {
   }
 
   private _updateStep(value: any, path?: string, prop: string = 'state') {
-    const p = this.getStepReferenceByUrl(path);
+    const p = this._getStepReferenceByUrl(path);
     const stepId = p.stepPath.id;
     const subStepId = p.subPath.path;
     let updatedStep;
@@ -140,7 +190,7 @@ export class WizardSteps {
     });
   }
 
-  getStepReferenceByUrl(url: string = this.router.routerState.snapshot.url) {
+  private _getStepReferenceByUrl(url: string = this.router.routerState.snapshot.url) {
     // create url tree based on url without query parameters
     const urlTree = url.split('?')[0].split('/');
     // get path of step
@@ -150,16 +200,16 @@ export class WizardSteps {
     return {
       stepPath: {
         path: stepPath,
-        id: this.stepGuid(stepPath),
+        id: this._stepGuid(stepPath),
       },
       subPath: {
         path: subPath || null,
-        id: subPath ? this.stepGuid(subPath) : null,
+        id: subPath ? this._stepGuid(subPath) : null,
       },
     };
   }
 
-  stepGuid(path: string): string {
+  private _stepGuid(path: string): string {
     return btoa(path);
   }
 }

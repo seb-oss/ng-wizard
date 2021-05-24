@@ -19,9 +19,9 @@ export class ControlsComponent {
         let path = control.path;
         if (!control.path) {
           if (control.type === 'next') {
-            path = this.wizardStepService.getStepByNumber(number + 1).path;
+            path = this.wizardStepService.getPathTo('next');
           } else if (control.type === 'prev') {
-            path = this.wizardStepService.getStepByNumber(number - 1).path;
+            path = this.wizardStepService.getPathTo('prev');
           }
         }
         return {
