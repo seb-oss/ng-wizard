@@ -1,1 +1,9 @@
-<button class="btn btn-secondary" (click)="toggleLang()">Toggle language</button>
+<ng-container *transloco="let t">
+  <p class="lead">{{ t('changeLanguageInStep_lead') }}</p>
+  <h4>{{ t('changeLanguageInStep_typescript_heading') }}</h4>
+  <p>{{ t('changeLanguageInStep_typescript_paragraph') }}</p>
+  <div markdown [data]="toggleLangExample | language: 'typescript'" class="ml-n5 mr-n3 mx-sm-0 mb-4"></div>
+  <button class="btn btn-outline-primary" (click)="toggleLang()">
+    {{ t('changeLanguageInStep_toggleLang_action') }}
+  </button>
+</ng-container>

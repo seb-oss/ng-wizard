@@ -1,0 +1,9 @@
+<ng-container *transloco="let t">
+  <p class="lead">{{ t('addToHeader_lead') }}</p>
+  <h4>{{ t('addToHeader_markup_heading') }}</h4>
+  <p>{{ t('addToHeader_markup_paragraph') }}</p>
+  <div markdown [data]="headerMarkup | language: 'markup'" class="ml-n5 mr-n3 mx-sm-0 mb-4"></div>
+  <h4 class="mt-4">{{ t('addToHeader_typescript_heading') }}</h4>
+  <p>{{ t('addToHeader_typescript_paragraph') }}</p>
+  <div markdown [data]="typescript | language: 'typescript'" class="ml-n5 mr-n3 mx-sm-0 mb-4"></div>
+</ng-container>

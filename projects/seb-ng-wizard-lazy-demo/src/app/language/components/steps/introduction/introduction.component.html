@@ -1,4 +1,6 @@
 <ng-container *transloco="let t">
   <p class="lead">{{ t('introduction_lead') }}</p>
+  <h4>{{ t('introduction_module_heading') }}</h4>
   <p>{{ t('introduction_paragraph') }}</p>
+  <div markdown [data]="translationsProivder | language: 'typescript'" class="ml-n5 mr-n3 mx-sm-0 mb-4"></div>
 </ng-container>

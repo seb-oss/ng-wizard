@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { WizardStep } from '@sebgroup/ng-wizard';
 import { ChangeLanguageComponent } from './components/steps/change-language/change-language.component';
 import { IntroductionComponent } from './components/steps/introduction/introduction.component';
+import { LanguageInHeaderComponent } from './components/steps/language-in-header/language-in-header.component';
 
 import { LanguageComponent } from './language.component';
 
-const routes: Routes = [
+const routes: WizardStep[] = [
   {
     path: '',
     component: LanguageComponent,
@@ -19,25 +21,20 @@ const routes: Routes = [
         component: IntroductionComponent,
         data: {
           heading: 'introduction_heading',
-          controls: [
-            {
-              name: 'Get started',
-              type: 'next',
-            },
-          ],
         },
       },
       {
-        path: 'change-language',
+        path: 'add-to-header',
+        component: LanguageInHeaderComponent,
+        data: {
+          heading: 'addToHeader_heading',
+        },
+      },
+      {
+        path: 'change-language-in-step',
         component: ChangeLanguageComponent,
         data: {
-          heading: 'changeLanguage_heading',
-          controls: [
-            {
-              name: 'Get started',
-              type: 'prev',
-            },
-          ],
+          heading: 'changeLanguageInStep_heading',
         },
       },
     ],
