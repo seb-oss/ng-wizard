@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { BehaviorSubject, merge, Observable } from 'rxjs';
 import { filter, map, shareReplay, withLatestFrom } from 'rxjs/operators';
-import { WizardControls, WizardStepConfig, WizardStepConfigs } from '../models/wizard-step';
+import { StepState, WizardControls, WizardStepConfig, WizardStepConfigs } from '../models/wizard-step';
 /** Wizard Steps
  * Multiton service (one instance per wizard component) to keep track of step state and do runtime updates do step configuration
  * */
@@ -158,7 +158,7 @@ export class WizardSteps {
     );
   }
 
-  setState(value: any, path?: string) {
+  setState(value: StepState, path?: string) {
     this._updateStep(value, path);
   }
 

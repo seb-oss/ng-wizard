@@ -2,6 +2,8 @@ import { Route } from '@angular/router';
 import { Observable } from 'rxjs';
 export declare type WizardControls = WizardControl[];
 
+export declare type StepState = 'success' | 'warning' | 'danger' | 'info' | null;
+
 export interface WizardStepConfigs {
   [key: string]: WizardStepConfig;
 }
@@ -25,7 +27,7 @@ export interface WizardStepData {
   pageHeading?: string; // step heading
   hideNavigation?: boolean;
   controls?: WizardControl[];
-  state?: 'success' | 'warning' | 'danger' | 'info';
+  state?: StepState;
   secondaryContent?: {
     component: any;
     data?: { [key: string]: any };
