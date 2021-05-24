@@ -208,7 +208,7 @@ nav {
         // font-weight: 500;
         // background: $gray-100;
         &.active {
-          background: #fff;
+          //background: #fff;
         }
 
         //&:not(.active)::after {
@@ -233,7 +233,7 @@ nav {
         }
 
         > a {
-          font-weight: inherit;
+          // font-weight: inherit;
         }
         &:not(:hover) + .list-group-item-success {
           border-top: solid 1px $gray-200;
@@ -267,7 +267,7 @@ nav {
         }
 
         > a {
-          font-weight: inherit;
+          font-weight: $font-weight-medium;
         }
         &:not(:hover) + .list-group-item-success {
           border-top: solid 1px $gray-200;
@@ -310,7 +310,7 @@ nav {
         }
 
         > a {
-          font-weight: inherit;
+          font-weight: $font-weight-medium;
         }
         &:not(:hover) + .list-group-item-success {
           border-top: solid 1px $gray-200;
@@ -344,7 +344,7 @@ nav {
         }
 
         > a {
-          font-weight: inherit;
+          // font-weight: inherit;
         }
         &:not(:hover) + .list-group-item-success {
           border-top: solid 1px $gray-200;
