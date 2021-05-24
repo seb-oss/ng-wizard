@@ -34,9 +34,9 @@ export interface WizardStepData {
 }
 
 export interface WizardControl {
-  name?: string; // label for action
-  textKey?: string; // text key used for translations
-  path?: string; // path where action takes user (optional)
+  text?: string; // label for action
+  title?: string; // title/description added to the control (useful for screen readers etc).
+  path?: string | Observable<string>; // path where action takes user (optional)
   class?: string; // class to be added to control (optional)
   type: 'next' | 'prev' | 'cancel' | 'save' | 'close'; // type of action (determines icon and can be used for custom triggers)
 }

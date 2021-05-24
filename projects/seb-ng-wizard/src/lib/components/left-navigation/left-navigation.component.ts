@@ -5,6 +5,7 @@ import { BehaviorSubject, combineLatest, merge, Observable, Subject } from 'rxjs
 import { filter, map, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
 import { SebNgWizardConfigService, WizardTranslations } from '../../seb-ng-wizard.module';
 import { WizardSteps } from '../../services/wizard-steps.service';
+import { WizardTranslationsService } from '../../services/wizard-translations.service';
 
 @Component({
   selector: 'wiz-left-navigation',
@@ -62,7 +63,7 @@ export class LeftNavigationComponent implements OnInit {
 
   constructor(
     @Inject(SebNgWizardConfigService) public config,
-    public translations: WizardTranslations,
+    public translations: WizardTranslationsService,
     private router: Router,
     public wizardStepService: WizardSteps,
   ) {}
