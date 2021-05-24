@@ -3,6 +3,7 @@
  */
 
 export * from './lib/models/wizard-step';
+export * from './lib/models/wizard-texts';
 export * from './lib/directives/secondary-content.directive';
 export * from './lib/services/wizard-control.service';
 export * from './lib/services/wizard-steps.service';

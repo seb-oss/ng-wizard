@@ -4,6 +4,7 @@ import { WizSecondaryContentDirective } from '../../directives/secondary-content
 import { WizardStepData } from '../../models/wizard-step';
 import { WizardTranslations } from '../../seb-ng-wizard.module';
 import { WizardSteps } from '../../services/wizard-steps.service';
+import { WizardTranslationsService } from '../../services/wizard-translations.service';
 
 @Component({
   selector: 'wiz-wizard',
@@ -40,7 +41,7 @@ export class WizardComponent {
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     public wizardStepService: WizardSteps,
-    public translations: WizardTranslations,
+    public translations: WizardTranslationsService,
   ) {}
 
   loadComponent(secondaryContent: any) {
