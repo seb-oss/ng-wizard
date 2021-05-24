@@ -12,6 +12,7 @@ import { LeftNavigationComponent } from './components/left-navigation/left-navig
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { WizardComponent } from './components/wizard/wizard.component';
 import { WizSecondaryContentDirective } from './directives/secondary-content.directive';
+import { SebNgWizardConfig } from './models/wizard-config';
 import { WizardTexts } from './models/wizard-texts';
 import { WizardControlService } from './services/wizard-control.service';
 import { WizardTranslationsService } from './services/wizard-translations.service';
@@ -26,11 +27,7 @@ export class DefaultWizardTranslations implements WizardTranslations {
   translations$: Observable<WizardTexts> = of({});
 }
 
-interface SebNgWizardConfig {
-  markPassedAsSuccess: boolean;
-}
-
-const defaultConfig = {
+const defaultConfig: SebNgWizardConfig = {
   markPassedAsSuccess: true,
 };
 
@@ -62,7 +59,7 @@ export class SebNgWizardModule {
         WizardTranslationsService,
         {
           provide: SebNgWizardConfigService,
-          useValue: config || defaultConfig,
+          useValue: { ...defaultConfig, ...config } || defaultConfig,
         },
         translations || { provide: WizardTranslations, useClass: DefaultWizardTranslations },
       ],
