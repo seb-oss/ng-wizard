@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-export declare type WizardSteps = WizardStep[];
+import { Observable } from 'rxjs';
 export declare type WizardControls = WizardControl[];
 
 export interface WizardStepConfigs {
@@ -15,7 +15,7 @@ export interface WizardStepConfig {
 }
 export interface WizardStep extends Route {
   data?: WizardStepData;
-  children?: WizardSteps;
+  children?: WizardStep[];
 }
 
 export interface WizardStepData {

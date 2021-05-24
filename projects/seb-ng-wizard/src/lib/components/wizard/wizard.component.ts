@@ -3,7 +3,7 @@ import { tap } from 'rxjs/operators';
 import { WizSecondaryContentDirective } from '../../directives/secondary-content.directive';
 import { WizardStepData } from '../../models/wizard-step';
 import { WizardTranslations } from '../../seb-ng-wizard.module';
-import { WizardStepsService } from '../../services/wizard-steps.service';
+import { WizardSteps } from '../../services/wizard-steps.service';
 
 @Component({
   selector: 'wiz-wizard',
@@ -39,7 +39,7 @@ export class WizardComponent {
   close: EventEmitter<MouseEvent> = new EventEmitter(true);
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
-    public wizardStepService: WizardStepsService,
+    public wizardStepService: WizardSteps,
     public translations: WizardTranslations,
   ) {}
 

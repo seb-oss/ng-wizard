@@ -3,11 +3,11 @@ import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { BehaviorSubject, merge, Observable } from 'rxjs';
 import { filter, map, shareReplay } from 'rxjs/operators';
 import { WizardStepConfig, WizardStepConfigs } from '../models/wizard-step';
-/** Wizard Steps Service
+/** Wizard Steps
  * Multiton service (one instance per wizard component) to keep track of step state and do runtime updates do step configuration
  * */
 @Injectable()
-export class WizardStepsService {
+export class WizardSteps {
   /** get current configuration for wizard
    * return steps as observable
    */

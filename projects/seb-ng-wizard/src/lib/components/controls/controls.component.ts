@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 import { WizardControl } from '../../models/wizard-step';
 import { SebNgWizardConfigService, WizardTranslations } from '../../seb-ng-wizard.module';
 import { WizardControlService } from '../../services/wizard-control.service';
-import { WizardStepsService } from '../../services/wizard-steps.service';
+import { WizardSteps } from '../../services/wizard-steps.service';
 
 @Component({
   selector: 'wiz-controls',
@@ -37,7 +37,7 @@ export class ControlsComponent {
     @Inject(SebNgWizardConfigService) private config,
     public translations: WizardTranslations,
     private wizardControl: WizardControlService,
-    public wizardStepService: WizardStepsService,
+    public wizardStepService: WizardSteps,
   ) {}
 
   emitControlEvent($event: MouseEvent, control: WizardControl) {
