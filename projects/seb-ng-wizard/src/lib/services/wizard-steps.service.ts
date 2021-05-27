@@ -129,7 +129,12 @@ export class WizardSteps {
             order = [
               ...order,
               ...Object.values(currentValue.children)
-                .filter(child => child.path !== '')
+                .filter(
+                  child =>
+                    child.path !== '' &&
+                    currentValue.data.subSteps &&
+                    currentValue.data.subSteps.indexOf(child.path) !== -1,
+                )
                 .reduce((p, c) => [...p, { order: c.data.number, path: `${currentValue.path}/${c.path}` }], []),
             ];
           }
