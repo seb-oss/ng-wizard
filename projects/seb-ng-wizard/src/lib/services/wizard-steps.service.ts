@@ -176,6 +176,10 @@ export class WizardSteps {
     this._updateStep({ state }, path);
   }
 
+  updateSubSteps(activeSubSteps: Array<string>, path?: string) {
+    this._updateStep({ subSteps: activeSubSteps }, path);
+  }
+
   private _updateStep(object: any, path?: string) {
     const p = this._getStepReferenceByUrl(path);
     const stepId = p.stepPath.id;
