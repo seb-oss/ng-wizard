@@ -1,6 +1,23 @@
 {
-  "next": "Nästa",
+  "wiz_header_title": "SEB ng-wizard: Språkstöd",
+  "wiz_next_action": "Nästa",
+  "wiz_prev_action": "Tillbaka",
+  "wiz_close_action": "Stäng",
   "language": "In english",
   "introduction_heading": "Introduktion",
-  "changeLanguage_heading": "Byt språk"
+  "changeLanguage_heading": "Byt språk",
+  "introduction_lead": "SEB ng-wizard har stöd för flera språk och översättningar och fungerar med både ngx-translate, transloco eller vilken implementation som helst så länge den retunerar en observable med översatta nycklar.",
+  "introduction_module_heading": "Konfigurera wizard modul",
+  "introduction_paragraph": "Sätt upp en översättningstjänst för wizarden med hjälp av forRoot så här:",
+  "changeLanguageInStep_heading": "Byt språk i ett steg",
+  "changeLanguageInStep_lead": "Lägg till språkstöd för ett steg på liknande sätt som vi gjorde i steget innan.",
+  "changeLanguageInStep_typescript_heading": "Typescript",
+  "changeLanguageInStep_typescript_paragraph": "Hur man byter språk kommer givetvis att bero på val av ramverk och lösning för språkhantering, nedan är ett exempel på hur man kan implementera stöd med hjälp av transloco.",
+  "changeLanguageInStep_toggleLang_action": "Byt språk",
+  "addToHeader_heading": "Byt språk i sidhuvud",
+  "addToHeader_lead": "Lägg till möjlighet att byta språk i sidhuvud i ett nafs.",
+  "addToHeader_markup_heading": "Markup",
+  "addToHeader_markup_paragraph": "Exempelkod där vi använt action-slot för att lägga till en knapp för att byta språk.",
+  "addToHeader_typescript_heading": "Typescript",
+  "addToHeader_typescript_paragraph": "Kod i vår komponent."
 }
