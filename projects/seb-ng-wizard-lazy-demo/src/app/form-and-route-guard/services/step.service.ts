@@ -1,73 +1,50 @@
 import { Injectable } from '@angular/core';
-import { WizardStepsService } from '@sebgroup/ng-wizard';
-// import { WizardStepsService } from "@sebgroup/ng-wizard";
+import { Router, UrlTree } from '@angular/router';
+import { StepState, WizardSteps } from '@sebgroup/ng-wizard';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map, switchMap, switchMapTo } from 'rxjs/operators';
 
 @Injectable()
 export class StepService {
-  private _steps: StepStates;
-  $steps: BehaviorSubject<StepStates> = new BehaviorSubject<any>({});
-  // $state: Observable<Array<WizardStepData>> = this.$steps.pipe(map(d => d ));
-  constructor(private tem: WizardStepsService) {}
+  steps$: BehaviorSubject<{ [id: string]: { state: StepState; data: any; id: string } }> = new BehaviorSubject<any>({});
+  constructor(private wizardSteps: WizardSteps, private router: Router) {}
 
-  saveState(step: string, state: any, data: any) {
-    /*console.log(this.tem.currentStepConfig);
-    // this.tem.updateProp(step, 'heading', 'New heading');
-    console.log(step, state, data);
-    this._steps = { ...this._steps, [btoa(step)]: { state: state, data } };
-    this.$steps.next(this._steps);
-    this.tem.updateProp(step, 'state', state);
-    if (data && data.accountType === 'Investeringssparkkonto (ISK)') {
-      this.tem.updateProp(step, 'subSteps', ['kyc']);
-      this.tem.updateProp(step, 'controls', [
-        {
-          name: 'Back',
-          path: 'personal-details',
-          type: 'prev',
-        }, {
-          name: 'Save form',
-          type: 'save',
-        }, {
-          name: 'Next',
-          path: 'kyc',
-          type: 'next',
-        },
-      ]);
-    } else {
-      this.tem.updateProp(step, 'subSteps', []);
-      this.tem.updateProp(step, 'controls', [
-        {
-          name: 'Back',
-          path: 'personal-details',
-          type: 'prev',
-        }, {
-          name: 'Save form',
-          type: 'save',
-        }, {
-          name: 'Next',
-          path: 'confirmation',
-          type: 'next',
-        },
-      ]);
-    }*/
+  saveState(state: StepState, data?: any) {
+    this.steps$.next({
+      ...this.steps$.getValue(),
+      [this.wizardSteps.activeStep.id]: { data, state, id: this.wizardSteps.activeStep.id },
+    });
+    this.wizardSteps.setState(state);
   }
 
-  getState(step: string): Observable<any> {
-    // console.log(step, this.$steps.getValue(), this.tem.currentStepConfig[btoa(step)]);
-    // return of(this.tem.currentStepConfig[btoa(step)].data.state);
-    // return this.$steps.asObservable()
-    //  .pipe(map(steps => steps[btoa(step)]));
-    return of();
+  getRoute(step: string, next: string): Observable<boolean | UrlTree> {
+    return this.wizardSteps.steps$.pipe(
+      filter(wizardSteps => Object.values(wizardSteps).length > 0),
+      switchMap(
+        steps => <Observable<boolean | UrlTree>>this.wizardSteps.getPreviousStep(next).pipe(
+            map(
+              res =>
+                res.data.state === 'success' ||
+                res.data.state === 'info' ||
+                this.router.parseUrl(
+                  `/form-and-route-guard/${
+                    Object.values(steps).reduce(
+                      (prev, current) =>
+                        current.data.state && current.data.number > prev.data.number ? current : prev,
+                      Object.values(steps).find(s => s.data.number === 1),
+                    ).path
+                  }`,
+                ),
+            ),
+          ),
+      ),
+    );
   }
-}
 
-interface StepStates {
-  [key: string]: StepState;
-}
-
-export interface StepState {
-  state: any;
-  data: any;
-  // wizardStep: WizardStepData;
+  getState(): Observable<{ data; state }> {
+    return this.wizardSteps.steps$.pipe(
+      filter(wizardSteps => Object.values(wizardSteps).length > 0),
+      switchMapTo(of(this.steps$.getValue()[this.wizardSteps.activeStep.id])),
+    );
+  }
 }

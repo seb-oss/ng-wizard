@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NavigationStart, Router, RouterEvent } from '@angular/router';
 import { WizardControlService } from '@sebgroup/ng-wizard';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 import { StepService } from '../../../services/step.service';
 
 @Component({
@@ -10,17 +11,15 @@ import { StepService } from '../../../services/step.service';
 })
 export class IntroductionComponent implements OnInit, OnDestroy {
   unsubscribe$ = new Subject();
-  constructor(public controls: WizardControlService, public stepService: StepService) {}
+  constructor(public controls: WizardControlService, public stepService: StepService, private router: Router) {}
 
   ngOnInit() {
-    // subscribe to control events
-    this.controls.controlEvent$.pipe(takeUntil(this.unsubscribe$)).subscribe(control => {
-      switch (control.type) {
-        case 'next':
-          this.stepService.saveState('/form-and-route-guard/introduction', 'success', null);
-          break;
-      }
-    });
+    this.router.events
+      .pipe(
+        filter((e: RouterEvent) => e instanceof NavigationStart),
+        takeUntil(this.unsubscribe$),
+      )
+      .subscribe(_ => this.stepService.saveState('success'));
   }
 
   ngOnDestroy() {
