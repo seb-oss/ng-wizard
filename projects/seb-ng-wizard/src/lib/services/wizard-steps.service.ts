@@ -79,7 +79,9 @@ export class WizardSteps {
 
         // add default controls for prev and next if no controls are defined
         if (!step.data.controls) {
-          const controls: WizardControls = [{ type: 'prev' }, { type: 'next' }];
+          let controls: WizardControls = index > 0 ? [{ type: 'prev' }] : [];
+          controls =
+            index < config.length - 1 || currentValue.children ? [...controls, { type: 'next' }] : [...controls];
           step = {
             ...step,
             data: {
