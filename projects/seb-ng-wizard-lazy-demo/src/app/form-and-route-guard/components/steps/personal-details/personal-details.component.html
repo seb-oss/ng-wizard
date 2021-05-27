@@ -1,4 +1,4 @@
-<ng-container *ngIf="{ isOk: ($stepStatus | async)?.state } as stepStatus">
+<ng-container *ngIf="{ isOk: (stepStatus$ | async)?.state === 'success' } as stepStatus">
   <div class="alert alert-danger alert-icon mx-n3 mx-sm-0" *ngIf="!stepStatus.isOk && submitted" tabindex="-1">
     <ng-container *ngIf="profileForm.invalid || profileForm.pending"
       >The form contains error, you need to correct them before proceeding.</ng-container

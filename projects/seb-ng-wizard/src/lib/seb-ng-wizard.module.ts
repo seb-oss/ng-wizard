@@ -12,44 +12,23 @@ import { LeftNavigationComponent } from './components/left-navigation/left-navig
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { WizardComponent } from './components/wizard/wizard.component';
 import { WizSecondaryContentDirective } from './directives/secondary-content.directive';
+import { SebNgWizardConfig } from './models/wizard-config';
+import { WizardTexts } from './models/wizard-texts';
 import { WizardControlService } from './services/wizard-control.service';
+import { WizardTranslationsService } from './services/wizard-translations.service';
 
 export abstract class WizardTranslations {
-  abstract translations$: Observable<any>;
+  abstract translations$: Observable<WizardTexts>;
 }
 
 @Injectable()
 export class DefaultWizardTranslations implements WizardTranslations {
   constructor() {}
-  translations$: Observable<any> = of({
-    next: 'Next',
-    prev: 'Back',
-    save: 'Save',
-    close: 'Close',
-  });
+  translations$: Observable<WizardTexts> = of({});
 }
 
-interface SebNgWizardConfig {
-  translations: any;
-  markPassedAsSuccess: boolean;
-}
-
-const defaultConfig = {
+const defaultConfig: SebNgWizardConfig = {
   markPassedAsSuccess: true,
-  translations: {
-    en: {
-      next: 'Next',
-      prev: 'Back',
-      save: 'Save',
-      close: 'Close',
-    },
-    sv: {
-      next: 'Nästa',
-      prev: 'Tillbaka',
-      save: 'Spara',
-      close: 'Stäng',
-    },
-  },
 };
 
 export const SebNgWizardConfigService = new InjectionToken<SebNgWizardConfig>('SebNgWizardConfig');
@@ -77,9 +56,10 @@ export class SebNgWizardModule {
       ngModule: SebNgWizardModule,
       providers: [
         WizardControlService,
+        WizardTranslationsService,
         {
           provide: SebNgWizardConfigService,
-          useValue: config || defaultConfig,
+          useValue: { ...defaultConfig, ...config } || defaultConfig,
         },
         translations || { provide: WizardTranslations, useClass: DefaultWizardTranslations },
       ],

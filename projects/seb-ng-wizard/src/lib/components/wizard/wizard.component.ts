@@ -3,7 +3,8 @@ import { tap } from 'rxjs/operators';
 import { WizSecondaryContentDirective } from '../../directives/secondary-content.directive';
 import { WizardStepData } from '../../models/wizard-step';
 import { WizardTranslations } from '../../seb-ng-wizard.module';
-import { WizardStepsService } from '../../services/wizard-steps.service';
+import { WizardSteps } from '../../services/wizard-steps.service';
+import { WizardTranslationsService } from '../../services/wizard-translations.service';
 
 @Component({
   selector: 'wiz-wizard',
@@ -13,7 +14,7 @@ import { WizardStepsService } from '../../services/wizard-steps.service';
 export class WizardComponent {
   public activeStep$ = this.wizardStepService.activeStep$.pipe(
     tap(activeStep => {
-      if (activeStep && activeStep.data.secondaryContent) {
+      if (activeStep && activeStep.data && activeStep.data.secondaryContent) {
         this.loadComponent(activeStep.data.secondaryContent);
       }
     }),
@@ -39,8 +40,8 @@ export class WizardComponent {
   close: EventEmitter<MouseEvent> = new EventEmitter(true);
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
-    public wizardStepService: WizardStepsService,
-    public translations: WizardTranslations,
+    public wizardStepService: WizardSteps,
+    public translations: WizardTranslationsService,
   ) {}
 
   loadComponent(secondaryContent: any) {

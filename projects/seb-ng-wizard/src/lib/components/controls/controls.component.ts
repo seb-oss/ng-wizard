@@ -1,9 +1,11 @@
 import { Component, Inject } from '@angular/core';
+import { isObservable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { WizardControl } from '../../models/wizard-step';
-import { SebNgWizardConfigService, WizardTranslations } from '../../seb-ng-wizard.module';
+import { SebNgWizardConfigService } from '../../seb-ng-wizard.module';
 import { WizardControlService } from '../../services/wizard-control.service';
-import { WizardStepsService } from '../../services/wizard-steps.service';
+import { WizardSteps } from '../../services/wizard-steps.service';
+import { WizardTranslationsService } from '../../services/wizard-translations.service';
 
 @Component({
   selector: 'wiz-controls',
@@ -12,22 +14,20 @@ import { WizardStepsService } from '../../services/wizard-steps.service';
 })
 export class ControlsComponent {
   controls$ = this.wizardStepService.activeStep$.pipe(
-    map(step => [step.data.number, step.data.controls]),
-    map(([number, controls]: [number, Array<WizardControl>]) =>
-      controls.map(control => {
+    map(step =>
+      step.data.controls.map(control => {
         let path = control.path;
         if (!control.path) {
           if (control.type === 'next') {
-            path = this.wizardStepService.getStepByNumber(number + 1).path;
+            path = this.wizardStepService.getPathTo('next');
           } else if (control.type === 'prev') {
-            path = this.wizardStepService.getStepByNumber(number - 1).path;
+            path = this.wizardStepService.getPathTo('prev');
           }
         }
         return {
           ...control,
-          textKey: control.textKey || control.type,
-          path,
-          name: this.config.translations['en'][control.type] || control.name,
+          path: isObservable(path) ? path : of(path),
+          text: control.text || `wiz_${control.type}_action`,
         };
       }),
     ),
@@ -35,9 +35,9 @@ export class ControlsComponent {
 
   constructor(
     @Inject(SebNgWizardConfigService) private config,
-    public translations: WizardTranslations,
+    public translations: WizardTranslationsService,
     private wizardControl: WizardControlService,
-    public wizardStepService: WizardStepsService,
+    public wizardStepService: WizardSteps,
   ) {}
 
   emitControlEvent($event: MouseEvent, control: WizardControl) {

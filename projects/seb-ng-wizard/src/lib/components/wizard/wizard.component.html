@@ -1,4 +1,4 @@
-<wiz-top-bar [title]="title" [hideClose]="hideCloseButton" [lang]="lang" (close)="close.next($event)">
+<wiz-top-bar>
   <ng-content select=".wizard-actions"></ng-content>
 </wiz-top-bar>
 <div class="row no-gutters" [class.nav-hidden]="(activeStep$ | async)?.data?.hideNavigation">
@@ -7,19 +7,22 @@
   </div>
   <div class="col-12 col-md bg-white">
     <div class="container-fluid p-3 p-md-4 px-xl-5 bg-white wizard-content-container">
-      <ng-container *ngIf="translations.translations$ | async as t">
+      <ng-container
+        *ngIf="{
+          t: translations.translations$ | async,
+          pageHeading: (activeStep$ | async)?.data?.pageHeading,
+          heading: (activeStep$ | async)?.data?.heading
+        } as content"
+      >
         <h2
-          *ngIf="(activeStep$ | async)?.data.pageHeading"
+          *ngIf="content.pageHeading"
           class="h5 font-weight-normal"
-          [innerText]="t[(activeStep$ | async)?.data.heading] || (activeStep$ | async)?.data.heading || ''"
+          [innerText]="content.t[content.heading] || content.heading || ''"
         ></h2>
         <h3
           class="h2"
           [innerText]="
-            t[(activeStep$ | async)?.data.pageHeading] ||
-            (activeStep$ | async)?.data.pageHeading ||
-            (activeStep$ | async)?.data.heading ||
-            ''
+            content.t[content.pageHeading] || content.t[content.heading] || content.pageHeading || content.heading || ''
           "
         ></h3>
       </ng-container>

@@ -14,30 +14,29 @@
       [class.col-sm]="controls.length >= 3"
       *ngFor="let control of controls; let i = index"
     >
-      <ng-container *ngIf="control.path">
+      <ng-container *ngIf="{ path: control.path | async } as ctrl">
         <a
+          *ngIf="ctrl.path"
           class="btn w-100 d-flex justify-content-between"
           [class.fit-content]="i === 0 && controls.length >= 3"
           [ngClass]="control.class || (control.type !== 'next' ? 'btn-outline-primary' : 'btn-primary')"
-          [routerLink]="control.path"
-          routerLinkActive="disabled"
+          [routerLink]="ctrl.path"
           queryParamsHandling="merge"
           (click)="emitControlEvent($event, control)"
-          [title]="control.name"
+          [title]="t[control.title] || t[control.text] || control.title || control.text"
         >
           <fa-icon *ngIf="control.type === 'prev'" icon="arrow-left" class="mr-2"></fa-icon>
-          <span class="w-100 text-truncate"><!--{{ control.name }}-->{{ t[control.textKey] }}</span>
+          <span class="w-100 text-truncate">{{ t[control.text] || control.text }}</span>
           <fa-icon *ngIf="control.type === 'next'" icon="arrow-right" class="ml-2"></fa-icon>
         </a>
-      </ng-container>
-      <ng-container *ngIf="!control.path">
         <button
+          *ngIf="!ctrl.path"
           class="btn w-100 d-flex justify-content-between"
           [class.fit-content]="i === 0 && controls.length >= 3"
           [ngClass]="control.class || (control.type !== 'next' ? 'btn-outline-primary' : 'btn-primary')"
           (click)="emitControlEvent($event, control)"
         >
-          <span class="w-100 text-truncate"><!--{{ control.name }}-->{{ t[control.textKey] }}</span>
+          <span class="w-100 text-truncate">{{ t[control.text] || control.text }}</span>
           <fa-icon *ngIf="control.type === 'save'" icon="save" class="ml-2"></fa-icon>
           <fa-icon *ngIf="control.type === 'print'" icon="print" class="ml-2"></fa-icon>
         </button>

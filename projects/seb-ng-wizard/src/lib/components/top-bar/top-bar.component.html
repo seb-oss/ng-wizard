@@ -1,15 +1,17 @@
 <nav class="navbar navbar-light bg-white position-fixed w-100 border-bottom justify-content-between">
-  <span class="navbar-brand" [innerText]="title"></span>
-  <div class="d-flex">
-    <ng-content></ng-content>
-    <button
-      type="button"
-      *ngIf="!hideClose"
-      class="close d-flex align-items-center"
-      data-dismiss="modal"
-      (click)="close.next($event); emitControlEvent($event, closeControl)"
-    >
-      <span class="d-none d-md-inline">{{ texts?.close }}</span>
-    </button>
-  </div>
+  <ng-container *ngIf="translations.translations$ | async as t">
+    <span class="navbar-brand" [innerText]="t['wiz_header_title'] || ''"></span>
+    <div class="d-flex">
+      <ng-content></ng-content>
+      <button
+        type="button"
+        *ngIf="!hideClose"
+        class="close d-flex align-items-center"
+        data-dismiss="modal"
+        (click)="emitControlEvent($event, { type: 'close' })"
+      >
+        <span class="d-none d-md-inline">{{ t['wiz_close_action'] || '' }}</span>
+      </button>
+    </div>
+  </ng-container>
 </nav>

@@ -1,8 +1,8 @@
 // setup routes and wizard steps in route module
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { WizardSteps } from '@sebgroup/ng-wizard';
-import { ProtectedStepInfoComponent } from './components/secondary-content/protected-step-info/protected-step-info.component';
+import { WizardStep } from '@sebgroup/ng-wizard';
+import { AccountDetailsIndexComponent } from './components/steps/account-details/account-details-index/account-details-index.component';
 import { AccountDetailsComponent } from './components/steps/account-details/account-details.component';
 import { KycComponent } from './components/steps/account-details/kyc/kyc.component';
 import { ConfirmationComponent } from './components/steps/confirmation/confirmation.component';
@@ -11,29 +11,18 @@ import { PersonalDetailsComponent } from './components/steps/personal-details/pe
 import { FormAndRouteGuardComponent } from './form-and-route-guard.component';
 import { StepGuard } from './guards/step.guard';
 
-const routes: WizardSteps = [
+const routes: WizardStep[] = [
   {
     path: '',
     component: FormAndRouteGuardComponent,
     children: [
-      { path: '', redirectTo: 'introduction' },
+      { path: '', redirectTo: 'introduction', pathMatch: 'full' },
       {
         path: 'introduction',
         component: IntroductionComponent,
         data: {
           heading: 'Introduction',
           pageHeading: 'Wizard with protected steps',
-          controls: [
-            {
-              name: 'Next',
-              path: 'personal-details',
-              type: 'next',
-            },
-          ],
-          secondaryContent: {
-            component: IntroductionComponent,
-            class: 'col-12 col-lg-auto order-0 order-md-1 ml-lg-3',
-          },
         },
       },
       {
@@ -44,30 +33,19 @@ const routes: WizardSteps = [
           pageHeading: 'Tell us a bit about yourself',
           controls: [
             {
-              name: 'Back',
-              path: 'introduction',
               type: 'prev',
             },
             {
-              name: 'Save form',
-              type: 'save',
-            },
-            {
-              name: 'Clear form',
+              text: 'Clear form',
               class: 'btn-outline-danger',
               type: 'cancel',
             },
             {
-              name: 'Next',
-              path: 'account-details',
               type: 'next',
             },
           ],
-          secondaryContent: {
-            component: ProtectedStepInfoComponent,
-            class: 'col-12 col-lg-auto order-0 order-md-1 ml-lg-3',
-          },
         },
+        canActivate: [StepGuard],
       },
       {
         path: 'account-details',
@@ -75,28 +53,13 @@ const routes: WizardSteps = [
         data: {
           heading: 'Account details',
           pageHeading: 'Just a few more details',
-          controls: [
-            {
-              name: 'Back',
-              path: 'personal-details',
-              type: 'prev',
-            },
-            {
-              name: 'Save form',
-              type: 'save',
-            },
-            {
-              name: 'Next',
-              path: 'confirmation',
-              type: 'next',
-            },
-          ],
-          secondaryContent: {
-            component: ProtectedStepInfoComponent,
-            class: 'col-12 col-lg-auto order-0 order-md-1 ml-lg-3',
-          },
         },
+        canActivate: [StepGuard],
         children: [
+          {
+            path: '',
+            component: AccountDetailsIndexComponent,
+          },
           {
             path: 'kyc',
             component: KycComponent,
@@ -104,22 +67,6 @@ const routes: WizardSteps = [
               heading: 'KYC',
               pageHeading: 'Trade experience',
               state: 'info',
-              controls: [
-                {
-                  name: 'Back',
-                  path: 'personal-details',
-                  type: 'prev',
-                },
-                {
-                  name: 'Save form',
-                  type: 'save',
-                },
-                {
-                  name: 'Next',
-                  path: 'confirmation',
-                  type: 'next',
-                },
-              ],
             },
           },
         ],
@@ -129,17 +76,10 @@ const routes: WizardSteps = [
         component: ConfirmationComponent,
         data: {
           heading: 'Confirmation',
-          pageHeading: 'Confirmation',
-          controls: [
-            {
-              name: 'Go back',
-              path: 'account-details',
-              type: 'prev',
-            },
-          ],
         },
         canActivate: [StepGuard],
       },
+      { path: '**', pathMatch: 'full', redirectTo: 'introduction' },
     ],
   },
 ];

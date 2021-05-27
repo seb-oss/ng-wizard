@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProtectedStepComponent } from './protected-step.component';
+import { LanguageInHeaderComponent } from './language-in-header.component';
 
-describe('ProtectedStepComponent', () => {
-  let component: ProtectedStepComponent;
-  let fixture: ComponentFixture<ProtectedStepComponent>;
+describe('LanguageInHeaderComponent', () => {
+  let component: LanguageInHeaderComponent;
+  let fixture: ComponentFixture<LanguageInHeaderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ProtectedStepComponent],
+      declarations: [LanguageInHeaderComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProtectedStepComponent);
+    fixture = TestBed.createComponent(LanguageInHeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

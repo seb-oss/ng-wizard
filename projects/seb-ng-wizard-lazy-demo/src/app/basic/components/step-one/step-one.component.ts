@@ -7,9 +7,26 @@ import { Component } from '@angular/core';
 export class StepOneComponent {
   constructor() {}
 
+  module = `import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { SebNgWizardModule, WizardSteps } from '@sebgroup/ng-wizard';
+import { SharedModule } from '../shared/shared.module';
+import { BasicRoutingModule } from './basic-routing.module';
+import { BasicComponent } from './basic.component';
+import { StepFinalComponent } from './components/step-final/step-final.component';
+import { StepOneComponent } from './components/step-one/step-one.component';
+import { StepTwoComponent } from './components/step-two/step-two.component';
+
+@NgModule({
+  declarations: [StepOneComponent, StepTwoComponent, BasicComponent, StepFinalComponent],
+  imports: [CommonModule, SharedModule, SebNgWizardModule.forRoot(), BasicRoutingModule],
+  providers: [WizardSteps]
+})
+export class BasicModule {}`;
+
   // expose template
   template = `<!-- add wizard component and router outlet -->
-<wiz-wizard title="SEB ng-wizard: Basic setup">
+<wiz-wizard>
   <div class="wizard-main">
     <!-- this is where your steps will be rendered -->
     <router-outlet></router-outlet>
@@ -33,12 +50,7 @@ const routes: WizardSteps = [
     path: 'step-one',
     component: StepOneComponent,
     data: {
-      heading: 'Step one',
-      controls: [{
-        name: 'Step two',
-        path: 'step-two',
-        type: 'next'
-      }]
+      heading: 'Step one'
     }
   }, {
     path: 'step-two',

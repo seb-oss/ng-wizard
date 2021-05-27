@@ -1,0 +1,15 @@
+<p class="lead">
+  A wizard without steps is like a pizza without topping. Add steps to your wizard in a breeze by declaring them as
+  routes.
+</p>
+<p>
+  Each step in the wizard consists of an angular component exposed on a route, i.e. the
+  <code>WizardStep</code> interface extends angulars built in interface for <code>Routes</code>. Add steps by adding
+  <code>WizardSteps</code>(routes) to your routing module.
+</p>
+<h4>Basic example</h4>
+<p>
+  To create a simple wizard with two steps ("Step one" and "Step two"), add steps (routes) to
+  <code>AppRoutingModule</code> like this:
+</p>
+<div markdown [data]="addRoutes | language: 'typescript'" class="ml-n5 mr-n3 mx-sm-0"></div>

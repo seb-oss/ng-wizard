@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProtectedStepInfoComponent } from './protected-step-info.component';
+import { StepControlsComponent } from './step-controls.component';
 
-describe('ProtectedStepInfoComponent', () => {
-  let component: ProtectedStepInfoComponent;
-  let fixture: ComponentFixture<ProtectedStepInfoComponent>;
+describe('StepControlsComponent', () => {
+  let component: StepControlsComponent;
+  let fixture: ComponentFixture<StepControlsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ProtectedStepInfoComponent],
+      declarations: [StepControlsComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProtectedStepInfoComponent);
+    fixture = TestBed.createComponent(StepControlsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

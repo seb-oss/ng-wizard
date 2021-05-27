@@ -4,7 +4,8 @@ import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { BehaviorSubject, combineLatest, merge, Observable, Subject } from 'rxjs';
 import { filter, map, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
 import { SebNgWizardConfigService, WizardTranslations } from '../../seb-ng-wizard.module';
-import { WizardStepsService } from '../../services/wizard-steps.service';
+import { WizardSteps } from '../../services/wizard-steps.service';
+import { WizardTranslationsService } from '../../services/wizard-translations.service';
 
 @Component({
   selector: 'wiz-left-navigation',
@@ -62,9 +63,9 @@ export class LeftNavigationComponent implements OnInit {
 
   constructor(
     @Inject(SebNgWizardConfigService) public config,
-    public translations: WizardTranslations,
+    public translations: WizardTranslationsService,
     private router: Router,
-    public wizardStepService: WizardStepsService,
+    public wizardStepService: WizardSteps,
   ) {}
 
   toggleStepNavigation() {

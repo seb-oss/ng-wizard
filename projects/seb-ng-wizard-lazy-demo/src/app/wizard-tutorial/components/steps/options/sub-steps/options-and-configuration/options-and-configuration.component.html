@@ -1,0 +1,37 @@
+<p class="lead">
+  Customize the wizard to make it work for your application and flow.
+</p>
+<p>
+  Pass a wizard configuration using <code>.forRoot()</code> method of the <code>SebNgWizardModule</code>. The first
+  parameter is for the configuration, the second is for custom texts, translations and language support.
+</p>
+<h4>Add custom configuration</h4>
+<div markdown [data]="useCustomConfig | language: 'typescript'" class="ml-n5 mr-n3 mx-sm-0"></div>
+<h4 class="mt-4">Config options</h4>
+<p>Below are all the config options currently available.</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>markPassedAsSuccess</code></td>
+      <td>Mark passed steps as completed/finished.</td>
+      <td><code>true</code></td>
+    </tr>
+    <tr>
+      <td><code>hideClose</code></td>
+      <td>Remove close button/action from wizard header.</td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>useFullWidth</code></td>
+      <td>Allow main content to span across the whole viewport.</td>
+      <td><code>false</code></td>
+    </tr>
+  </tbody>
+</table>

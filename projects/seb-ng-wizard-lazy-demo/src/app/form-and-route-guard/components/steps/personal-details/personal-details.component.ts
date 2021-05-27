@@ -1,16 +1,15 @@
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { WizardControlService } from '@sebgroup/ng-wizard';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { filter, takeUntil, tap } from 'rxjs/operators';
-import { StepService, StepState } from '../../../services/step.service';
+import { StepService } from '../../../services/step.service';
 
 @Component({
   selector: 'app-personal-details',
   templateUrl: './personal-details.component.html',
 })
 export class PersonalDetailsComponent implements OnInit, OnDestroy {
-  $stepStatus: Observable<StepState>; // observable for step status
   unsubscribe$ = new Subject();
   profileForm: FormGroup;
   submitted = false;
@@ -38,7 +37,6 @@ export class PersonalDetailsComponent implements OnInit, OnDestroy {
     public stepService: StepService,
     private fb: FormBuilder,
     public controls: WizardControlService,
-    private cdr: ChangeDetectorRef,
     private el: ElementRef,
   ) {
     this.profileForm = fb.group({
@@ -52,25 +50,16 @@ export class PersonalDetailsComponent implements OnInit, OnDestroy {
       accept: ['', Validators.requiredTrue],
       help: [true],
     });
-
-    this.$stepStatus = this.stepService.getState('/form-and-route-guard/personal-details').pipe(
-      filter(res => res && res.data),
-      tap(res => this.profileForm.setValue(res.data)),
-      tap(_ => this.cdr.detectChanges()),
-    );
   }
-
+  stepStatus$ = this.stepService.getState().pipe(
+    filter(res => res && res.data),
+    tap(res => this.profileForm.setValue(res.data)),
+  );
   /**
    * Save form data if form is valid
    */
   save() {
-    // if (this.profileForm.valid) {
-    this.stepService.saveState(
-      '/form-and-route-guard/personal-details',
-      this.profileForm.valid ? 'success' : 'warning',
-      this.profileForm.value,
-    );
-    // }
+    this.stepService.saveState(this.profileForm.valid ? 'success' : 'danger', this.profileForm.value);
   }
 
   /**
@@ -127,11 +116,7 @@ export class PersonalDetailsComponent implements OnInit, OnDestroy {
           break;
         case 'cancel':
           this.profileForm.reset();
-          this.stepService.saveState(
-            '/form-and-route-guard/personal-details',
-            this.profileForm.valid,
-            this.profileForm.value,
-          );
+          this.save();
           this.submitted = false;
       }
     });

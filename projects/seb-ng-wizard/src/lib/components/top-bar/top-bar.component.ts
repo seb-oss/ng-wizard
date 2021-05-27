@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { WizardControl } from '../../models/wizard-step';
 import { SebNgWizardConfigService } from '../../seb-ng-wizard.module';
 import { WizardControlService } from '../../services/wizard-control.service';
+import { WizardTranslationsService } from '../../services/wizard-translations.service';
 
 @Component({
   selector: 'wiz-top-bar',
@@ -9,30 +10,12 @@ import { WizardControlService } from '../../services/wizard-control.service';
   styleUrls: ['./top-bar.component.scss'],
 })
 export class TopBarComponent {
-  @Input()
-  title: string;
-
-  @Input()
-  progress: string;
-
-  @Input()
-  hideClose = false;
-
-  @Input()
-  lang: 'sv' | 'en' = 'en';
-
-  @Output()
-  close: EventEmitter<MouseEvent> = new EventEmitter();
-
-  texts: any = {};
-  constructor(@Inject(SebNgWizardConfigService) private config, private wizardControl: WizardControlService) {
-    this.texts = this.config.translations[this.lang];
-  }
-
-  closeControl: WizardControl = {
-    name: this.texts.next,
-    type: 'close',
-  };
+  hideClose = this.config.hideClose;
+  constructor(
+    @Inject(SebNgWizardConfigService) private config,
+    public translations: WizardTranslationsService,
+    private wizardControl: WizardControlService,
+  ) {}
 
   emitControlEvent($event: MouseEvent, control: WizardControl) {
     this.wizardControl.click($event, control);
