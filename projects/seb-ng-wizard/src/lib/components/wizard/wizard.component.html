@@ -10,8 +10,8 @@
       <ng-container
         *ngIf="{
           t: translations.translations$ | async,
-          pageHeading: (activeStep$ | async)?.data.pageHeading,
-          heading: (activeStep$ | async)?.data.heading
+          pageHeading: (activeStep$ | async)?.data?.pageHeading,
+          heading: (activeStep$ | async)?.data?.heading
         } as content"
       >
         <h2

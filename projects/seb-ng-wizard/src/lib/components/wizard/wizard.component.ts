@@ -14,7 +14,7 @@ import { WizardTranslationsService } from '../../services/wizard-translations.se
 export class WizardComponent {
   public activeStep$ = this.wizardStepService.activeStep$.pipe(
     tap(activeStep => {
-      if (activeStep && activeStep.data.secondaryContent) {
+      if (activeStep && activeStep.data && activeStep.data.secondaryContent) {
         this.loadComponent(activeStep.data.secondaryContent);
       }
     }),
