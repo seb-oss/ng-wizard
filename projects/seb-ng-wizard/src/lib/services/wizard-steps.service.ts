@@ -140,7 +140,15 @@ export class WizardSteps {
           }
           return [...previousValue, ...order];
         }, [])
-        .sort((a, b) => a.order - b.order),
+        .sort((a, b) => a.order - b.order)
+        .map((res, index) => ({
+          ...res,
+          index,
+          fullPath: `/${location.pathname
+            .split('/')
+            .slice(1, 2)
+            .join('/')}/${res.path}`,
+        })),
     ),
     distinctUntilChanged(),
     shareReplay(1),
