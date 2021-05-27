@@ -166,7 +166,7 @@ export class WizardSteps {
     this._updateStep(value, path);
   }
 
-  private _updateStep(value: any, path?: string, prop: string = 'state') {
+  private _updateStep(object: any, path?: string) {
     const p = this._getStepReferenceByUrl(path);
     const stepId = p.stepPath.id;
     const subStepId = p.subPath.path;
@@ -182,11 +182,11 @@ export class WizardSteps {
           // create new reference for step children by re-assigning sub steps
           {
             ...subSteps,
-            [subStepId]: { ...subSteps[subStepId], data: { ...subSteps[subStepId].data, [prop]: value } },
+            [subStepId]: { ...subSteps[subStepId], data: { ...subSteps[subStepId].data, ...object } },
           },
       };
     } else {
-      updatedStep = { ...this.steps[stepId], data: { ...this.steps[stepId].data, [prop]: value } };
+      updatedStep = { ...this.steps[stepId], data: { ...this.steps[stepId].data, ...object } };
     }
     this._steps$.next({
       ...this.steps,
