@@ -23,21 +23,23 @@ export class WizardSteps {
 
   constructor(private router: Router) {
     // get current route from snapshot
-    let initialStepPath = this.router.routerState.snapshot.url.split('?')[0];
+    let initialStepPath = location.pathname; // this.router.routerState.snapshot.url.split('?')[0];
     const routeTree: Array<string> = initialStepPath.split('/').slice(1, 3); // default level
 
     // re-declare current route based on default level
     initialStepPath = '/' + routeTree.join('/');
 
-    // get config for wizard by looking at passed data object to route configuration for active route
-    let config = routeTree.reduce(
-      routeConfig => routeConfig.children[0], // return first child of each route
-      this.router.routerState.snapshot['_root'],
-    ).value.routeConfig; // set root config of active route as initial value
+    let config: any = this.router.config.find(route => route.path === routeTree[0]);
 
-    config = (config.children || config._loadedConfig.routes) // return route config for children
-      .filter(childRoute => childRoute.path !== '' && childRoute.data); // make sure route contains config (data)
-
+    try {
+      config = (config.children || config['_loadedConfig'].routes[0].children) // return route config for children
+        .filter(childRoute => childRoute.path !== '' && childRoute.data); // make sure route contains config (data)
+    } catch (e) {
+      console.warn(`No valid route config found for current route: "${this.router.routerState.snapshot.url}".
+      Make sure route guards provide a fallback if a access to a step is restricted
+      and that inactive sub steps are handled too, using a wildcard route.`);
+      return;
+    }
     // emit step config for wizard instance
     this._steps$.next(
       config.reduce((previousValue, currentValue, index) => {
