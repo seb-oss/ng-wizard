@@ -14,13 +14,13 @@
       [class.col-sm]="controls.length >= 3"
       *ngFor="let control of controls; let i = index"
     >
-      <ng-container *ngIf="control.path | async as path">
+      <ng-container *ngIf="{ path: control.path | async } as ctrl">
         <a
-          *ngIf="path"
+          *ngIf="ctrl.path"
           class="btn w-100 d-flex justify-content-between"
           [class.fit-content]="i === 0 && controls.length >= 3"
           [ngClass]="control.class || (control.type !== 'next' ? 'btn-outline-primary' : 'btn-primary')"
-          [routerLink]="path"
+          [routerLink]="ctrl.path"
           queryParamsHandling="merge"
           (click)="emitControlEvent($event, control)"
           [title]="t[control.title] || t[control.text] || control.title || control.text"
@@ -30,7 +30,7 @@
           <fa-icon *ngIf="control.type === 'next'" icon="arrow-right" class="ml-2"></fa-icon>
         </a>
         <button
-          *ngIf="!path"
+          *ngIf="!ctrl.path"
           class="btn w-100 d-flex justify-content-between"
           [class.fit-content]="i === 0 && controls.length >= 3"
           [ngClass]="control.class || (control.type !== 'next' ? 'btn-outline-primary' : 'btn-primary')"
