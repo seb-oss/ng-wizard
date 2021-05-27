@@ -162,8 +162,18 @@ export class WizardSteps {
     );
   }
 
-  setState(value: StepState, path?: string) {
-    this._updateStep(value, path);
+  getPreviousStep(path: string): Observable<WizardStepConfig> {
+    return this._stepsInOrder$.pipe(
+      take(1),
+      map(res => {
+        const index = res.find(step => step.fullPath === path).index;
+        return this.getStepByUrl(res[index > 0 ? index - 1 : 0].fullPath);
+      }),
+    );
+  }
+
+  setState(state: StepState, path?: string) {
+    this._updateStep({ state }, path);
   }
 
   private _updateStep(object: any, path?: string) {
