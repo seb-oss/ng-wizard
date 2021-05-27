@@ -143,9 +143,9 @@ export class WizardSteps {
     const stepId = p.stepPath.id;
     const subStepId = p.subPath.path;
     if (subStepId) {
-      return this.steps[stepId].children[subStepId];
+      return { ...this.steps[stepId].children[subStepId], id: subStepId };
     } else {
-      return this.steps[stepId];
+      return { ...this.steps[stepId], id: stepId };
     }
   }
 

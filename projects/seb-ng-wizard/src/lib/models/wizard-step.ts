@@ -9,6 +9,7 @@ export interface WizardStepConfigs {
 }
 
 export interface WizardStepConfig {
+  id?: string;
   data: WizardStepData;
   path: string;
   fullPath?: string;
