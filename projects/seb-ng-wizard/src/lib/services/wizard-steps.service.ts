@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { BehaviorSubject, merge, Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, shareReplay, take, tap, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, shareReplay, take, withLatestFrom } from 'rxjs/operators';
 import { StepState, WizardControls, WizardStepConfig, WizardStepConfigs } from '../models/wizard-step';
 /** Wizard Steps
  * Multiton service (one instance per wizard component) to keep track of step state and do runtime updates do step configuration
@@ -115,7 +115,13 @@ export class WizardSteps {
     this.steps$.pipe(map(_ => this.getStepByUrl(this.router.routerState.snapshot.url))),
   ).pipe(distinctUntilChanged(), shareReplay(1));
 
-  private _stepsInOrder$ = this.steps$.pipe(
+  get activeStep(): WizardStepConfig {
+    return this.getStepByUrl(this.router.routerState.snapshot.url);
+  }
+
+  private _stepsInOrder$: Observable<
+    Array<{ order: number; path: string; index: number; fullPath: string }>
+  > = this.steps$.pipe(
     map(configs =>
       Object.values(configs)
         .reduce((previousValue, currentValue) => {
