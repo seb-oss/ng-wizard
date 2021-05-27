@@ -9,6 +9,11 @@
   <h4 class="card-header">Code</h4>
   <div class="card-body">
     <app-code-snippet
+      [data]="module"
+      [lang]="'typescript'"
+      [title]="'basic.module.ts (app.module.ts)'"
+    ></app-code-snippet>
+    <app-code-snippet
       [data]="template"
       [lang]="'markup'"
       [title]="'basic.component.html (app.component.html)'"
