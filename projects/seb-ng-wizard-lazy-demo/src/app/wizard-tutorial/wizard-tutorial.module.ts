@@ -49,7 +49,7 @@ import { WizardTutorialComponent } from './wizard-tutorial.component';
     AdditionalContentComponent,
   ],
   imports: [CommonModule, WizardTutorialRoutingModule, SebNgWizardModule.forRoot({ hideClose: true }), SharedModule],
-  entryComponents: [MoreExamplesComponent],
+  entryComponents: [MoreExamplesComponent, AdditionalContentComponent],
   providers: [WizardSteps],
 })
 export class WizardTutorialModule {}
