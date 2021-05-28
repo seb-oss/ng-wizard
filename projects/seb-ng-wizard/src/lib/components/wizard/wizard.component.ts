@@ -2,7 +2,7 @@ import { Component, ComponentFactoryResolver, EventEmitter, Input, Output, ViewC
 import { tap } from 'rxjs/operators';
 import { WizSecondaryContentDirective } from '../../directives/secondary-content.directive';
 import { WizardStepData } from '../../models/wizard-step';
-import { WizardTranslations } from '../../seb-ng-wizard.module';
+import { WizardConfigService } from '../../services/wizard-config.service';
 import { WizardSteps } from '../../services/wizard-steps.service';
 import { WizardTranslationsService } from '../../services/wizard-translations.service';
 
@@ -19,6 +19,10 @@ export class WizardComponent {
       }
     }),
   );
+
+  get config() {
+    return this._config.loadConfig();
+  }
 
   @ViewChild(WizSecondaryContentDirective, { static: false }) wizSecondaryContentHost: WizSecondaryContentDirective;
   @Input()
@@ -42,6 +46,7 @@ export class WizardComponent {
     private componentFactoryResolver: ComponentFactoryResolver,
     public wizardStepService: WizardSteps,
     public translations: WizardTranslationsService,
+    private _config: WizardConfigService,
   ) {}
 
   loadComponent(secondaryContent: any) {

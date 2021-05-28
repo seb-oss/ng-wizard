@@ -1,9 +1,13 @@
 <wiz-top-bar>
   <ng-content select=".wizard-actions"></ng-content>
 </wiz-top-bar>
-<div class="row no-gutters" [class.nav-hidden]="(activeStep$ | async)?.data?.hideNavigation">
+<div
+  class="row no-gutters"
+  [class.nav-hidden]="(activeStep$ | async)?.data?.hideNavigation"
+  [class.full-width]="config.useFullWidth"
+>
   <div class="col-12 col-md-auto">
-    <wiz-left-navigation class="wiz-left-navigation" [lang]="lang"></wiz-left-navigation>
+    <wiz-left-navigation class="wiz-left-navigation"></wiz-left-navigation>
   </div>
   <div class="col-12 col-md bg-white">
     <div class="container-fluid p-3 p-md-4 px-xl-5 bg-white wizard-content-container">
