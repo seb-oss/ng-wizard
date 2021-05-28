@@ -25,14 +25,6 @@ export class WizardComponent {
   }
 
   @ViewChild(WizSecondaryContentDirective, { static: false }) wizSecondaryContentHost: WizSecondaryContentDirective;
-  @Input()
-  title: string;
-
-  @Input()
-  hideCloseButton = false;
-
-  @Input()
-  lang: 'sv' | 'en' = 'en';
 
   @Input()
   routerOutletName: string;
