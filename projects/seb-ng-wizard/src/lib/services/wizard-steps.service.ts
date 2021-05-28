@@ -9,6 +9,7 @@ import { StepState, WizardControls, WizardStepConfig, WizardStepConfigs } from '
  * */
 @Injectable()
 export class WizardSteps {
+  private _config;
   /** get current configuration for wizard
    * return steps as observable
    */
@@ -30,11 +31,18 @@ export class WizardSteps {
     // re-declare current route based on default level
     initialStepPath = '/' + routeTree.join('/');
 
-    let config: any = this.router.config.find(route => route.path === routeTree[0]);
+    let config;
+    this._config =
+      this.router.config.filter(route => route.data && route.data.heading).length > 0
+        ? { level: 0, config: this.router.config }
+        : { level: 1, config: this.router.config.find(route => route.path === routeTree[0]) };
 
     try {
-      config = (config.children || config['_loadedConfig'].routes[0].children) // return route config for children
-        .filter(childRoute => childRoute.path !== '' && childRoute.data); // make sure route contains config (data)
+      config = (this._config.level === 0
+        ? this._config.config
+        : this._config.config.children || this._config.config['_loadedConfig'].routes[0].children
+      ) // return route config for children
+        .filter(route => route.path !== '' && route.data); // make sure route contains config (data)
     } catch (e) {
       console.warn(`No valid route config found for current route: "${this.router.routerState.snapshot.url}".
       Make sure route guards provide a fallback if a access to a step is restricted
@@ -66,7 +74,9 @@ export class WizardSteps {
 
         // create unique id for config based on route path, ie. id will be the same unless route path changes
         const id = this._stepGuid(
-          initialStepPath.substring(0, initialStepPath.lastIndexOf('/') + 1) + currentValue.path,
+          this._config.level === 0
+            ? '/' + currentValue.path
+            : initialStepPath.substring(0, initialStepPath.lastIndexOf('/') + 1) + currentValue.path,
         );
 
         // create step config
@@ -234,10 +244,11 @@ export class WizardSteps {
   private _getStepReferenceByUrl(url: string = this.router.routerState.snapshot.url) {
     // create url tree based on url without query parameters
     const urlTree = url.split('?')[0].split('/');
+    const sliceDelta = this._config.level + 2;
     // get path of step
-    const stepPath = '/' + urlTree.slice(1, 3).join('/');
+    const stepPath = '/' + urlTree.slice(1, sliceDelta).join('/');
     // get path of sub step
-    const subPath = urlTree.slice(3, 4).join('/');
+    const subPath = urlTree.slice(sliceDelta, sliceDelta + 1).join('/');
     return {
       stepPath: {
         path: stepPath,
