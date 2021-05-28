@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { BehaviorSubject, merge, Observable } from 'rxjs';
@@ -21,9 +22,9 @@ export class WizardSteps {
     return this._steps$.getValue();
   }
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private _location: Location) {
     // get current route from snapshot
-    let initialStepPath = location.pathname; // this.router.routerState.snapshot.url.split('?')[0];
+    let initialStepPath = this._location.path().split('?')[0]; // this.router.routerState.snapshot.url.split('?')[0];
     const routeTree: Array<string> = initialStepPath.split('/').slice(1, 3); // default level
 
     // re-declare current route based on default level
@@ -150,7 +151,9 @@ export class WizardSteps {
         .map((res, index) => ({
           ...res,
           index,
-          fullPath: `/${location.pathname
+          fullPath: `/${this._location
+            .path()
+            .split('?')[0]
             .split('/')
             .slice(1, 2)
             .join('/')}/${res.path}`,
