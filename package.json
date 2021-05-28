@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve seb-ng-wizard-lazy-demo --port 4201 --host=0.0.0.0",
+    "start:simple": "ng serve seb-ng-wizard-simple-usage --port 4202 --host=0.0.0.0",
     "prebuild": "rimraf dist",
     "build": "ng build seb-ng-wizard",
     "build:watch": "ng build seb-ng-wizard --watch",
