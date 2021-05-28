@@ -14,6 +14,7 @@ import { WizardComponent } from './components/wizard/wizard.component';
 import { WizSecondaryContentDirective } from './directives/secondary-content.directive';
 import { SebNgWizardConfig } from './models/wizard-config';
 import { WizardTexts } from './models/wizard-texts';
+import { WizardConfigService } from './services/wizard-config.service';
 import { WizardControlService } from './services/wizard-control.service';
 import { WizardTranslationsService } from './services/wizard-translations.service';
 
@@ -31,7 +32,7 @@ const defaultConfig: SebNgWizardConfig = {
   markPassedAsSuccess: true,
 };
 
-export const SebNgWizardConfigService = new InjectionToken<SebNgWizardConfig>('SebNgWizardConfig');
+export const WIZARD_CONFIG = new InjectionToken<SebNgWizardConfig>('WIZARD_CONFIG');
 export const SebNgWizardTranslateService = new InjectionToken<Provider>('AbstractLibTranslations');
 
 @NgModule({
@@ -55,11 +56,12 @@ export class SebNgWizardModule {
     return {
       ngModule: SebNgWizardModule,
       providers: [
+        WizardConfigService,
         WizardControlService,
         WizardTranslationsService,
         {
-          provide: SebNgWizardConfigService,
-          useValue: { ...defaultConfig, ...config } || defaultConfig,
+          provide: WIZARD_CONFIG,
+          useValue: config,
         },
         translations || { provide: WizardTranslations, useClass: DefaultWizardTranslations },
       ],

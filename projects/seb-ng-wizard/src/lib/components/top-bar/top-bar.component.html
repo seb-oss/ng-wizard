@@ -5,7 +5,7 @@
       <ng-content></ng-content>
       <button
         type="button"
-        *ngIf="!hideClose"
+        *ngIf="!config.hideClose"
         class="close d-flex align-items-center"
         data-dismiss="modal"
         (click)="emitControlEvent($event, { type: 'close' })"

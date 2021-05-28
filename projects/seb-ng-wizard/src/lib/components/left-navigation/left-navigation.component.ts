@@ -1,9 +1,9 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, HostListener, Inject, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { BehaviorSubject, combineLatest, merge, Observable, Subject } from 'rxjs';
 import { filter, map, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
-import { SebNgWizardConfigService, WizardTranslations } from '../../seb-ng-wizard.module';
+import { WizardConfigService } from '../../services/wizard-config.service';
 import { WizardSteps } from '../../services/wizard-steps.service';
 import { WizardTranslationsService } from '../../services/wizard-translations.service';
 
@@ -34,6 +34,10 @@ export class LeftNavigationComponent implements OnInit {
     this._isDesktop = value;
   }
 
+  get config() {
+    return this._config.loadConfig();
+  }
+
   @Input()
   lang = 'sv';
 
@@ -62,7 +66,7 @@ export class LeftNavigationComponent implements OnInit {
   }
 
   constructor(
-    @Inject(SebNgWizardConfigService) public config,
+    private _config: WizardConfigService,
     public translations: WizardTranslationsService,
     private router: Router,
     public wizardStepService: WizardSteps,

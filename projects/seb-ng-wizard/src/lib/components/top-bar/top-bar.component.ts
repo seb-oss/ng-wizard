@@ -1,6 +1,6 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { WizardControl } from '../../models/wizard-step';
-import { SebNgWizardConfigService } from '../../seb-ng-wizard.module';
+import { WizardConfigService } from '../../services/wizard-config.service';
 import { WizardControlService } from '../../services/wizard-control.service';
 import { WizardTranslationsService } from '../../services/wizard-translations.service';
 
@@ -10,9 +10,11 @@ import { WizardTranslationsService } from '../../services/wizard-translations.se
   styleUrls: ['./top-bar.component.scss'],
 })
 export class TopBarComponent {
-  hideClose = this.config.hideClose;
+  get config() {
+    return this._config.loadConfig();
+  }
   constructor(
-    @Inject(SebNgWizardConfigService) private config,
+    private _config: WizardConfigService,
     public translations: WizardTranslationsService,
     private wizardControl: WizardControlService,
   ) {}

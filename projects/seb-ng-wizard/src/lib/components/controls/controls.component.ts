@@ -1,8 +1,7 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { isObservable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { WizardControl } from '../../models/wizard-step';
-import { SebNgWizardConfigService } from '../../seb-ng-wizard.module';
 import { WizardControlService } from '../../services/wizard-control.service';
 import { WizardSteps } from '../../services/wizard-steps.service';
 import { WizardTranslationsService } from '../../services/wizard-translations.service';
@@ -34,7 +33,6 @@ export class ControlsComponent {
   );
 
   constructor(
-    @Inject(SebNgWizardConfigService) private config,
     public translations: WizardTranslationsService,
     private wizardControl: WizardControlService,
     public wizardStepService: WizardSteps,
