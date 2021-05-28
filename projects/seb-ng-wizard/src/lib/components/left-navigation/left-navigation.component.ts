@@ -42,6 +42,7 @@ export class LeftNavigationComponent implements OnInit {
   lang = 'sv';
 
   public stepDescription$ = combineLatest([this.steps$, this.activeStep$]).pipe(
+    filter(([steps, activeStep]) => steps.length > 0 && !!activeStep.data),
     map(([steps, activeStep]) => `Step ${Math.floor(activeStep.data.number)} of ${steps.length}`),
   );
   private _isDesktop: boolean;

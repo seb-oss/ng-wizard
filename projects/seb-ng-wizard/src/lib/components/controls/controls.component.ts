@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { isObservable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { WizardControl } from '../../models/wizard-step';
 import { WizardControlService } from '../../services/wizard-control.service';
 import { WizardSteps } from '../../services/wizard-steps.service';
@@ -13,6 +13,7 @@ import { WizardTranslationsService } from '../../services/wizard-translations.se
 })
 export class ControlsComponent {
   controls$ = this.wizardStepService.activeStep$.pipe(
+    filter(step => !!step.data),
     map(step =>
       step.data.controls.map(control => {
         let path = control.path;

@@ -33,10 +33,10 @@
             <ng-container *ngFor="let subStep of step.data?.subSteps; index as k">
               <li
                 class="list-group-item"
-                [class.list-group-item-passed]="i + 1 + (k + 1) / 10 < (activeStep$ | async)?.data.number"
+                [class.list-group-item-passed]="i + 1 + (k + 1) / 10 < (activeStep$ | async)?.data?.number"
                 [class.list-group-item-success]="
                   child?.data?.state === 'success' ||
-                  (config.markPassedAsSuccess && i + 1 + (k + 1) / 10 < (activeStep$ | async)?.data.number)
+                  (config.markPassedAsSuccess && i + 1 + (k + 1) / 10 < (activeStep$ | async)?.data?.number)
                 "
                 [class.list-group-item-danger]="child?.data?.state === 'danger'"
                 [class.list-group-item-info]="child?.data?.state === 'info'"
