@@ -24,7 +24,7 @@ export class WizardComponent {
     return this._config.loadConfig();
   }
 
-  @ViewChild(WizSecondaryContentDirective, { static: false }) wizSecondaryContentHost: WizSecondaryContentDirective;
+  @ViewChild(WizSecondaryContentDirective) wizSecondaryContentHost: WizSecondaryContentDirective;
 
   @Input()
   routerOutletName: string;

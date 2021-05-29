@@ -14,6 +14,11 @@
           "options": {
             "tsConfig": "projects/seb-ng-wizard/tsconfig.lib.json",
             "project": "projects/seb-ng-wizard/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/seb-ng-wizard/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -52,7 +57,7 @@
             "main": "projects/seb-ng-wizard-lazy-demo/src/main.ts",
             "polyfills": "projects/seb-ng-wizard-lazy-demo/src/polyfills.ts",
             "tsConfig": "projects/seb-ng-wizard-lazy-demo/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "projects/seb-ng-wizard-lazy-demo/src/favicon.ico",
               "projects/seb-ng-wizard-lazy-demo/src/assets"
@@ -78,7 +83,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -173,7 +177,7 @@
             "main": "projects/seb-ng-wizard-simple-usage/src/main.ts",
             "polyfills": "projects/seb-ng-wizard-simple-usage/src/polyfills.ts",
             "tsConfig": "projects/seb-ng-wizard-simple-usage/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "projects/seb-ng-wizard-simple-usage/src/favicon.ico",
               "projects/seb-ng-wizard-simple-usage/src/assets"
@@ -194,7 +198,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
