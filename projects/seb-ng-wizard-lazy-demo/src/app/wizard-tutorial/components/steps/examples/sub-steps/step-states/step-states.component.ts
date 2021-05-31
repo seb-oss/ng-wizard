@@ -35,7 +35,7 @@ export class StepStatesComponent {
 
   stepForm: FormGroup;
 
-  states = ['info', 'success', 'warning', 'danger', null];
+  states: StepState[] = ['info', 'success', 'warning', 'danger', null];
   setState(state: StepState) {
     this.wizardSteps.setState(state);
   }

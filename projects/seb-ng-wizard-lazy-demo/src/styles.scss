@@ -200,3 +200,6 @@ pre[class*='language-'][data-line] {
 pre .line-highlight {
   margin-top: 0;
 }
+div[markdown] {
+  min-width: 100%;
+}
