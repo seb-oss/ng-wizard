@@ -2,7 +2,9 @@
   <p class="lead">{{ t('changeLanguageInStep_lead') }}</p>
   <h4>{{ t('changeLanguageInStep_typescript_heading') }}</h4>
   <p>{{ t('changeLanguageInStep_typescript_paragraph') }}</p>
-  <div markdown [data]="toggleLangExample | language: 'typescript'" class="ml-n5 mr-n3 mx-sm-0 mb-4"></div>
+  <div class="overflow-auto d-flex mx-n3 mx-sm-0 mt-3 mb-4">
+    <div markdown [data]="toggleLangExample | language: 'typescript'"></div>
+  </div>
   <button class="btn btn-outline-primary" (click)="toggleLang()">
     {{ t('changeLanguageInStep_toggleLang_action') }}
   </button>
