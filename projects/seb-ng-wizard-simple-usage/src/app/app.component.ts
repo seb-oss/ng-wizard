@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FaConfig } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'seb-ng-wizard-simple-usage';
+  constructor(private faConfig: FaConfig) {
+    this.faConfig.defaultPrefix = 'far';
+  }
 }
