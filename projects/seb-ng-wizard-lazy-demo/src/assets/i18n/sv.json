@@ -3,6 +3,7 @@
   "wiz_next_action": "Nästa",
   "wiz_prev_action": "Tillbaka",
   "wiz_close_action": "Stäng",
+  "wiz_step_description": "Steg {{stepNumber}} av {{numberOfSteps}}",
   "language": "In english",
   "introduction_heading": "Introduktion",
   "changeLanguage_heading": "Byt språk",

@@ -3,6 +3,7 @@
   "wiz_next_action": "Next",
   "wiz_prev_action": "Back",
   "wiz_close_action": "Close",
+  "wiz_step_description": "Step {{stepNumber}} of {{numberOfSteps}}",
   "language": "På svenska",
   "introduction_heading": "Introduction",
   "introduction_lead": "SEB ng-wizard supports multiple languages and translations and works with ngx-translate, transloco or any custom implementation as long as it returns an observable with translated key value pairs.",
