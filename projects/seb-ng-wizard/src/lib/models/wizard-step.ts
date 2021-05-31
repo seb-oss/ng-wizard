@@ -42,5 +42,5 @@ export interface WizardControl {
   title?: string; // title/description added to the control (useful for screen readers etc).
   path?: string | Observable<string>; // path where action takes user (optional)
   class?: string; // class to be added to control (optional)
-  type: 'next' | 'prev' | 'cancel' | 'save' | 'close'; // type of action (determines icon and can be used for custom triggers)
+  type: 'next' | 'prev' | 'cancel' | 'save' | 'close' | 'print'; // type of action (determines icon and can be used for custom triggers)
 }
