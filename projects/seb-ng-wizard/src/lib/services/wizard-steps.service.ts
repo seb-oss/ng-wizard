@@ -161,12 +161,15 @@ export class WizardSteps {
         .map((res, index) => ({
           ...res,
           index,
-          fullPath: `/${this._location
-            .path()
-            .split('?')[0]
-            .split('/')
-            .slice(1, 2)
-            .join('/')}/${res.path}`,
+          fullPath:
+            this._config.level === 0
+              ? '/' + res.path
+              : `/${this._location
+                  .path()
+                  .split('?')[0]
+                  .split('/')
+                  .slice(1, 2)
+                  .join('/')}/${res.path}`,
         })),
     ),
     distinctUntilChanged(),
