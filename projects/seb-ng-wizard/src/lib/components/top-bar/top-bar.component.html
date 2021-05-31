@@ -6,11 +6,12 @@
       <button
         type="button"
         *ngIf="!config.hideClose"
-        class="close d-flex align-items-center"
+        class="close align-self-center"
         data-dismiss="modal"
+        style="height: 2rem;"
         (click)="emitControlEvent($event, { type: 'close' })"
       >
-        <span class="d-none d-md-inline">{{ t['wiz_close_action'] || '' }}</span>
+        <span class="sr-only">{{ t['wiz_close_action'] || '' }}</span>
       </button>
     </div>
   </ng-container>
