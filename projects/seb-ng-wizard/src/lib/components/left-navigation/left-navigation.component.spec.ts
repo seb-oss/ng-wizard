@@ -16,7 +16,6 @@ describe('LeftNavigationComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LeftNavigationComponent);
     component = fixture.componentInstance;
-    component.steps = [];
     fixture.detectChanges();
   });
 

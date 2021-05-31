@@ -13,6 +13,7 @@ export class WizardTranslationsService {
     wiz_prev_action: 'Back',
     wiz_save_action: 'Save',
     wiz_close_action: 'Close',
+    wiz_step_description: 'Step {{stepNumber}} of {{numberOfSteps}}',
   });
   translations$: Observable<WizardTexts> = combineLatest([
     this._defaultTranslations,

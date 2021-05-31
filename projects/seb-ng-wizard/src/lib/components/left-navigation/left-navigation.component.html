@@ -1,30 +1,31 @@
 <nav class="bg-secondary py-3">
-  <div
-    class="d-md-none toggle-step d-flex justify-content-between"
-    [class.active]="showStepNavigation$ | async"
-    (click)="toggleStepNavigation()"
-  >
-    <div class="toggle-content pl-3 pl-md-0">
-      <h2 class="mb-1" [innerText]="(activeStep$ | async)?.data?.heading"></h2>
-      <span class="small">{{ stepDescription$ | async }}</span>
+  <ng-container *ngIf="translations.translations$ | async as t">
+    <div
+      class="d-md-none toggle-step d-flex justify-content-between"
+      [class.active]="showStepNavigation$ | async"
+      (click)="toggleStepNavigation()"
+    >
+      <div class="toggle-content pl-3 pl-md-0" *ngIf="(activeStep$ | async)?.data?.heading as heading">
+        <h2 class="mb-1" [innerText]="t[heading] || heading"></h2>
+        <span class="small">{{ stepDescription$ | async }}</span>
+      </div>
     </div>
-  </div>
-  <div class="step-wrapper" @expand *ngIf="(showStepNavigation$ | async) || isDesktop">
-    <ol class="list-group list-group-wizard mt-3 indent">
-      <li
-        class="list-group-item"
-        *ngFor="let step of steps$ | async; index as i"
-        [class.list-group-item-passed]="i + 1 < (activeStep$ | async)?.data?.number"
-        [class.list-group-item-success]="
-          step.data?.state === 'success' || (config.markPassedAsSuccess && i + 1 < (activeStep$ | async)?.data?.number)
-        "
-        [class.list-group-item-danger]="step.data?.state === 'danger'"
-        [class.list-group-item-info]="step.data?.state === 'info'"
-        [class.list-group-item-warning]="step.data?.state === 'warning'"
-        [class.list-group-item-wrapper]="step.data?.subSteps?.length > 0"
-        [routerLinkActive]="'active'"
-      >
-        <ng-container *ngIf="translations.translations$ | async as t">
+    <div class="step-wrapper" @expand *ngIf="(showStepNavigation$ | async) || isDesktop">
+      <ol class="list-group list-group-wizard mt-3 indent">
+        <li
+          class="list-group-item"
+          *ngFor="let step of steps$ | async; index as i"
+          [class.list-group-item-passed]="i + 1 < (activeStep$ | async)?.data?.number"
+          [class.list-group-item-success]="
+            step.data?.state === 'success' ||
+            (config.markPassedAsSuccess && i + 1 < (activeStep$ | async)?.data?.number)
+          "
+          [class.list-group-item-danger]="step.data?.state === 'danger'"
+          [class.list-group-item-info]="step.data?.state === 'info'"
+          [class.list-group-item-warning]="step.data?.state === 'warning'"
+          [class.list-group-item-wrapper]="step.data?.subSteps?.length > 0"
+          [routerLinkActive]="'active'"
+        >
           <a [routerLink]="step.path" queryParamsHandling="merge">{{ t[step.data.heading] || step.data.heading }}</a>
           <ol
             class="list-group list-group-wizard list-group-wizard-sub mx-n3 mt-3 mb-n3"
@@ -50,8 +51,8 @@
               </li>
             </ng-container>
           </ol>
-        </ng-container>
-      </li>
-    </ol>
-  </div>
+        </li>
+      </ol>
+    </div>
+  </ng-container>
 </nav>

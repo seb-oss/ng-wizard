@@ -41,9 +41,13 @@ export class LeftNavigationComponent implements OnInit {
   @Input()
   lang = 'sv';
 
-  public stepDescription$ = combineLatest([this.steps$, this.activeStep$]).pipe(
-    filter(([steps, activeStep]) => steps.length > 0 && !!activeStep.data),
-    map(([steps, activeStep]) => `Step ${Math.floor(activeStep.data.number)} of ${steps.length}`),
+  public stepDescription$ = combineLatest([this.steps$, this.activeStep$, this.translations.translations$]).pipe(
+    filter(([steps, activeStep, translations]) => steps.length > 0 && !!activeStep.data),
+    map(([steps, activeStep, translations]) =>
+      translations.wiz_step_description
+        .replace(/{{stepNumber}}/g, Math.floor(activeStep.data.number) + '')
+        .replace(/{{numberOfSteps}}/g, steps.length + ''),
+    ),
   );
   private _isDesktop: boolean;
   private _toggleNavigationTrigger$: Subject<boolean> = new Subject();
