@@ -60,7 +60,6 @@
             "main": "projects/seb-ng-wizard-lazy-demo/src/main.ts",
             "polyfills": "projects/seb-ng-wizard-lazy-demo/src/polyfills.ts",
             "tsConfig": "projects/seb-ng-wizard-lazy-demo/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "projects/seb-ng-wizard-lazy-demo/src/favicon.ico",
               "projects/seb-ng-wizard-lazy-demo/src/assets"
@@ -71,7 +70,13 @@
               "node_modules/prismjs/prism.js",
               "node_modules/prismjs/components/prism-typescript.min.js",
               "node_modules/prismjs/components/prism-markup.min.js"
-            ]
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -179,13 +184,18 @@
             "main": "projects/seb-ng-wizard-simple-usage/src/main.ts",
             "polyfills": "projects/seb-ng-wizard-simple-usage/src/polyfills.ts",
             "tsConfig": "projects/seb-ng-wizard-simple-usage/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "projects/seb-ng-wizard-simple-usage/src/favicon.ico",
               "projects/seb-ng-wizard-simple-usage/src/assets"
             ],
             "styles": ["projects/seb-ng-wizard-simple-usage/src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
