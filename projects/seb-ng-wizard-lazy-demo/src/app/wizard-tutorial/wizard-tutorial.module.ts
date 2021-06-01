@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { SebNgWizardModule, WizardSteps } from '@sebgroup/ng-wizard';
+import { ClassProvider, Injectable, NgModule } from '@angular/core';
+import { SebNgWizardModule, WizardSteps, WizardTexts, WizardTranslations } from '@sebgroup/ng-wizard';
+import { Observable, of } from 'rxjs';
 import { SharedModule } from '../shared/shared.module';
 
 import { MoreExamplesComponent } from './components/secondary-content/more-examples/more-examples.component';
@@ -25,6 +26,19 @@ import { StepControlsComponent } from './components/steps/options/sub-steps/step
 import { WizardTutorialRoutingModule } from './wizard-tutorial-routing.module';
 import { WizardTutorialComponent } from './wizard-tutorial.component';
 
+// service for custom translations implementing wizard translations
+@Injectable()
+export class CustomTranslations implements WizardTranslations {
+  constructor() {}
+  // you need to provide translations$ observable with key value pairs for the keys you use in the wizard
+  translations$: Observable<WizardTexts> = of({ wiz_header_title: 'SEB: ng-wizard: Tutorial' });
+}
+
+const TRANSLATIONS_PROVIDER: ClassProvider = {
+  provide: WizardTranslations,
+  useClass: CustomTranslations,
+};
+
 @NgModule({
   declarations: [
     WizardTutorialComponent,
@@ -48,7 +62,12 @@ import { WizardTutorialComponent } from './wizard-tutorial.component';
     StepConfigurationComponent,
     AdditionalContentComponent,
   ],
-  imports: [CommonModule, WizardTutorialRoutingModule, SebNgWizardModule.forRoot({ hideClose: true }), SharedModule],
+  imports: [
+    CommonModule,
+    WizardTutorialRoutingModule,
+    SebNgWizardModule.forRoot({ hideClose: true }, TRANSLATIONS_PROVIDER),
+    SharedModule,
+  ],
   entryComponents: [MoreExamplesComponent, AdditionalContentComponent],
   providers: [WizardSteps],
 })
