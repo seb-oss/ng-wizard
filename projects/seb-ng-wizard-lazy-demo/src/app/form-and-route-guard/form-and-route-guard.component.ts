@@ -1,11 +1,20 @@
 import { Component } from '@angular/core';
-import { WizardControlService } from '../../../../seb-ng-wizard/src/lib/controls/wizard-control.service';
+import { WizardStepData } from '@sebgroup/ng-wizard';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { WizardControlService } from '../../../../seb-ng-wizard/src/lib/services/wizard-control.service';
+import { StepService } from './services/step.service';
 
 @Component({
   selector: 'app-form-and-route-guard',
   templateUrl: './form-and-route-guard.component.html',
+  providers: [StepService],
 })
 export class FormAndRouteGuardComponent {
+  /*get state(): BehaviorSubject<any> {
+    return this.stepService.$steps
+
+  }*/
+
   constructor(private controls: WizardControlService) {}
 
   /**
@@ -22,6 +31,6 @@ export class FormAndRouteGuardComponent {
     console.log('Save function called');
 
     // optionally the wizard control service can be used to emit an control event
-    this.controls.click($event, { type: 'save', name: 'Save' });
+    this.controls.click($event, { type: 'save', text: 'Save' });
   }
 }

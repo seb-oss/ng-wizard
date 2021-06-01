@@ -12,6 +12,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./form-and-route-guard/form-and-route-guard.module').then(m => m.FormAndRouteGuardModule),
   },
+  { path: 'language', loadChildren: () => import('./language/language.module').then(m => m.LanguageModule) },
   { path: '', redirectTo: 'wizard', pathMatch: 'full' },
   { path: '**', redirectTo: 'wizard', pathMatch: 'full' },
 ];

@@ -1,0 +1,210 @@
+@import '~@sebgroup/bootstrap/scss/core';
+@import 'variables';
+$navbar-brand-height: 3.5rem;
+$wizard-footer-height: ($btn-padding-y * 2) + $font-size-base * $btn-line-height + ($spacer * 2);
+:host-context > .row {
+  max-height: calc(100vh - #{$navbar-brand-height});
+  width: 100%;
+  margin-top: $navbar-brand-height;
+  @include media-breakpoint-up(md) {
+    margin-top: 0;
+    top: $navbar-brand-height;
+    position: fixed;
+  }
+}
+@include media-breakpoint-up(md) {
+  .wizard-content-container {
+    height: calc(100vh - #{$navbar-brand-height} - #{$wizard-footer-height} - 3px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    transition: all 400ms ease-out;
+  }
+}
+
+::ng-deep .wiz-left-navigation nav {
+  transition: all 400ms ease-out;
+}
+
+::ng-deep .wizard-footer {
+  @include media-breakpoint-up(md) {
+    transition: all 400ms ease-out;
+    position: fixed;
+    bottom: 0;
+    left: $left-nav-width;
+    width: calc(100% - #{$left-nav-width});
+    padding: 1rem;
+    border-top: solid $modal-footer-border-color 1px;
+    background: $modal-content-bg;
+  }
+  /* stylelint-disable-next-line selector-type-no-unknown */
+  wiz-controls > div {
+    max-width: 768px;
+  }
+  &.dist {
+    @include media-breakpoint-up(md) {
+      // padding-right: calc(#{map_get($spacers, 4)} + 10px) !important;
+    }
+    @include media-breakpoint-up(lg) {
+      padding-right: calc(
+        320px + #{map_get($spacers, 3) * 2} + #{map_get($spacers, 4)} - #{$modal-inner-padding} * 2 + 10px
+      ) !important;
+    }
+    @include media-breakpoint-up(xl) {
+      padding-right: calc(
+        320px + #{map_get($spacers, 3) * 2} + #{map_get($spacers, 5)} - #{$modal-inner-padding} * 2 + 10px
+      ) !important;
+    }
+  }
+}
+.nav-hidden {
+  ::ng-deep .wiz-left-navigation nav {
+    display: none;
+  }
+  @include media-breakpoint-up(md) {
+    .wizard-content-container {
+      transform: translate3d(-$left-nav-width, 0px, 0px);
+    }
+    ::ng-deep .wizard-footer {
+      transform: translate3d(-$left-nav-width, 0px, 0px);
+      width: calc(100% + #{$left-nav-width});
+    }
+    ::ng-deep .wiz-left-navigation nav {
+      transform: translate3d(-$left-nav-width, 0, 0);
+    }
+  }
+}
+::ng-deep .wizard-main {
+  max-width: 768px;
+}
+
+/*
+
+:host-context {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow-y: auto;
+
+  .navigation-wrapper {
+    margin-top: 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 107rem;
+
+    .content-wrapper {
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 auto;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      .wizard-heading {
+        display: none;
+      }
+
+      .wizard--main {
+        order: 2;
+      }
+    }
+  }
+}
+
+.hide-navigation {
+  .navigation-wrapper {
+    .content-wrapper {
+      margin-left: 0;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  :host-context {
+    .navigation-wrapper {
+      margin-top: 3.5rem;
+      flex-direction: initial;
+      .content-wrapper {
+        flex: 1 1 auto;
+        margin-left: 17rem;
+
+        .wizard-heading {
+          display: block;
+          margin-top: 2rem;
+          margin-left: 1rem;
+        }
+      }
+    }
+    &.hide-navigation {
+      .navigation-wrapper {
+        &::after {
+          content: '';
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 334.98 417.81'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:none;stroke:%23000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75px;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3E410%3C/title%3E%3Cg id='Lager_2' data-name='Lager 2'%3E%3Cg id='Lager_1-2' data-name='Lager 1'%3E%3Crect class='cls-1' x='68.73' y='34.59' width='186.84' height='186.81' transform='matrix(-0.5, -0.87, 0.87, -0.5, 132.35, 332.42)'/%3E%3Cpolyline class='cls-1' points='127.96 255.62 0.38 221.42 34.56 93.8'/%3E%3Cpolyline class='cls-1' points='289.74 162.19 221.36 417.44 93.78 383.24 0.38 221.42 127.96 255.62'/%3E%3Cpolyline class='cls-1' points='221.36 417.44 334.61 352.04 269.23 238.77'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+          background-position: right 0 bottom 0;
+          background-repeat: no-repeat;
+          background-size: 21rem 26rem;
+          opacity: 0.3;
+          position: fixed;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          width: 16rem;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  :host-context {
+    .navigation-wrapper {
+      .content-wrapper {
+        flex: 1 1 auto;
+        flex-wrap: wrap;
+        justify-content: center;
+        flex-direction: row;
+
+        .wizard-heading {
+          flex: 0 0 44rem;
+          margin-right: 17rem;
+          margin-left: 0;
+        }
+        .wizard--main {
+          order: 0;
+          flex: 0 0 44rem;
+          margin-right: 2rem;
+        }
+        .wizard--right-content {
+          flex: 0 0 17rem;
+        }
+      }
+    }
+  }
+}
+
+@media print {
+  :host-context {
+    position: initial;
+    .navigation-wrapper {
+      .content-wrapper {
+        margin-left: 0;
+      }
+    }
+  }
+}
+*/
+@include media-breakpoint-up(lg) {
+  .wizard-secondary-content {
+    max-width: calc(320px - #{$modal-inner-padding * 2});
+  }
+}
+/* stylelint-disable selector-type-no-unknown */
+:host.full-width::ng-deep,
+.full-width::ng-deep {
+  .wizard-main,
+  .wizard-footer wiz-controls > div {
+    max-width: initial;
+  }
+}
+/* stylelint-enable selector-type-no-unknown */
