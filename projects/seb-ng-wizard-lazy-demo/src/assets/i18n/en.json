@@ -1,0 +1,23 @@
+{
+  "wiz_header_title": "SEB ng-wizard: Language support",
+  "wiz_next_action": "Next",
+  "wiz_prev_action": "Back",
+  "wiz_close_action": "Close",
+  "wiz_step_description": "Step {{stepNumber}} of {{numberOfSteps}}",
+  "language": "På svenska",
+  "introduction_heading": "Introduction",
+  "introduction_lead": "SEB ng-wizard supports multiple languages and translations and works with ngx-translate, transloco or any custom implementation as long as it returns an observable with translated key value pairs.",
+  "introduction_module_heading": "Configure wizard module",
+  "introduction_paragraph": "Provide a translation service to the wizard using forRoot like this:",
+  "changeLanguageInStep_heading": "Change language in step",
+  "changeLanguageInStep_lead": "Add language support for your step in a similar fashion.",
+  "changeLanguageInStep_typescript_heading": "Typescript",
+  "changeLanguageInStep_typescript_paragraph": "How you toggle or change language will obviously depend on the framework and implementation you choose to go for, below is just to give you an understanding of how you could implement it using transloco.",
+  "changeLanguageInStep_toggleLang_action": "Toggle language",
+  "addToHeader_heading": "Change language in header",
+  "addToHeader_lead": "Add a control for toggling the language in the wizard header in a breeze.",
+  "addToHeader_markup_heading": "Markup",
+  "addToHeader_markup_paragraph": "Example markup for wizard component were we've added a button using the wizard-action slot.",
+  "addToHeader_typescript_heading": "Typescript",
+  "addToHeader_typescript_paragraph": "Function added to our component."
+}

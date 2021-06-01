@@ -1,0 +1,15 @@
+<p class="lead">Import the module to your app to add the ability to use wizards inside your app.</p>
+<p>
+  You'll likely want to add the <code>SebNgWizardModule</code> to one of your modules e.g <code>AppModule</code>. It's
+  however possible to import it into several modules if you want to provide different wizards with different steps and
+  configuration within a single app (like in this demo).
+</p>
+<p>
+  Note that you need to provide an instance of <code>WizardSteps</code> which holds information about all the steps used
+  by the wizard.
+</p>
+<h4>Basic usage</h4>
+<p>Import <code>SebNgWizardModule</code> (and other required modules) like this:</p>
+<div class="overflow-auto d-flex mx-n3 mx-sm-0">
+  <div markdown [data]="importModule | language: 'typescript'"></div>
+</div>

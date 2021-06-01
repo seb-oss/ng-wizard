@@ -1,0 +1,13 @@
+$top-navigation-height: 3.5rem;
+$left-nav-list-margin: 1.4rem;
+$left-nav-minimized-height: 5rem;
+$left-nav-width: 20rem;
+
+$grid-breakpoints: (
+  // xl changed to fit wizard.
+    xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1248px
+);

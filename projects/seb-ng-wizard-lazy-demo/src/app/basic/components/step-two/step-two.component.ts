@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
+import { WizardControlEvent, WizardControlService } from '@sebgroup/ng-wizard';
 import { of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import {
-  WizardControlEvent,
-  WizardControlService,
-} from '../../../../../../seb-ng-wizard/src/lib/controls/wizard-control.service';
 
 @Component({
   selector: 'app-step-two',

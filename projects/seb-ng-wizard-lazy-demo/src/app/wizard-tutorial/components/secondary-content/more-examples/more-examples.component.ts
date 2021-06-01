@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { SecondaryContentComponent } from '../../../../../../../seb-ng-wizard/src/lib/wizard/wizard.component';
+import { SecondaryContentComponent } from '@sebgroup/ng-wizard';
 
 @Component({
   selector: 'app-more-examples',
@@ -12,6 +12,6 @@ export class MoreExamplesComponent implements OnInit, OnDestroy, SecondaryConten
   ngOnInit() {}
 
   ngOnDestroy(): void {
-    console.log('DESTROY!');
+    // console.log('DESTROY!');
   }
 }

@@ -1,62 +1,85 @@
 // setup routes and wizard steps in route module
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { WizardSteps } from '../../../../seb-ng-wizard/src/lib/models/wizard-step';
-import { ProtectedStepInfoComponent } from './components/secondary-content/protected-step-info/protected-step-info.component';
-import { ProtectedStepComponent } from './components/steps/protected-step/protected-step.component';
-import { ReactiveFormComponent } from './components/steps/reactive-form/reactive-form.component';
+import { WizardStep } from '@sebgroup/ng-wizard';
+import { AccountDetailsIndexComponent } from './components/steps/account-details/account-details-index/account-details-index.component';
+import { AccountDetailsComponent } from './components/steps/account-details/account-details.component';
+import { KycComponent } from './components/steps/account-details/kyc/kyc.component';
+import { ConfirmationComponent } from './components/steps/confirmation/confirmation.component';
+import { IntroductionComponent } from './components/steps/introduction/introduction.component';
+import { PersonalDetailsComponent } from './components/steps/personal-details/personal-details.component';
 import { FormAndRouteGuardComponent } from './form-and-route-guard.component';
 import { StepGuard } from './guards/step.guard';
 
-const routes: WizardSteps = [
+const routes: WizardStep[] = [
   {
     path: '',
     component: FormAndRouteGuardComponent,
     children: [
-      { path: '', redirectTo: 'form-step' },
+      { path: '', redirectTo: 'introduction', pathMatch: 'full' },
       {
-        path: 'form-step',
-        component: ReactiveFormComponent,
+        path: 'introduction',
+        component: IntroductionComponent,
         data: {
-          heading: 'Protecting steps',
+          heading: 'Introduction',
+          pageHeading: 'Wizard with protected steps',
+        },
+      },
+      {
+        path: 'personal-details',
+        component: PersonalDetailsComponent,
+        data: {
+          heading: 'Personal details',
+          pageHeading: 'Tell us a bit about yourself',
           controls: [
             {
-              name: 'Save form',
-              type: 'save',
+              type: 'prev',
             },
             {
-              name: 'Reset form',
+              text: 'Clear form',
               class: 'btn-outline-danger',
               type: 'cancel',
             },
             {
-              name: 'Next',
-              path: 'protected-step',
               type: 'next',
-            },
-          ],
-          secondaryContent: {
-            component: ProtectedStepInfoComponent,
-            class: 'col-12 col-lg-auto order-0 order-md-1 ml-lg-3',
-          },
-        },
-      },
-      {
-        path: 'protected-step',
-        component: ProtectedStepComponent,
-        data: {
-          heading: 'Protected step',
-          controls: [
-            {
-              name: 'Go back',
-              path: 'form-step',
-              type: 'prev',
             },
           ],
         },
         canActivate: [StepGuard],
       },
-      { path: '**', redirectTo: 'form-step', pathMatch: 'full' },
+      {
+        path: 'account-details',
+        component: AccountDetailsComponent,
+        data: {
+          heading: 'Account details',
+          pageHeading: 'Just a few more details',
+        },
+        canActivate: [StepGuard],
+        children: [
+          {
+            path: '',
+            component: AccountDetailsIndexComponent,
+          },
+          {
+            path: 'kyc',
+            component: KycComponent,
+            data: {
+              heading: 'KYC',
+              pageHeading: 'Trade experience',
+              state: 'info',
+            },
+          },
+        ],
+      },
+      {
+        path: 'confirmation',
+        component: ConfirmationComponent,
+        data: {
+          heading: 'Confirmation',
+        },
+        canActivate: [StepGuard],
+      },
+      { path: '**', pathMatch: 'full', redirectTo: 'introduction' },
     ],
   },
 ];
