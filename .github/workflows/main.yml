@@ -21,12 +21,12 @@ jobs:
 
     - name: Install dependencies
       run: npm ci
+      
+    - name: Build documentation and demo site
+      run: npm run build:demo
 
     - name: Build library
       run: npm run build
-
-    - name: Build documentation and demo site
-      run: npm run build:demo
 
     #- uses: codfish/semantic-release-action@master
     #  env:
