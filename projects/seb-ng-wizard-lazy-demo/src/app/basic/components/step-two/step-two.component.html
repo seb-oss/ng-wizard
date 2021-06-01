@@ -1,0 +1,17 @@
+<h3>Listen to control events</h3>
+<ng-container *ngIf="controlEvents$ | async as controlEvents; else noEvents">
+  <code class="d-block" *ngFor="let event of controlEvents">{{ event | json }}</code>
+</ng-container>
+<ng-template #noEvents>
+  <div class="alert alert-info alert-icon">
+    <h5 class="alert-heading">Nothing has been emitted!</h5>
+    Click "Save" down in the footer to emit an event.
+  </div>
+</ng-template>
+<div class="card bg-light mt-3">
+  <h4 class="card-header">Code</h4>
+  <div class="card-body">
+    <app-code-snippet [data]="template" [lang]="'markup'" [title]="'step-two.component.html'"></app-code-snippet>
+    <app-code-snippet [data]="component" [lang]="'typescript'" [title]="'step-two.component.ts'"></app-code-snippet>
+  </div>
+</div>

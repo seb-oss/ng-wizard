@@ -4,8 +4,8 @@
   "license": "Apache-2.0",
   "version": "0.0.0-semantically-released",
   "peerDependencies": {
-    "@angular/common": "^7.2.0",
-    "@angular/core": "^7.2.0"
+    "@angular/common": "^8.2.0",
+    "@angular/core": "^8.2.0"
   },
   "publishConfig": {
     "access": "public"

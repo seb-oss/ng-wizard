@@ -64,7 +64,7 @@ Write the markup for your template.
 
 ```Html
 <wiz-wizard [hideNavigation]="false"
-             wizardTitle="Wizard title"
+             title="Wizard title"
             [steps]="steps"
             (navigate)="onStep($event)"
             (close)="onClose($event)">

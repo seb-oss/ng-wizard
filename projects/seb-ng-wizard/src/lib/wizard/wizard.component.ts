@@ -1,47 +1,29 @@
-import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
-import { NavigationEnd, Router, RouterEvent } from '@angular/router';
+import {
+  Component,
+  ComponentFactoryResolver,
+  Directive,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { merge, Observable, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { WizardStep } from './wizard-step';
+import { filter, map, shareReplay, tap } from 'rxjs/operators';
+import { WizardStep, WizardStepData, WizardSteps } from '../models/wizard-step';
+
+@Directive({
+  selector: '[wizSecondaryContentHost]',
+})
+export class WizSecondaryContentDirective {
+  constructor(public viewContainerRef: ViewContainerRef) {}
+}
 
 @Component({
   selector: 'wiz-wizard',
-  template: `
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="useNavbar">
-      <span class="navbar-brand mb-0 h1" [innerText]="wizardTitle"></span>
-    </nav>
-    <wiz-top-bar
-      [title]="wizardTitle"
-      [class.hide-close]="hideCloseButton"
-      [class.hide-navigation]="hideNavigation"
-      [class.partial-navigation]="steps.length == 1"
-      [progress]="progress$ | async"
-      [lang]="lang"
-      (close)="close.next()"
-    >
-    </wiz-top-bar>
-    <div class="navigation-wrapper">
-      <wiz-left-navigation
-        [class.hide-navigation]="hideNavigation"
-        [class.partial-navigation]="steps.length == 1"
-        [activeStep]="activeStep$ | async"
-        [steps]="steps"
-        [lang]="lang"
-        (navigate)="navigate.next($event)"
-      ></wiz-left-navigation>
-      <div class="content-wrapper">
-        <div class="wizard-heading">
-          <h1 [innerText]="(activeStep$ | async)?.text || ''"></h1>
-        </div>
-        <div class="wizard--main">
-          <ng-content select=".wizard-main"></ng-content>
-        </div>
-        <div class="wizard--right-content">
-          <ng-content select=".wizard-right-content"></ng-content>
-        </div>
-      </div>
-    </div>
-  `,
+  templateUrl: './wizard.component.html',
   styleUrls: ['./wizard.component.scss'],
 })
 export class WizardComponent implements OnInit {
@@ -54,36 +36,36 @@ export class WizardComponent implements OnInit {
   public get activeStep$(): Observable<WizardStep> {
     return this._activeStep$;
   }
-  @Input()
-  wizardTitle: string;
 
+  @ViewChild(WizSecondaryContentDirective, { static: false }) wizSecondaryContentHost: WizSecondaryContentDirective;
   @Input()
-  steps: WizardStep[] = [];
+  title: string;
 
-  @HostBinding('class.hide-navigation')
-  @Input()
-  hideNavigation = false;
+  steps: WizardSteps = [];
 
-  @HostBinding('class.hide-close-button')
   @Input()
   hideCloseButton = false;
 
-  @HostBinding('class.use-navbar')
   @Input()
-  useNavbar = false;
-
-  @Input()
-  lang: 'sv' | 'en';
+  lang: 'sv' | 'en' = 'en';
 
   @Input()
   routerOutletName: string;
 
   @Output()
-  navigate: EventEmitter<WizardStep> = new EventEmitter(true);
+  navigate: EventEmitter<WizardStepData> = new EventEmitter(true);
 
   @Output()
-  close: EventEmitter<void> = new EventEmitter(true);
-  constructor(private router: Router) {}
+  close: EventEmitter<MouseEvent> = new EventEmitter(true);
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private componentFactoryResolver: ComponentFactoryResolver,
+  ) {
+    this.steps = <WizardSteps>(
+      this.route.routeConfig.children.filter(childRoute => childRoute.path !== '' && childRoute.data)
+    );
+  }
   public ngOnInit(): void {
     const navigationEnd = this.router.events.pipe(filter((e: RouterEvent) => e instanceof NavigationEnd));
     this._activeStep$ = merge(
@@ -94,7 +76,14 @@ export class WizardComponent implements OnInit {
         }),
       ),
       this.currentRoute(),
-    ).pipe(map(routerStep => (routerStep ? routerStep : { path: '', text: '' })));
+    ).pipe(
+      tap(activeStep => {
+        if (activeStep && activeStep.data.secondaryContent) {
+          this.loadComponent(activeStep.data.secondaryContent);
+        }
+      }),
+      shareReplay(1),
+    );
 
     this._progress$ = navigationEnd.pipe(
       map((e: NavigationEnd) => {
@@ -109,9 +98,28 @@ export class WizardComponent implements OnInit {
   }
 
   private matchesRoute(step: WizardStep, url: string): boolean {
+    const parentRoute = this.route.parent.routeConfig.path;
+    const pathCheck = `${parentRoute}/${step.path}`;
+
     if (this.routerOutletName) {
-      return url.includes(`(${this.routerOutletName}:${step.path})`);
+      return url.includes(`(${this.routerOutletName}:${pathCheck})`);
     }
-    return step.path === url;
+    return pathCheck === url || `/${pathCheck}` === url;
   }
+
+  loadComponent(secondaryContent: any) {
+    setTimeout(() => {
+      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(secondaryContent.component);
+
+      const viewContainerRef = this.wizSecondaryContentHost.viewContainerRef;
+      viewContainerRef.clear();
+
+      const componentRef = viewContainerRef.createComponent<any>(componentFactory);
+      componentRef.instance.data = secondaryContent.data;
+    }, 0);
+  }
+}
+
+export interface SecondaryContentComponent {
+  data: any;
 }

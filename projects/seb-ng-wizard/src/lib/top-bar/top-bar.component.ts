@@ -1,22 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { WizardControlService } from '../controls/wizard-control.service';
+import { WizardControl } from '../models/wizard-step';
 
 @Component({
   selector: 'wiz-top-bar',
-  template: `
-    <div class="wizard-progress-bar">
-      <div class="progress" [style.width]="progress"></div>
-    </div>
-    <div class="title">
-      <div class="seb-logo"></div>
-      <div class="title-text" [innerText]="title"></div>
-    </div>
-    <div class="close-wizard">
-      <button type="button" class="close-link" (click)="close.next()">{{ lang == 'en' ? 'Close' : 'Stäng' }}</button>
-      <button type="button" class="close-button" data-dismiss="modal" aria-label="Close" (click)="close.next()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  `,
+  templateUrl: './top-bar.component.html',
   styleUrls: ['./top-bar.component.scss'],
 })
 export class TopBarComponent {
@@ -27,9 +15,21 @@ export class TopBarComponent {
   progress: string;
 
   @Input()
+  hideClose = false;
+
+  @Input()
   lang: 'sv' | 'en';
 
   @Output()
-  close: EventEmitter<void> = new EventEmitter();
-  constructor() {}
+  close: EventEmitter<MouseEvent> = new EventEmitter();
+  constructor(private wizardControl: WizardControlService) {}
+
+  closeControl: WizardControl = {
+    name: 'Close',
+    type: 'close',
+  };
+
+  emitControlEvent($event: MouseEvent, control: WizardControl) {
+    this.wizardControl.click($event, control);
+  }
 }

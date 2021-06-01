@@ -1,35 +1,35 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { WizardStep } from '../wizard/wizard-step';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { NavigationEnd, Router, RouterEvent } from '@angular/router';
+import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
+import { filter, map, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
+import { WizardStep, WizardSteps } from '../models/wizard-step';
 
 @Component({
   selector: 'wiz-left-navigation',
-  template: `
-    <nav>
-      <h3>
-        <input (change)="(toggleMenu)" #toggleMenu id="toggleMenu" type="checkbox" />
-        <label class="toggle-menu custom-control-label" for="toggleMenu">
-          <span class="step-title" [innerText]="activeStep?.text"></span><br />
-          <span *ngIf="lang == 'sv'" class="step-counter">Steg {{ activeStepNumber }} av {{ steps.length }}</span>
-          <span *ngIf="lang == 'en'" class="step-counter">Step {{ activeStepNumber }} of {{ steps.length }}</span>
-        </label>
-      </h3>
-      <ol class="left-navigation-list" [class.hidden]="!toggleMenu.checked">
-        <li *ngFor="let step of steps; index as i" [class.active]="isActiveStep(step)">
-          <a [routerLink]="step.path"></a>
-          <a
-            (click)="handleClick(step); toggleMenu.checked = false"
-            [href]="step.path"
-            [innerText]="step.text || ''"
-          ></a>
-        </li>
-      </ol>
-    </nav>
-  `,
+  animations: [
+    trigger('expand', [
+      transition(':enter', [
+        style({ height: 0, opacity: 0 }),
+        animate('400ms ease-in-out', style({ height: '*', opacity: 1 })),
+      ]),
+      transition(':leave', [animate('400ms ease-in-out', style({ height: 0, opacity: 0 }))]),
+    ]),
+  ],
+  templateUrl: './left-navigation.component.html',
   styleUrls: ['./left-navigation.component.scss'],
 })
-export class LeftNavigationComponent {
+export class LeftNavigationComponent implements OnInit {
+  get isDesktop(): boolean {
+    return this._isDesktop;
+  }
+
+  set isDesktop(value: boolean) {
+    this._isDesktop = value;
+  }
+
   @Input()
-  steps: WizardStep[];
+  steps: WizardSteps;
 
   @Input()
   activeStep: WizardStep;
@@ -40,6 +40,27 @@ export class LeftNavigationComponent {
   @Output()
   navigate: EventEmitter<WizardStep> = new EventEmitter();
 
+  private _isDesktop: boolean;
+  private _toggleNavigationTrigger$: Subject<boolean> = new Subject();
+  private _showStepNavigation$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  public showStepNavigation$: Observable<boolean> = merge(
+    this.router.events.pipe(
+      filter((e: RouterEvent) => e instanceof NavigationEnd),
+      map(_ => false),
+    ),
+    this._toggleNavigationTrigger$,
+  ).pipe(
+    tap((state: any) => this._showStepNavigation$.next(state)),
+    startWith(true),
+    switchMap(_ => this._showStepNavigation$),
+    shareReplay(1),
+  );
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this._isDesktop = event.target.innerWidth >= 768;
+  }
+
   get activeStepNumber(): number {
     try {
       return 1 + this.steps.findIndex(step => step.path === this.activeStep.path);
@@ -47,17 +68,23 @@ export class LeftNavigationComponent {
       return 0;
     }
   }
-  constructor() {}
+  constructor(private router: Router) {}
 
-  handleClick(step: WizardStep) {
-    this.navigate.next(step);
-    return false;
+  isPreviousStep(stepNumber: number) {
+    return stepNumber < this.activeStepNumber;
   }
 
-  isActiveStep(step: WizardStep) {
-    if (!step || !this.activeStep) {
-      return false;
-    }
-    return step.path === this.activeStep.path;
+  toggleStepNavigation() {
+    this._toggleNavigationTrigger$.next(!this._showStepNavigation$.getValue());
+  }
+
+  getStepInfo() {
+    return `${this.lang === 'sv' ? 'Steg' : 'Step'} ${this.activeStepNumber} ${this.lang === 'sv' ? 'av' : 'of'} ${
+      this.steps.length
+    }`;
+  }
+
+  ngOnInit(): void {
+    this.isDesktop = window.innerWidth >= 768;
   }
 }

@@ -1,0 +1,14 @@
+<wiz-wizard [hideCloseButton]="true" title="SEB ng-wizard">
+  <div class="wizard-actions">
+    <a
+      class="btn btn-secondary d-flex justify-content-between"
+      href="https://github.com/sebgroup/ng-wizard"
+      target="_blank"
+    >
+      View on Github <fa-icon [icon]="['fab', 'github']" class="ml-2"></fa-icon>
+    </a>
+  </div>
+  <div class="wizard-main col-12 col-lg order-1 order-md-0 mr-lg-3">
+    <router-outlet></router-outlet>
+  </div>
+</wiz-wizard>

@@ -1,0 +1,37 @@
+<wiz-top-bar
+  [title]="title"
+  [hideClose]="hideCloseButton"
+  [progress]="progress$ | async"
+  [lang]="lang"
+  (close)="close.next($event)"
+>
+  <ng-content select=".wizard-actions"></ng-content>
+</wiz-top-bar>
+<div class="row no-gutters">
+  <div class="col-12 col-md-auto">
+    <wiz-left-navigation [activeStep]="activeStep$ | async" [steps]="steps" [lang]="lang"></wiz-left-navigation>
+  </div>
+  <div class="col-12 col-md">
+    <div class="container-fluid p-3 p-md-4 px-xl-5 bg-white temp">
+      <h1 class="d-none d-md-block" [innerText]="(activeStep$ | async)?.data.heading || ''"></h1>
+      <div class="row no-gutters" #content>
+        <ng-content select=".wizard-main"></ng-content>
+        <!--<ng-content select=".wizard-right-content"></ng-content>-->
+        <div
+          *ngIf="(activeStep$ | async)?.data?.secondaryContent as secondaryContent"
+          class="wizard-secondary-content"
+          [ngClass]="secondaryContent.class"
+        >
+          <ng-template wizSecondaryContentHost></ng-template>
+        </div>
+      </div>
+      <div *ngIf="content.children.length > 0">
+        <div class="wizard-footer px-md-4 px-xl-5">
+          <wiz-controls>
+            <ng-content select=".wizard-control-icon"></ng-content>
+          </wiz-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
