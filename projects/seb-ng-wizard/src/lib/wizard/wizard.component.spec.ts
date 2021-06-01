@@ -38,7 +38,7 @@ describe('WizardComponent', () => {
     expect(result.text).toEqual('');
     expect(result.path).toEqual('');
   });
-  it('no navigation should default to first step', () => {
+  it('navigation to step not in steps array should display empty step', async () => {
     component.steps = [
       { path: '/first', heading: 'First step' },
       { path: '/second', heading: 'Second step' },
@@ -46,8 +46,10 @@ describe('WizardComponent', () => {
     ];
     let result;
     component.activeStep$.subscribe(step => (result = step));
-    expect(result.text).toEqual('First step');
-    expect(result.path).toEqual('/first');
+    await fixture.ngZone.run(() => router.navigate(['/third']));
+
+    expect(result.text).toEqual('');
+    expect(result.path).toEqual('');
   });
   it('navigation should trigger step change', async () => {
     component.steps = [
