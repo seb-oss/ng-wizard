@@ -35,6 +35,8 @@ const defaultConfig: SebNgWizardConfig = {
 export const WIZARD_CONFIG = new InjectionToken<SebNgWizardConfig>('WIZARD_CONFIG');
 export const SebNgWizardTranslateService = new InjectionToken<Provider>('AbstractLibTranslations');
 
+export const WIZARD_ROUTER_MODULE: ModuleWithProviders<RouterModule> = RouterModule.forChild([]);
+
 @NgModule({
   declarations: [
     WizardComponent,
@@ -43,7 +45,7 @@ export const SebNgWizardTranslateService = new InjectionToken<Provider>('Abstrac
     LeftNavigationComponent,
     TopBarComponent,
   ],
-  imports: [CommonModule, RouterModule.forChild([]), FontAwesomeModule],
+  imports: [CommonModule, WIZARD_ROUTER_MODULE, FontAwesomeModule],
   providers: [WizardControlService],
   exports: [WizardComponent],
 })
