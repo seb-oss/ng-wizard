@@ -1,0 +1,18 @@
+<nav class="navbar navbar-light bg-white position-fixed w-100 border-bottom justify-content-between">
+  <ng-container *ngIf="translations.translations$ | async as t">
+    <span class="navbar-brand" [innerText]="t['wiz_header_title'] || ''"></span>
+    <div class="d-flex">
+      <ng-content></ng-content>
+      <button
+        type="button"
+        *ngIf="!config.hideClose"
+        class="close align-self-center"
+        data-dismiss="modal"
+        style="height: 2rem;"
+        (click)="emitControlEvent($event, { type: 'close' })"
+      >
+        <span class="sr-only">{{ t['wiz_close_action'] || '' }}</span>
+      </button>
+    </div>
+  </ng-container>
+</nav>

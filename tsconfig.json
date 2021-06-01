@@ -3,19 +3,26 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": false,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
-    "module": "es2015",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
+    "downlevelIteration": true,
     "experimentalDecorators": true,
+    "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es5",
-    "typeRoots": ["node_modules/@types"],
+    "target": "es2015",
+    "module": "es2020",
     "lib": ["es2018", "dom"],
     "paths": {
-      "seb-ng-wizard": ["dist/seb-ng-wizard"],
-      "seb-ng-wizard/*": ["dist/seb-ng-wizard/*"]
+      "@sebgroup/ng-wizard": ["dist/ng-wizard"]
     }
+  },
+  "angularCompilerOptions": {
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
   }
 }

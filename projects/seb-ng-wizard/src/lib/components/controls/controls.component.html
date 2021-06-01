@@ -1,0 +1,46 @@
+<div
+  *ngIf="controls$ | async as controls"
+  class="form-row"
+  [ngClass]="controls.length === 1 && controls[0].type === 'next' ? 'justify-content-end' : 'justify-content-between'"
+>
+  <ng-container *ngIf="translations.translations$ | async as t">
+    <div
+      class="mb-3 mb-sm-0 {{ 'order-sm-' + i }}"
+      [class.col-6]="controls.length <= 2 || control.type === 'next' || control.type === 'prev'"
+      [class.col-12]="controls.length > 2 && control.type !== 'next' && control.type !== 'prev'"
+      [class.order-first]="controls.length > 2 && control.type !== 'next' && control.type !== 'prev'"
+      [class.col-md-auto]="(i !== 0 && controls.length >= 3) || controls.length < 3"
+      [class.col-sm-auto]="controls.length < 3"
+      [class.col-sm]="controls.length >= 3"
+      *ngFor="let control of controls; let i = index"
+    >
+      <ng-container *ngIf="{ path: control.path | async } as ctrl">
+        <a
+          *ngIf="ctrl.path"
+          class="btn w-100 d-flex justify-content-between"
+          [class.fit-content]="i === 0 && controls.length >= 3"
+          [ngClass]="control.class || (control.type !== 'next' ? 'btn-outline-primary' : 'btn-primary')"
+          [routerLink]="ctrl.path"
+          queryParamsHandling="merge"
+          (click)="emitControlEvent($event, control)"
+          [title]="t[control.title] || t[control.text] || control.title || control.text"
+        >
+          <fa-icon *ngIf="control.type === 'prev'" icon="arrow-left" class="mr-2"></fa-icon>
+          <span class="w-100 text-truncate">{{ t[control.text] || control.text }}</span>
+          <fa-icon *ngIf="control.type === 'next'" icon="arrow-right" class="ml-2"></fa-icon>
+        </a>
+        <button
+          *ngIf="!ctrl.path"
+          class="btn w-100 d-flex justify-content-between"
+          [class.fit-content]="i === 0 && controls.length >= 3"
+          [ngClass]="control.class || (control.type !== 'next' ? 'btn-outline-primary' : 'btn-primary')"
+          (click)="emitControlEvent($event, control)"
+        >
+          <span class="w-100 text-truncate">{{ t[control.text] || control.text }}</span>
+          <fa-icon *ngIf="control.type === 'save'" icon="save" class="ml-2"></fa-icon>
+          <fa-icon *ngIf="control.type === 'print'" icon="print" class="ml-2"></fa-icon>
+        </button>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>

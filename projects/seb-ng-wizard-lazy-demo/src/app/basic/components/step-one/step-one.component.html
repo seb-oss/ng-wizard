@@ -1,0 +1,27 @@
+<h3>Setup component and routes</h3>
+<p>
+  This first step is just a dumb component without any bells or whistles so the controller (ts-file) and template
+  (html-file) for step one are basically empty. However, in order to get the wizard to work, we need to add the
+  wizard-component, a router outlet and a router config to our app. Usually you'd add the wizard-component and router
+  outlet to your app component but it could be to any component at any level in the router tree.
+</p>
+<div class="card bg-light my-3 mx-n3 mx-sm-0">
+  <h4 class="card-header">Code</h4>
+  <div class="card-body">
+    <app-code-snippet
+      [data]="module"
+      [lang]="'typescript'"
+      [title]="'basic.module.ts (app.module.ts)'"
+    ></app-code-snippet>
+    <app-code-snippet
+      [data]="template"
+      [lang]="'markup'"
+      [title]="'basic.component.html (app.component.html)'"
+    ></app-code-snippet>
+    <app-code-snippet
+      [data]="routeConfig"
+      [lang]="'typescript'"
+      [title]="'basic-routing.module.ts (app-routing.module.ts)'"
+    ></app-code-snippet>
+  </div>
+</div>

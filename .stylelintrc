@@ -1,3 +1,11 @@
 {
-  "extends": "stylelint-config-recommended-scss"
+  "extends": "stylelint-config-recommended-scss",
+  "rules": {
+    "selector-pseudo-class-no-unknown": [true, {
+      "ignorePseudoClasses": ["ng-deep"]
+    }],
+    "selector-pseudo-element-no-unknown": [true, {
+      "ignorePseudoElements": ["ng-deep"]
+    }]
+  }
 }

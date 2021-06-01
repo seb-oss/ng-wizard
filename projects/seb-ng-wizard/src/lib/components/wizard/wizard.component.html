@@ -1,0 +1,52 @@
+<wiz-top-bar>
+  <ng-content select=".wizard-actions"></ng-content>
+</wiz-top-bar>
+<div
+  class="row no-gutters"
+  [class.nav-hidden]="(activeStep$ | async)?.data?.hideNavigation"
+  [class.full-width]="config.useFullWidth"
+>
+  <div class="col-12 col-md-auto">
+    <wiz-left-navigation class="wiz-left-navigation"></wiz-left-navigation>
+  </div>
+  <div class="col-12 col-md bg-white" style="min-width: 0">
+    <div class="container-fluid p-3 p-md-4 px-xl-5 bg-white wizard-content-container">
+      <ng-container
+        *ngIf="{
+          t: translations.translations$ | async,
+          pageHeading: (activeStep$ | async)?.data?.pageHeading,
+          heading: (activeStep$ | async)?.data?.heading
+        } as content"
+      >
+        <h2
+          *ngIf="content.pageHeading"
+          class="h5 font-weight-normal"
+          [innerText]="content.t[content.heading] || content.heading || ''"
+        ></h2>
+        <h3
+          class="h2"
+          [innerText]="
+            content.t[content.pageHeading] || content.t[content.heading] || content.pageHeading || content.heading || ''
+          "
+        ></h3>
+      </ng-container>
+      <div class="row no-gutters" #content>
+        <ng-content select=".wizard-main"></ng-content>
+        <div
+          *ngIf="(activeStep$ | async)?.data?.secondaryContent as secondaryContent"
+          class="wizard-secondary-content"
+          [ngClass]="secondaryContent.class"
+        >
+          <ng-template wizSecondaryContentHost></ng-template>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="content.children.length > 0" class="container-fluid">
+      <div class="wizard-footer px-md-4 px-xl-5" [class.nav-hidden]="(activeStep$ | async)?.data?.hideNavigation">
+        <wiz-controls>
+          <ng-content select=".wizard-control-icon"></ng-content>
+        </wiz-controls>
+      </div>
+    </div>
+  </div>
+</div>

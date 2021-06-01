@@ -1,0 +1,17 @@
+<div class="mb-3">
+  <div class="row">
+    <div class="col-sm">
+      <h5>{{ title }}</h5>
+      <p *ngIf="desc">{{ desc }}</p>
+    </div>
+    <div class="col-sm-auto">
+      <div class="btn-group d-flex d-sm-inline-flex" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-sm btn-dark" (click)="toggleSnippet()">
+          {{ show ? 'Hide code' : 'Show code' }}
+        </button>
+        <a type="button" class="btn btn-sm btn-dark" *ngIf="github" [href]="github" target="_blank">View in github</a>
+      </div>
+    </div>
+  </div>
+  <div class="overflow-auto" markdown [data]="data | language: lang" *ngIf="show"></div>
+</div>

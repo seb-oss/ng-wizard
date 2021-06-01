@@ -1,0 +1,204 @@
+@import '~@sebgroup/bootstrap/scss/core';
+nav {
+  top: 0;
+  z-index: $zindex-sticky;
+  height: 3.5rem;
+  .close {
+    > span {
+      display: inline-block;
+      font-size: $font-size-base;
+      font-weight: $font-weight-base;
+      padding: $btn-padding-y $btn-padding-x;
+    }
+  }
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* Hide scrollbar for webkit browsers */
+  &.navbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  &.navbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+/*
+
+:host-context {
+  z-index: 20;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 1rem;
+
+  .title {
+    display: flex;
+    align-items: center;
+    width: 16rem;
+    margin-right: auto;
+  }
+
+  .title-text {
+    margin-left: 0.5rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    flex: 1;
+  }
+
+  .seb-logo {
+    width: 3.5rem;
+    height: 3.5rem;
+    background: no-repeat;
+    background-image: url("data:image/svg+xml,%3Csvg id='Lager_1' data-name='Lager 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%2360cd18;%7D.cls-2%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3ESEB Beta Logotype RGB%3C/title%3E%3Crect class='cls-1' width='800' height='800'/%3E%3Cpath class='cls-2' d='M290.55,348.35l-25.87,19.32c-12.22-10.51-28-12.57-36.65-12.57s-18,2.51-19.37,8.82c-1.38,6.12,4.31,10.88,14.08,13.53,11.14,3,21.29,5.66,36.92,10.12,23.24,6.63,39.13,16.69,39.13,40,0,32.14-28.53,48.8-66.75,48.8s-64.26-19.91-72-29.2l27.35-20.45c19.21,16.75,32.57,19.11,43.74,19.11,12.81,0,24.79-2.75,26.33-10,1.25-5.82-3.58-10.45-14.49-13-12.35-2.85-22.77-5.14-34.4-8.2-31.52-8.27-40.41-26.6-40.41-43.06,0-22.67,21.1-45.95,59.69-45.95,39.57,0,62.74,22.67,62.74,22.67m164.9-20.4H340.12V472.1H457.57V438.86H380.63V415.64h53v-31.8h-53v-23h74.83ZM310.27,505.37h9V294.63h-9Zm162.45,0h9V294.63h-9Zm29.8-33.27h92.64c24.77,0,44.84-14.93,44.84-38.84,0-18.65-12.21-31-29.32-36.47a9.6,9.6,0,0,0-1.66-.21,10.36,10.36,0,0,0,1.66-.29c9.8-3.88,20.66-14.21,20.66-31.8,0-22.31-19.74-36.54-44.1-36.54H502.52Zm40.7-114.17h32.36c7.45,0,13.48,5.88,13.48,12.64s-6,12.66-13.48,12.66H543.22Zm39.58,82.13H543.22V413.77H582.8a13.15,13.15,0,0,1,0,26.28Z'/%3E%3C/svg%3E");
+  }
+
+  .wizard-progress-bar {
+    z-index: 21;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    flex: 0 0 100%;
+    position: absolute;
+
+    .progress {
+      height: 100%;
+      background: #{map-get($colors, 'blue')};
+      transition: width 0.3s;
+    }
+  }
+
+  .close-wizard {
+    .close-link {
+      display: none;
+    }
+
+    .close-button {
+      cursor: pointer;
+      padding: 0;
+      background-color: transparent;
+      border: 0;
+      -webkit-appearance: none;
+      font-weight: 700;
+      line-height: 1;
+      color: #000;
+      text-shadow: 0 1 1px 0 #fff;
+      opacity: 0.5;
+
+      span {
+        display: none;
+      }
+
+      &::after {
+        background-image: url("data:image/svg+xml;charset=UTF-8, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'%3E%3Cpath fill='%23000' d='M217.5 256l137.2-137.2c4.7-4.7 4.7-12.3 0-17l-8.5-8.5c-4.7-4.7-12.3-4.7-17 0L192 230.5 54.8 93.4c-4.7-4.7-12.3-4.7-17 0l-8.5 8.5c-4.7 4.7-4.7 12.3 0 17L166.5 256 29.4 393.2c-4.7 4.7-4.7 12.3 0 17l8.5 8.5c4.7 4.7 12.3 4.7 17 0L192 281.5l137.2 137.2c4.7 4.7 12.3 4.7 17 0l8.5-8.5c4.7-4.7 4.7-12.3 0-17L217.5 256z'/%3E%3C/svg%3E");
+        content: '';
+        background-size: 100%;
+        background-position: 0;
+        background-repeat: no-repeat;
+        padding: 0.625rem;
+      }
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    position: fixed;
+    border-bottom: 1px solid #e9e9e9;
+
+    .wizard-progress-bar {
+      position: relative;
+    }
+    .title {
+      height: calc(100% + 1px);
+      width: 16rem;
+      background-color: #f8f8f8;
+      border-right: 1px solid #{map-get($grays, '200')};
+    }
+    .close-wizard {
+      .close-link {
+        display: inline-block;
+        color: #868686;
+        font-weight: normal;
+        cursor: pointer;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        border: 1px solid transparent;
+        padding: 0.4375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        background-color: transparent;
+      }
+    }
+  }
+
+  @media print {
+    display: none;
+  }
+
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .progress-bar {
+      display: none;
+    }
+  }
+}
+
+.hide-close-button {
+  :host-context {
+    .close-wizard {
+      display: none;
+    }
+  }
+}
+
+.hide-navigation,
+.partial-navigation {
+  :host-context {
+    .wizard-progress-bar {
+      display: none;
+    }
+    .title {
+      .title-text {
+        visibility: hidden;
+      }
+    }
+  }
+}
+
+.use-navbar {
+  :host-context {
+    top: 3.5rem;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  :host-context {
+    background-color: #fff;
+    &.hide-navigation {
+      .title {
+        background-color: transparent;
+        border-right: 0px;
+        .title-text {
+          visibility: hidden;
+        }
+      }
+    }
+    &.partial-navigation {
+      .title {
+        width: 8rem;
+        border-right: 1px solid #{map-get($grays, '200')};
+        .title-text {
+          visibility: hidden;
+        }
+      }
+    }
+  }
+}*/
