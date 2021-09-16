@@ -128,3 +128,23 @@ app.component.ts
 ```
 
 For more info and examples please see [demo and documentation](https://sebgroup.github.io/ng-wizard/).
+
+## Local development
+
+To run this project locally first build the library and watch for changes by running:
+
+```
+npm run build:watch
+```
+
+Then start one of the following demo apps by running either:
+
+```
+npm start
+```
+
+or
+
+```
+npm run start:simple
+```
