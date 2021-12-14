@@ -216,6 +216,25 @@ export class WizardSteps {
     this._updateStep({ subSteps: activeSubSteps }, path);
   }
 
+  clearState() {
+    this._steps$.next(this._clearState(this.steps));
+  }
+
+  private _clearState(steps: WizardStepConfigs = this.steps) {
+    return Object.fromEntries(
+      Object.entries(steps).map(([key, step]) => {
+        // if step has children...
+        if (step.children) {
+          // ...clear state for children
+          step.children = { ...this._clearState({ ...step.children }) };
+        }
+        // remove state from data
+        const { state, ...newData } = step.data;
+        return [[key], { ...step, data: { ...newData } }];
+      }),
+    );
+  }
+
   private _updateStep(object: any, path?: string) {
     const p = this._getStepReferenceByUrl(path);
     const stepId = p.stepPath.id;

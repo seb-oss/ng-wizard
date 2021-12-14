@@ -25,6 +25,10 @@ export class StepStatesComponent {
   setStateForPath(state: StepState, path: string) {
     this.wizardSteps.setState(state, path);
   }
+
+  clearAllStates() {
+    this.wizardSteps.clearState();
+  }
 }
 `;
   constructor(private wizardSteps: WizardSteps, private fb: FormBuilder) {
@@ -42,5 +46,9 @@ export class StepStatesComponent {
 
   setStateForPath(state: StepState) {
     this.wizardSteps.setState(state, '/wizard/' + this.stepForm.value.stepRoute);
+  }
+
+  clearAllStates() {
+    this.wizardSteps.clearState();
   }
 }
