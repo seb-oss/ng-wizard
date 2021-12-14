@@ -24,7 +24,7 @@ const routes: WizardStep[] = [
     path: 'step-two',
     component: StepTwoComponent,
     data: {
-      heading: 'Step two',
+      heading: 'Step two with a very long heading spanning two lines',
       subSteps: ['step-a', 'step-b'],
     },
     children: [
@@ -36,7 +36,7 @@ const routes: WizardStep[] = [
         path: 'step-a',
         component: StepAComponent,
         data: {
-          heading: 'Sub step A',
+          heading: 'Sub step A with a very long heading',
         },
       },
       {
