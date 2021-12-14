@@ -26,7 +26,9 @@
           [class.list-group-item-wrapper]="step.data?.subSteps?.length > 0"
           [routerLinkActive]="'active'"
         >
-          <a [routerLink]="step.path" queryParamsHandling="merge">{{ t[step.data.heading] || step.data.heading }}</a>
+          <a [routerLink]="step.path" queryParamsHandling="merge"
+            ><span>{{ t[step.data.heading] || step.data.heading }}</span></a
+          >
           <ol
             class="list-group list-group-wizard list-group-wizard-sub mx-n3 mt-3 mb-n3"
             *ngIf="step.data?.subSteps?.length > 0"
@@ -44,10 +46,12 @@
                 [class.list-group-item-warning]="child?.data?.state === 'warning'"
                 [routerLinkActive]="'active'"
                 *ngIf="step.children[subStep] as child"
+                [routerLink]="step.path + '/' + subStep"
+                queryParamsHandling="merge"
               >
-                <a [routerLink]="step.path + '/' + subStep" queryParamsHandling="merge">{{
-                  t[child.data?.heading] || child.data?.heading
-                }}</a>
+                <a [routerLink]="step.path + '/' + subStep" queryParamsHandling="merge">
+                  <span>{{ t[child.data?.heading] || child.data?.heading }}</span>
+                </a>
               </li>
             </ng-container>
           </ol>

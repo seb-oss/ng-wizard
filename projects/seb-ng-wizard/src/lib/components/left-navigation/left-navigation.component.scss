@@ -47,9 +47,7 @@ $grid-breakpoints: (
   xl: 1248px
 );
 
-/**/
 @import '~@sebgroup/bootstrap/scss/core';
-// @import '../wizard/variables.scss';
 $navbar-brand-height: 3.5rem;
 .step-wrapper {
   overflow: hidden;
@@ -57,7 +55,7 @@ $navbar-brand-height: 3.5rem;
 }
 $wiz-navigation-bg-color: $gray-300;
 $box-shadow-wizard: 0 0 0.5rem rgba($black, 0.15) !default;
-
+/* stylelint-disable */
 nav {
   .list-group-ordered .list-group-item-action:hover,
   .list-group-ordered .active {
@@ -99,16 +97,32 @@ nav {
   @include media-breakpoint-up(md) {
     width: $left-nav-width;
     height: calc(100vh - #{$navbar-brand-height});
-    //border-right: $border-color $border-width solid;
   }
   .list-group-wizard {
     counter-reset: number;
     list-style-type: none;
+    &:not(.list-group-wizard-sub) > .list-group-item:hover,
+    &:not(.list-group-wizard-sub) > .list-group-item.active {
+      > a::after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: -2rem;
+        @include box-shadow($box-shadow-wizard);
+        background: #fff;
+        width: calc(100% + 3rem);
+        height: calc(100% + 2rem);
+        top: -1rem;
+        z-index: 0;
+      }
+    }
 
     .list-group-item {
       border-top: solid 1px transparent;
       padding: 1rem;
       cursor: pointer;
+      display: flex;
+      flex-wrap: wrap;
 
       & + .list-group-item {
         &:hover {
@@ -126,8 +140,6 @@ nav {
 
       &:hover > a,
       &.active > a {
-        @include box-shadow($box-shadow-wizard);
-        background: #fff;
         &::before {
           z-index: 3;
           position: relative;
@@ -135,24 +147,25 @@ nav {
       }
 
       > a {
-        //height: 100%;
-        height: 3.5rem;
-        position: absolute;
+        flex: 1 0;
         top: 0;
         left: 0;
-        padding: 1rem 2.5rem;
+        position: relative;
         width: 100%;
         text-decoration: none;
         font-weight: normal;
         color: inherit;
+        span {
+          position: relative;
+          padding: 0 0.75rem;
+          display: block;
+          z-index: 1;
+        }
 
         &:focus {
-          //@include box-shadow($box-shadow-wizard);
           outline: none;
-          //@include box-shadow(0px 0px 4px 1px $input-focus-border-color inset);
           @include box-shadow(0px 0px 4px 1px $input-focus-border-color);
           z-index: 2;
-          //background: red;
         }
       }
 
@@ -168,9 +181,15 @@ nav {
         color: inherit;
         border-top: solid 1px #fff;
 
-        //background: #fff;
-
-        &.list-group-item-passed > a {
+        &.list-group-item-passed > a::after {
+          content: '';
+          display: block;
+          position: absolute;
+          left: -2rem;
+          width: calc(100% + 3rem);
+          height: calc(100% + 2rem);
+          top: -1rem;
+          z-index: 0;
           box-shadow: none;
           background: #f8f8f8;
         }
@@ -178,17 +197,6 @@ nav {
         > a {
           font-weight: inherit;
           color: inherit;
-
-          /*&::before {
-            content: '';
-            display: block;
-            background: black;
-            width: 6px;
-            height: 100%;
-            left: 0;
-            position: absolute;
-            top: 0;
-          }*/
         }
       }
       &.list-group-item-passed {
@@ -205,20 +213,12 @@ nav {
       }
 
       &.list-group-item-success {
-        // font-weight: 500;
-        // background: $gray-100;
-        &.active {
-          //background: #fff;
-        }
-
-        //&:not(.active)::after {
         &::after {
           content: '';
           display: inline-block;
           background-position: center;
           background-repeat: no-repeat;
           vertical-align: top;
-          //margin-top: 4px;
           width: 1rem;
           height: 1rem;
           position: absolute;
@@ -232,16 +232,11 @@ nav {
           );
         }
 
-        > a {
-          // font-weight: inherit;
-        }
         &:not(:hover) + .list-group-item-success {
           border-top: solid 1px $gray-200;
         }
       }
       &.list-group-item-danger {
-        // font-weight: 500;
-        // background: $gray-100;
         &.active {
           background: #fff;
         }
@@ -252,7 +247,6 @@ nav {
           background-position: center;
           background-repeat: no-repeat;
           vertical-align: top;
-          //margin-top: 4px;
           width: 1rem;
           height: 1rem;
           position: absolute;
@@ -274,8 +268,6 @@ nav {
         }
       }
       &.list-group-item-warning {
-        // font-weight: 500;
-        // background: $gray-100;
         &.active {
           background: #fff;
         }
@@ -286,7 +278,6 @@ nav {
           background-position: center;
           background-repeat: no-repeat;
           vertical-align: top;
-          //margin-top: 4px;
           width: 1rem;
           height: 1rem;
           position: absolute;
@@ -301,12 +292,6 @@ nav {
               no-repeat,
             url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='10 10'%3E%3Crect width='10' height='10' style='fill:%23000;' /%3E%3C/svg%3E")
               4px 4px;
-          //background-image: map-get($theme-icons, 'warning');
-          /*background-image: str-replace(
-              map-get($theme-icons, 'warning'),
-              str-replace(#{"fill='" + $icon-fill-color + "'"}, '#', '%23'),
-              str-replace(#{"fill='" + map-get($theme-colors, 'warning') + "'"}, '#', '%23')
-          );*/
         }
 
         > a {
@@ -317,8 +302,6 @@ nav {
         }
       }
       &.list-group-item-info {
-        // font-weight: 500;
-        // background: $gray-100;
         &.active {
           background: #fff;
         }
@@ -329,7 +312,6 @@ nav {
           background-position: center;
           background-repeat: no-repeat;
           vertical-align: top;
-          //margin-top: 4px;
           width: 1rem;
           height: 1rem;
           position: absolute;
@@ -343,19 +325,8 @@ nav {
           );
         }
 
-        > a {
-          // font-weight: inherit;
-        }
         &:not(:hover) + .list-group-item-success {
           border-top: solid 1px $gray-200;
-        }
-      }
-      // nested
-      .list-group-wizard .list-group-item {
-        // border-top: solid 1px $gray-200;
-        // border-top: solid 1px transparent;
-        > a {
-          padding-left: 3.25rem;
         }
       }
     }
@@ -368,9 +339,6 @@ nav {
             border-top-color: transparent;
           }
         }
-        > a {
-          padding-left: 5rem !important;
-        }
       }
     }
     &.no-sub {
@@ -382,4 +350,14 @@ nav {
   .list-group-wizard-sub > .list-group-item-passed {
     border-top: solid 1px $gray-200;
   }
+  .list-group-wizard-sub {
+    width: 100%;
+    flex: 1 1 auto;
+    .list-group-item:hover,
+    .list-group-item.active {
+      @include box-shadow($box-shadow-wizard);
+      background: #fff;
+    }
+  }
 }
+/* stylelint-enable */
