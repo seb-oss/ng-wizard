@@ -35,6 +35,7 @@ export interface WizardStepData {
     class?: string;
   };
   subSteps?: string[];
+  [key: string]: any;
 }
 
 export interface WizardControl {
