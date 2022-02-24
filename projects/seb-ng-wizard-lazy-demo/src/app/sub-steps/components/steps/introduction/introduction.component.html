@@ -1,0 +1,69 @@
+<p class="lead">
+  Wizards are meant to guide users through a process or flow that can be divided into steps. Ideally steps are
+  predefined and clear, but sometimes they will need to change and adapt based on user input. Optional sub-steps can be
+  used to cater for this.
+</p>
+<p>
+  Sub-steps are setup as child routes to the step that should have the ability to display them. Define which subs steps
+  should be active by default by adding their path to <code>subSteps</code> array defined on step data. Eg.
+</p>
+<div class="overflow-auto d-flex mx-n3 mx-sm-0 mb-3">
+  <div markdown [data]="routeConfiguration | language: 'typescript'"></div>
+</div>
+<p>
+  In order to use child routes, you also need to add a router outlet to the step component containing sub steps. Create
+  an index component that you can use as base component for the step i.e the component to load as parent step to sub
+  steps.
+</p>
+<p>Toggle active sub steps in this example using the forms below.</p>
+<form
+  [formGroup]="step.form"
+  *ngFor="let step of steps"
+  class="mb-3"
+  (ngSubmit)="toggleSubSteps(step.form.value, '/sub-steps/' + step.path)"
+>
+  <h4>Sub-steps for {{ step.heading }}</h4>
+  <div class="custom-control custom-checkbox" *ngFor="let subStep of step.subSteps">
+    <input
+      type="checkbox"
+      class="custom-control-input"
+      [formControlName]="subStep.path"
+      [attr.id]="'checkbox_' + subStep.data?.heading"
+    />
+    <label class="custom-control-label" [for]="'checkbox_' + subStep.data?.heading">{{ subStep.data?.heading }}</label>
+  </div>
+  <button class="btn btn-outline-primary my-3" type="submit">Update sub steps</button>
+</form>
+<p>
+  The form uses <code>updateSubSteps</code> function provided by the <code>wizardSteps</code> service. If no step path
+  is provided the path of the active step will be used.
+</p>
+<div class="overflow-auto d-flex mx-n3 mx-sm-0 mb-3">
+  <div markdown [data]="updateSubSteps | language: 'typescript'"></div>
+</div>
+<p>
+  The complete code with comments for this example can be found
+  <a
+    href="https://github.com/sebgroup/ng-wizard/tree/master/projects/seb-ng-wizard-lazy-demo/src/app/sub-steps"
+    class="external"
+    target="_parent"
+    >in github</a
+  >.
+</p>
+<p>
+  Another example that uses sub-steps can be found here
+  <a
+    href="https://github.com/sebgroup/ng-wizard/tree/master/projects/seb-ng-wizard-lazy-demo/src/app/form-and-route-guard"
+    class="external"
+    target="_parent"
+    >in github</a
+  >
+  and you can view it in action
+  <a
+    href="https://sebgroup.github.io/ng-wizard/master/form-and-route-guard/account-details"
+    class="external"
+    target="_parent"
+    >here</a
+  >
+  (select ISK on account details step).
+</p>

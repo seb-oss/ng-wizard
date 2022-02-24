@@ -13,6 +13,7 @@ const routes: Routes = [
       import('./form-and-route-guard/form-and-route-guard.module').then(m => m.FormAndRouteGuardModule),
   },
   { path: 'language', loadChildren: () => import('./language/language.module').then(m => m.LanguageModule) },
+  { path: 'sub-steps', loadChildren: () => import('./sub-steps/sub-steps.module').then(m => m.SubStepsModule) },
   { path: '', redirectTo: 'wizard', pathMatch: 'full' },
   { path: '**', redirectTo: 'wizard', pathMatch: 'full' },
 ];
