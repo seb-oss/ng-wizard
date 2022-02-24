@@ -126,6 +126,8 @@ export class WizardSteps {
     this.steps$.pipe(map(_ => this.getStepByUrl(this.router.routerState.snapshot.url))),
   ).pipe(distinctUntilChanged(), shareReplay(1));
 
+  /** activeStep - get active step
+   */
   get activeStep(): WizardStepConfig {
     return this.getStepByUrl(this.router.routerState.snapshot.url);
   }
@@ -176,6 +178,9 @@ export class WizardSteps {
     shareReplay(1),
   );
 
+  /** getStepByUrl
+   * @param url - Get step for url
+   */
   getStepByUrl(url: string): WizardStepConfig {
     const p = this._getStepReferenceByUrl(url);
     const stepId = p.stepPath.id;
@@ -187,6 +192,9 @@ export class WizardSteps {
     }
   }
 
+  /** getPathTo
+   * @param direction - Get next or previous step
+   */
   getPathTo(direction: 'next' | 'prev'): Observable<string> {
     return this._stepsInOrder$.pipe(
       withLatestFrom(this.activeStep$),
@@ -198,6 +206,9 @@ export class WizardSteps {
     );
   }
 
+  /** getPreviousStep
+   * @param path - Get previous step based on this step.
+   */
   getPreviousStep(path: string): Observable<WizardStepConfig> {
     return this._stepsInOrder$.pipe(
       take(1),
@@ -208,14 +219,24 @@ export class WizardSteps {
     );
   }
 
+  /** setState
+   * @param state - New state for step.
+   * @param [path] - Path to step that should be updated eg. '/foo/step-1', if omitted, path of active step will be used.
+   */
   setState(state: StepState, path?: string) {
     this._updateStep({ state }, path);
   }
 
+  /** updateSubSteps
+   * @param activeSubSteps - Array with paths to sub steps that should be active, eg. ['foo', 'bar'].
+   * @param [path] - Path to step containing sub steps eg. '/foo/step-1', if omitted, path of active step will be used.
+   */
   updateSubSteps(activeSubSteps: Array<string>, path?: string) {
     this._updateStep({ subSteps: activeSubSteps }, path);
   }
 
+  /** clearState - reset state for all steps.
+   */
   clearState() {
     this._steps$.next(this._clearState(this.steps));
   }

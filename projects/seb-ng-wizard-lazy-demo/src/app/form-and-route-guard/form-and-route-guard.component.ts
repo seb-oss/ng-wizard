@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { WizardStepData } from '@sebgroup/ng-wizard';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { WizardControlService } from '../../../../seb-ng-wizard/src/lib/services/wizard-control.service';
 import { StepService } from './services/step.service';
 
@@ -10,11 +8,6 @@ import { StepService } from './services/step.service';
   providers: [StepService],
 })
 export class FormAndRouteGuardComponent {
-  /*get state(): BehaviorSubject<any> {
-    return this.stepService.$steps
-
-  }*/
-
   constructor(private controls: WizardControlService) {}
 
   /**

@@ -132,9 +132,10 @@ nav {
 
       &::before {
         counter-increment: number;
-        content: counters(number, '.') '\a0';
+        content: counters(number, '.');
         z-index: 3;
         position: relative;
+        max-width: 1rem;
         //margin-right: 1rem;
       }
 
@@ -357,6 +358,11 @@ nav {
     .list-group-item.active {
       @include box-shadow($box-shadow-wizard);
       background: #fff;
+    }
+    .list-group-item {
+      &::before {
+        max-width: 100%;
+      }
     }
   }
 }
