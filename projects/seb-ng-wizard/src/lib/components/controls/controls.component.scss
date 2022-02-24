@@ -1,6 +1,51 @@
+@use 'sass:map';
 @import '~@sebgroup/bootstrap/scss/core';
+.wiz-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  row-gap: map.get($spacers, 3);
+  grid-template-rows: repeat(auto-fit, minmax(0, 1fr));
+  grid-template-areas:
+    'print print print'
+    'other other other'
+    'cancel save .'
+    'prev next close';
+
+  margin: 0 -0.5rem 2rem;
+
+  .wiz-control {
+    padding: 0 0.5rem;
+  }
+  .wiz-control-print {
+    grid-area: print;
+  }
+  .wiz-control-prev {
+    grid-area: prev;
+  }
+  .wiz-control-save {
+    grid-area: save;
+  }
+  .wiz-control-close {
+    grid-area: close;
+  }
+  .wiz-control-cancel {
+    grid-area: cancel;
+  }
+  .wiz-control-next {
+    grid-area: next;
+  }
+  .wiz-control-other {
+    grid-area: other;
+  }
+}
+
+// switch layout on medium sized screens (same breakpoint used for switching step menu layout)
 @include media-breakpoint-up(md) {
-  .fit-content {
-    width: fit-content !important;
+  .wiz-controls {
+    margin-bottom: 0;
+    display: grid;
+    grid-template-columns: auto auto minmax(0, 100%) auto auto auto auto auto;
+
+    grid-template-areas: 'prev cancel . other print save next close';
   }
 }

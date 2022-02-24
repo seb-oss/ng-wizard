@@ -1,19 +1,6 @@
-<div
-  *ngIf="controls$ | async as controls"
-  class="form-row"
-  [ngClass]="controls.length === 1 && controls[0].type === 'next' ? 'justify-content-end' : 'justify-content-between'"
->
-  <ng-container *ngIf="translations.translations$ | async as t">
-    <div
-      class="mb-3 mb-sm-0 {{ 'order-sm-' + i }}"
-      [class.col-6]="controls.length <= 2 || control.type === 'next' || control.type === 'prev'"
-      [class.col-12]="controls.length > 2 && control.type !== 'next' && control.type !== 'prev'"
-      [class.order-first]="controls.length > 2 && control.type !== 'next' && control.type !== 'prev'"
-      [class.col-md-auto]="(i !== 0 && controls.length >= 3) || controls.length < 3"
-      [class.col-sm-auto]="controls.length < 3"
-      [class.col-sm]="controls.length >= 3"
-      *ngFor="let control of controls; let i = index"
-    >
+<div *ngIf="controls$ | async as controls" class="wiz-controls">
+  <div *ngFor="let control of controls; let i = index" [class]="'wiz-control wiz-control-' + control.type">
+    <ng-container *ngIf="translations.translations$ | async as t">
       <ng-container *ngIf="{ path: control.path | async } as ctrl">
         <a
           *ngIf="ctrl.path"
@@ -41,6 +28,6 @@
           <fa-icon *ngIf="control.type === 'print'" icon="print" class="ml-2"></fa-icon>
         </button>
       </ng-container>
-    </div>
-  </ng-container>
+    </ng-container>
+  </div>
 </div>

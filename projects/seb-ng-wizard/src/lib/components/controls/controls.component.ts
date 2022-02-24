@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { isObservable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { WizardControl } from '../../models/wizard-step';
@@ -10,6 +10,7 @@ import { WizardTranslationsService } from '../../services/wizard-translations.se
   selector: 'wiz-controls',
   templateUrl: './controls.component.html',
   styleUrls: ['./controls.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ControlsComponent {
   controls$ = this.wizardStepService.activeStep$.pipe(
