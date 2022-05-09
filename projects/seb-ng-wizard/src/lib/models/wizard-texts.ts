@@ -5,5 +5,5 @@ export interface WizardTexts {
   wiz_save_action?: string;
   wiz_header_title?: string;
   wiz_step_description?: string;
-  [key: string]: string;
+  [key: string]: string | undefined;
 }
