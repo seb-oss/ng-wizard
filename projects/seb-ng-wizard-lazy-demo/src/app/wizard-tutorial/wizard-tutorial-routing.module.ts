@@ -28,7 +28,7 @@ const routes: WizardStep[] = [
     path: '',
     component: WizardTutorialComponent,
     children: [
-      { path: '', redirectTo: 'introduction' },
+      { path: '', redirectTo: 'introduction', pathMatch: 'full' },
       {
         path: 'introduction',
         component: IntroductionComponent,
