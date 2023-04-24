@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { WizardControlService } from '@sebgroup/ng-wizard';
 import { Subject } from 'rxjs';
 import { filter, takeUntil, tap } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { StepService } from '../../../services/step.service';
 })
 export class PersonalDetailsComponent implements OnInit, OnDestroy {
   unsubscribe$ = new Subject();
-  profileForm: FormGroup;
+  profileForm: UntypedFormGroup;
   submitted = false;
 
   get firstName() {
@@ -35,7 +35,7 @@ export class PersonalDetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     public stepService: StepService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public controls: WizardControlService,
     private el: ElementRef,
   ) {

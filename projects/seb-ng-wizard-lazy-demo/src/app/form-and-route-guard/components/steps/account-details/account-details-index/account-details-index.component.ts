@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { WizardControlService, WizardSteps } from '@sebgroup/ng-wizard';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, filter, takeUntil, tap } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { StepService } from '../../../../services/step.service';
 })
 export class AccountDetailsIndexComponent implements OnInit, OnDestroy {
   unsubscribe$ = new Subject();
-  accountDetailsForm: FormGroup;
+  accountDetailsForm: UntypedFormGroup;
   submitted = false;
 
   accountTypes: Array<{ name: string }> = [
@@ -42,7 +42,7 @@ export class AccountDetailsIndexComponent implements OnInit, OnDestroy {
 
   constructor(
     public stepService: StepService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public controls: WizardControlService,
     private el: ElementRef,
     private wizardSteps: WizardSteps,

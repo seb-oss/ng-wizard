@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { WizardSteps } from '@sebgroup/ng-wizard';
 
@@ -8,7 +8,7 @@ import { WizardSteps } from '@sebgroup/ng-wizard';
   templateUrl: './introduction.component.html',
 })
 export class IntroductionComponent {
-  constructor(private wizardSteps: WizardSteps, private route: ActivatedRoute, private _fb: FormBuilder) {}
+  constructor(private wizardSteps: WizardSteps, private route: ActivatedRoute, private _fb: UntypedFormBuilder) {}
 
   routeConfiguration = `// sub-steps-routing.module.ts
 const routes: WizardStep[] = [
