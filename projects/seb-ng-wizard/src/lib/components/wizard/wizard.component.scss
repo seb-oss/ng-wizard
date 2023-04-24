@@ -39,6 +39,19 @@ $wizard-footer-height: ($btn-padding-y * 2) + $font-size-base * $btn-line-height
   /* stylelint-disable-next-line selector-type-no-unknown */
   wiz-controls > div {
     max-width: 768px;
+    svg:not(:root).svg-inline--fa {
+      overflow: visible;
+    }
+    .svg-inline--fa.fa-w-14 {
+      width: 0.875em;
+    }
+    .svg-inline--fa {
+      display: inline-block;
+      font-size: inherit;
+      height: auto;
+      overflow: visible;
+      vertical-align: -0.125em;
+    }
   }
   &.dist {
     @include media-breakpoint-up(md) {
