@@ -45,7 +45,7 @@
     "@fortawesome/angular-fontawesome": "^0.10.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
-    "@ngneat/transloco": "^2.23.2",
+    "@ngneat/transloco": "^3.2.0",
     "@sebgroup/bootstrap": "^6.0.0",
     "core-js": "^2.6.11",
     "ngx-markdown": "^15.1.2",
