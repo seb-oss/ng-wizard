@@ -1,5 +1,5 @@
 @use 'sass:map';
-@import '~@sebgroup/bootstrap/scss/core';
+@import '@sebgroup/bootstrap/scss/core';
 .wiz-controls {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(0, 1fr));

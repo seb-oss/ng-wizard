@@ -1,5 +1,5 @@
 $icon-fill-color: #000;
-@import '~@sebgroup/bootstrap/scss/bootstrap-core/functions';
+@import '@sebgroup/bootstrap/scss/bootstrap-core/functions';
 
 $theme-icons: ();
 // stylelint-disable-next-line scss/dollar-variable-default
@@ -47,7 +47,7 @@ $grid-breakpoints: (
   xl: 1248px
 );
 
-@import '~@sebgroup/bootstrap/scss/core';
+@import '@sebgroup/bootstrap/scss/core';
 $navbar-brand-height: 3.5rem;
 .step-wrapper {
   overflow: hidden;

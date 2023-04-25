@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faArrowLeft } from '@fortawesome/pro-regular-svg-icons/faArrowLeft';
-import { faArrowRight } from '@fortawesome/pro-regular-svg-icons/faArrowRight';
 import { SebNgWizardModule, WizardSteps } from '@sebgroup/ng-wizard';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,9 +18,4 @@ import { StepBComponent } from './steps/step-two/sub-steps/step-b/step-b.compone
   providers: [WizardSteps],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-  constructor(library: FaIconLibrary) {
-    // add icons that should be available in the app/module
-    library.addIcons(faArrowRight, faArrowLeft);
-  }
-}
+export class AppModule {}

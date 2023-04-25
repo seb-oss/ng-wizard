@@ -68,7 +68,6 @@ const TRANSLATIONS_PROVIDER: ClassProvider = {
     SebNgWizardModule.forRoot({ hideClose: true }, TRANSLATIONS_PROVIDER),
     SharedModule,
   ],
-  entryComponents: [MoreExamplesComponent, AdditionalContentComponent],
   providers: [WizardSteps],
 })
 export class WizardTutorialModule {}

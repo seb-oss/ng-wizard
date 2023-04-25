@@ -1,24 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~@sebgroup/bootstrap/scss/core';
-@import '~@sebgroup/bootstrap/scss/styles/reboot';
-@import '~@sebgroup/bootstrap/scss/styles/type';
-@import '~@sebgroup/bootstrap/scss/styles/close';
-@import '~@sebgroup/bootstrap/scss/styles/code';
-@import '~@sebgroup/bootstrap/scss/styles/alert';
-@import '~@sebgroup/bootstrap/scss/styles/utilities';
-@import '~@sebgroup/bootstrap/scss/styles/scroll';
-@import '~@sebgroup/bootstrap/scss/styles/buttons';
-@import '~@sebgroup/bootstrap/scss/styles/forms';
-@import '~@sebgroup/bootstrap/scss/styles/card';
-@import '~@sebgroup/bootstrap/scss/styles/custom-forms';
-@import '~@sebgroup/bootstrap/scss/styles/tables';
-@import '~@sebgroup/bootstrap/scss/styles/grid';
-@import '~@sebgroup/bootstrap/scss/styles/animations';
-@import '~@sebgroup/bootstrap/scss/styles/transitions';
-@import '~@sebgroup/bootstrap/scss/styles/nav';
-@import '~@sebgroup/bootstrap/scss/styles/navbar';
-@import '~@sebgroup/bootstrap/scss/styles/list-group';
-@import '~@sebgroup/fonts/scss/seb-fonts';
+@import '@sebgroup/bootstrap/scss/core';
+@import '@sebgroup/bootstrap/scss/styles/reboot';
+@import '@sebgroup/bootstrap/scss/styles/type';
+@import '@sebgroup/bootstrap/scss/styles/close';
+@import '@sebgroup/bootstrap/scss/styles/code';
+@import '@sebgroup/bootstrap/scss/styles/alert';
+@import '@sebgroup/bootstrap/scss/styles/utilities';
+@import '@sebgroup/bootstrap/scss/styles/scroll';
+@import '@sebgroup/bootstrap/scss/styles/buttons';
+@import '@sebgroup/bootstrap/scss/styles/forms';
+@import '@sebgroup/bootstrap/scss/styles/card';
+@import '@sebgroup/bootstrap/scss/styles/custom-forms';
+@import '@sebgroup/bootstrap/scss/styles/tables';
+@import '@sebgroup/bootstrap/scss/styles/grid';
+@import '@sebgroup/bootstrap/scss/styles/animations';
+@import '@sebgroup/bootstrap/scss/styles/transitions';
+@import '@sebgroup/bootstrap/scss/styles/nav';
+@import '@sebgroup/bootstrap/scss/styles/navbar';
+@import '@sebgroup/bootstrap/scss/styles/list-group';
+@import '@sebgroup/fonts/scss/seb-fonts';
 
 // fix for compilation error with angular 12 (unaltered code)
 .list-group-bullet {

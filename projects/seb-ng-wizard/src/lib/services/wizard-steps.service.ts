@@ -40,7 +40,9 @@ export class WizardSteps {
     try {
       config = (this._config.level === 0
         ? this._config.config
-        : this._config.config.children || this._config.config['_loadedConfig'].routes[0].children
+        : this._config.config.children ||
+          this._config.config['_loadedRoutes'][0].children ||
+          this._config.config['_loadedConfig'].routes[0].children
       ) // return route config for children
         .filter(route => route.path !== '' && route.data); // make sure route contains config (data)
     } catch (e) {

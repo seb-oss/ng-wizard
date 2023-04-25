@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { StepState, WizardSteps } from '@sebgroup/ng-wizard';
 
 @Component({
@@ -31,13 +31,13 @@ export class StepStatesComponent {
   }
 }
 `;
-  constructor(private wizardSteps: WizardSteps, private fb: FormBuilder) {
+  constructor(private wizardSteps: WizardSteps, private fb: UntypedFormBuilder) {
     this.stepForm = fb.group({
       stepRoute: fb.control('examples', [Validators.required]),
     });
   }
 
-  stepForm: FormGroup;
+  stepForm: UntypedFormGroup;
 
   states: StepState[] = ['info', 'success', 'warning', 'danger', null];
   setState(state: StepState) {

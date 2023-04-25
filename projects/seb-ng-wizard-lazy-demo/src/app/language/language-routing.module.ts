@@ -15,6 +15,7 @@ const routes: WizardStep[] = [
       {
         path: '',
         redirectTo: 'introduction',
+        pathMatch: 'full',
       },
       {
         path: 'introduction',

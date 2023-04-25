@@ -1,4 +1,4 @@
-@import '~@sebgroup/bootstrap/scss/core';
+@import '@sebgroup/bootstrap/scss/core';
 nav {
   top: 0;
   z-index: $zindex-sticky;
@@ -13,15 +13,16 @@ nav {
   }
   overflow-x: auto;
   overflow-y: hidden;
-  /* Hide scrollbar for webkit browsers */
-  &.navbar::-webkit-scrollbar {
-    display: none;
-  }
 
   /* Hide scrollbar for IE, Edge and Firefox */
   &.navbar {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
+  }
+
+  /* Hide scrollbar for webkit browsers */
+  &.navbar::-webkit-scrollbar {
+    display: none;
   }
 }
 /*

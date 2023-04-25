@@ -7,11 +7,8 @@
   "license": "Apache-2.0",
   "version": "0.0.0-semantically-released",
   "peerDependencies": {
-    "@angular/common": "^12.0.0",
-    "@angular/core": "^12.0.0",
-    "@fortawesome/angular-fontawesome": "^0.9.0",
-    "@fortawesome/fontawesome-svg-core": "^1.2.26",
-    "@fortawesome/pro-regular-svg-icons": "^5.11.2",
+    "@angular/common": "^15.0.0",
+    "@angular/core": "^15.0.0",
     "@sebgroup/bootstrap": ">=6.0.0 <7.0.0"
   },
   "dependencies": {
