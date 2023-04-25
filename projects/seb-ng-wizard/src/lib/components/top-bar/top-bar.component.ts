@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { WizardControl } from '../../models/wizard-step';
 import { WizardConfigService } from '../../services/wizard-config.service';
@@ -8,6 +9,8 @@ import { WizardTranslationsService } from '../../services/wizard-translations.se
   selector: 'wiz-top-bar',
   templateUrl: './top-bar.component.html',
   styleUrls: ['./top-bar.component.scss'],
+  standalone: true,
+  imports: [CommonModule],
 })
 export class TopBarComponent {
   get config() {
