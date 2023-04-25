@@ -33,14 +33,7 @@ export const SebNgWizardTranslateService = new InjectionToken<Provider>('Abstrac
 export const WIZARD_ROUTER_MODULE: ModuleWithProviders<RouterModule> = RouterModule.forChild([]);
 
 @NgModule({
-  declarations: [
-    WizardComponent,
-    ControlsComponent,
-    WizSecondaryContentDirective,
-    LeftNavigationComponent,
-    TopBarComponent,
-  ],
-  imports: [CommonModule, WIZARD_ROUTER_MODULE],
+  imports: [WizardComponent, WIZARD_ROUTER_MODULE],
   providers: [WizardControlService],
   exports: [WizardComponent],
 })

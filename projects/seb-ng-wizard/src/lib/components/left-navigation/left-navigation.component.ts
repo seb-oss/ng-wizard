@@ -1,6 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 import { Component, HostListener, Input, OnInit } from '@angular/core';
-import { NavigationEnd, Router, RouterEvent } from '@angular/router';
+import { NavigationEnd, Router, RouterEvent, RouterLink, RouterLinkActive } from '@angular/router';
 import { BehaviorSubject, combineLatest, merge, Observable, Subject } from 'rxjs';
 import { filter, map, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
 import { WizardConfigService } from '../../services/wizard-config.service';
@@ -20,6 +21,8 @@ import { WizardTranslationsService } from '../../services/wizard-translations.se
   ],
   templateUrl: './left-navigation.component.html',
   styleUrls: ['./left-navigation.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterLink, RouterLinkActive],
 })
 export class LeftNavigationComponent implements OnInit {
   activeStep$ = this.wizardStepService.activeStep$;

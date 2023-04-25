@@ -1,4 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { isObservable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { WizardControl } from '../../models/wizard-step';
@@ -11,6 +13,8 @@ import { WizardTranslationsService } from '../../services/wizard-translations.se
   templateUrl: './controls.component.html',
   styleUrls: ['./controls.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule, RouterLink],
 })
 export class ControlsComponent {
   controls$ = this.wizardStepService.activeStep$.pipe(
